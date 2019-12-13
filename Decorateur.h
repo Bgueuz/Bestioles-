@@ -1,7 +1,7 @@
 #ifndef DECORATEUR_H
 #define DECORATEUR_H
 
-#include <Bestiole.h>
+#include "Bestiole.h"
 
 
 class Decorateur : public Bestiole
