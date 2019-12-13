@@ -1,5 +1,5 @@
 #include "Bestiole.h"
-
+#include "Personality.h"
 #include "Milieu.h"
 
 #include <cstdlib>
@@ -11,6 +11,7 @@ const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
+Personality       Bestiole::personality;
 
 
 Bestiole::Bestiole( void )

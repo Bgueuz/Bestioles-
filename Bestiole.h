@@ -21,6 +21,7 @@ private :
    static const double     LIMITE_VUE;
 
    static int              next;
+   Personality             Bestiole::personality;
 
 private :
    int               identite;
