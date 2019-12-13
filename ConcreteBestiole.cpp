@@ -146,10 +146,10 @@ void ConcreteBestiole::bouge( int xLim, int yLim )
 }
 
 
-list<Bestiole *> Bestiole::getVoisins() {
+list<ConcreteBestiole *> ConcreteBestiole::getVoisins() {
     return Voisins;
 }
-list<Bestiole *> Bestiole::getDetectes(){
+list<ConcreteBestiole *> ConcreteBestiole::getDetectes(){
     return Detectes;
 }
 
@@ -194,7 +194,7 @@ bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 
 }
 
-bool Bestiole::vu (const Bestiole & b) {
+bool ConcreteBestiole::vu (const ConcreteBestiole & b) {
     bool v = false;
     double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     if (yeux = true) {
@@ -205,7 +205,7 @@ bool Bestiole::vu (const Bestiole & b) {
     }
 }
 
-bool Bestiole::entendu (const Bestiole & b) {
+bool ConcreteBestiole::entendu (const ConcreteBestiole & b) {
     bool e = false;
     double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     if (oreilles=true) {

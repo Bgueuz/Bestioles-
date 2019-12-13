@@ -6,6 +6,7 @@
 #include "Bestiole.h"
 #include "Personality.h"
 #include <iostream>
+#include <list>
 
 using namespace std;
 
@@ -38,8 +39,8 @@ private :
 
 
    T               * couleur;
-   list<Bestiole *>  Voisins;
-   list<Bestiole *> Detectes;
+   list<ConcreteBestiole *>  Voisins;
+   list<ConcreteBestiole *> Detectes;
 
 
 private :
@@ -52,13 +53,13 @@ public :                                           // Forme canonique :
                                                    // Operateur d'affectation binaire par defaut
    void action( Milieu & monMilieu );
    void draw( UImg & support );
-   list<Bestiole *> getVoisins();
-   list<Bestiole *> getDetectes();
+   list<ConcreteBestiole *> getVoisins();
+   list<ConcreteBestiole *> getDetectes();
 
 
    bool jeTeVois( const ConcreteBestiole & b ) const;
-   bool vu (const Bestiole & b);
-   bool entendu (const Bestiole & b);
+   bool vu (const ConcreteBestiole & b);
+   bool entendu (const ConcreteBestiole & b);
 
    void initCoords( int xLim, int yLim );
 
