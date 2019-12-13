@@ -1,8 +1,7 @@
 #ifndef _BESTIOLES_H_
 #define _BESTIOLES_H_
-
-
 #include "UImg.h"
+#include "Personality.h"
 
 #include <iostream>
 
@@ -21,6 +20,9 @@ private :
    static const double     LIMITE_VUE;
 
    static int              next;
+   bool                    schizophrene; // static ?
+   Personality*            personality;
+
 
 private :
    int               identite;
