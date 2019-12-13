@@ -192,12 +192,12 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 }
 
 bool Bestiole::vu (const Bestiole & b) {
-    bool b = false;
+    bool v = false;
     double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     if (yeux = true) {
-            if (abs(asin((x-b.x)/(dist)))<=alpha) {
+            if (abs(asin((x-b.x)/(dist)))<=alpha/2) {
                     double cam = b.getCamouflage();
-                    b = (gammay > cam);
+                    v = (gammay > cam);
             }
     }
 }
