@@ -20,6 +20,7 @@ private :
    static const double     AFF_SIZE;
    static const double     MAX_VITESSE;
    static const double     LIMITE_VUE;
+   static const double     LIMITE_OUIE;
 
    static int              next;
    bool                    schizophrene; // static ?
@@ -32,8 +33,14 @@ private :
    double            cumulX, cumulY;
    double            orientation;
    double            vitesse;
+   bool              yeux;
+   bool              oreilles;
+
 
    T               * couleur;
+   list<Bestiole *>  Voisins;
+   list<Bestiole *> Detectes;
+
 
 private :
    void bouge( int xLim, int yLim );
@@ -45,8 +52,13 @@ public :                                           // Forme canonique :
                                                    // Operateur d'affectation binaire par defaut
    void action( Milieu & monMilieu );
    void draw( UImg & support );
+   list<Bestiole *> getVoisins();
+   list<Bestiole *> getDetectes();
+
 
    bool jeTeVois( const ConcreteBestiole & b ) const;
+   bool vu (const Bestiole & b);
+   bool entendu (const Bestiole & b);
 
    void initCoords( int xLim, int yLim );
 

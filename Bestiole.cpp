@@ -1,7 +1,6 @@
 #include "Bestiole.h"
 
 Bestiole::Bestiole()
-
 {
     //ctor
 }

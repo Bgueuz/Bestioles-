@@ -31,6 +31,7 @@ public :
 
    void addMember( const ConcreteBestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
    int nbVoisins( const ConcreteBestiole & b );
+   void detection ();
 
 };
 
