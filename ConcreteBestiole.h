@@ -22,7 +22,6 @@ private :
    static const double     MAX_VITESSE;
    static const double     LIMITE_VUE;
    static const double     LIMITE_OUIE;
-
    static int              next;
    bool                    schizophrene; // static ?
    Personality*            personality;

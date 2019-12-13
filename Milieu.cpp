@@ -55,7 +55,8 @@ int Milieu::nbVoisins( const ConcreteBestiole & b )
 }
 
 void Milieu::detection () {
-    for ( std::list<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+//A modifier après ajout Decorator
+    /*for ( std::list<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
         se = (*it).getSensors();
         if (se != []) {
@@ -73,7 +74,7 @@ void Milieu::detection () {
         
             
             
-    }
+    }*/
 
 
 }

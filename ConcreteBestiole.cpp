@@ -32,7 +32,6 @@ ConcreteBestiole::ConcreteBestiole( void )
    couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 
-
     switch (3) // TODO: add an attribute to the constructor
     {
     case 1: // grégaire
@@ -194,24 +193,30 @@ bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 
 }
 
-bool ConcreteBestiole::vu (const ConcreteBestiole & b) {
+bool ConcreteBestiole::vu (const ConcreteBestiole & b) { 
+//A modifier après ajout Decorator
+/*
     bool v = false;
     double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     if (yeux = true) {
             if (abs(asin((x-b.x)/(dist)))<=alpha/2) {
-                    double cam = b.getCamouflage();
-                    v = (gammay > cam);
+                    //double cam = b.getCamouflage();
+                    //v = (gammaY > cam);
             }
     }
+*/
 }
 
 bool ConcreteBestiole::entendu (const ConcreteBestiole & b) {
+//A modifier après ajout Decorator
+/*
     bool e = false;
     double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     if (oreilles=true) {
         if (dist <= LIMITE_OUIE){
-            double cam = b.getCamouflage();
-            e = (gammao > cam);
+            //double cam = b.getCamouflage();
+            //e = (gammaO > cam);
         }
     }
+*/
 }
