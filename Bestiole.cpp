@@ -144,6 +144,12 @@ void Bestiole::bouge( int xLim, int yLim )
 
 }
 
+list<Bestiole *> Bestiole::getVoisins() {
+    return Voisins;
+}
+list<Bestiole *> Bestiole::getDetectes(){
+    return Detectes;
+}
 
 void Bestiole::action( Milieu & monMilieu )
 {
@@ -183,4 +189,26 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
    return ( dist <= LIMITE_VUE );
 
+}
+
+bool Bestiole::vu (const Bestiole & b) {
+    bool b = false;
+    double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+    if (yeux = true) {
+            if (abs(asin((x-b.x)/(dist)))<=alpha) {
+                    double cam = b.getCamouflage();
+                    b = (gammay > cam);
+            }
+    }
+}
+
+bool Bestiole::entendu (const Bestiole & b) {
+    bool e = false;
+    double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+    if (oreilles=true) {
+        if (dist <= LIMITE_OUIE){
+            double cam = b.getCamouflage();    
+            e = (gammao > cam);
+        }
+    }
 }
