@@ -46,7 +46,7 @@ private :
     void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
-    ConcreteBestiole( void );                               // Constructeur par defaut
+    ConcreteBestiole( int behavior_int );                           // Constructeur par defaut
     ConcreteBestiole( const ConcreteBestiole & b );                 // Constructeur de copies
     ~ConcreteBestiole( void );                              // Destructeur
     // Operateur d'affectation binaire par defaut

@@ -15,7 +15,7 @@ const double      ConcreteBestiole::LIMITE_VUE = 30.;
 int               ConcreteBestiole::next = 0;
 
 
-ConcreteBestiole::ConcreteBestiole( void )
+ConcreteBestiole::ConcreteBestiole( int behavior_int )
 {
 
     identite = ++next;
@@ -32,7 +32,7 @@ ConcreteBestiole::ConcreteBestiole( void )
     couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
     couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 
-    switch (3) // TODO: add an attribute to the constructor
+    switch (behavior_int)
     {
     case 1: // grégaire
     {
