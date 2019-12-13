@@ -31,8 +31,18 @@ int main()
             random_behavior = 3;
         else if (random_int < 80)
             random_behavior = 4;
-        else if (random_int < 100)
+        else
             random_behavior = 5;
+
+        // Determining whether or not the bestiole has a fin
+
+        // Determining whether or not the bestiole has an eye
+
+        // Determining whether or not the bestiole has an ear
+
+        // Determining whether or not the bestiole has camouflage
+
+        // Determining whether or not the bestiole has a shell
 
         ecosysteme.getMilieu().addMember( ConcreteBestiole(random_behavior) );
     }
