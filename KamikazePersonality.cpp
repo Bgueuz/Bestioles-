@@ -6,5 +6,4 @@ void KamikazePersonality::move()
 {
     // TODO
 
-    std::cout << "Salut";
 }

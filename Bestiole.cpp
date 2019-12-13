@@ -33,12 +33,6 @@ Bestiole::Bestiole( void )
    couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 
-
-           schizophrene = 0;
-        personality = new GregairePersonality();
-
-   /*
-
     switch (3) // TODO: add an attribute to the constructor
     {
     case 1: // grégaire
@@ -74,8 +68,6 @@ Bestiole::Bestiole( void )
     default:
         personality = new GregairePersonality();
     }
-
-    */
 
 }
 

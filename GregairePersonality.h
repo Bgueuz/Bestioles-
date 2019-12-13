@@ -6,7 +6,7 @@
 class GregairePersonality: public Personality
 {
 public:
-    void move() override;
+    void move();
 };
 
 #endif // GREGAIREPERSONALITY_H_INCLUDED
