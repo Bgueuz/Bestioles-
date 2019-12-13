@@ -54,3 +54,27 @@ int Milieu::nbVoisins( const Bestiole & b )
    return nb;
 
 }
+
+void Milieu::detection () {
+    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+    {
+        se = (*it).getSensors();
+        if (se != []) {
+                Voisins = (*it).getVoisins()
+                Detectes = (*it).getDetectes()
+                if (Voisins.empty=false){
+                        for ( std::list<Bestiole>::iterator ut = Voisins.begin() ; ut != listeVoisins.end() ; ++ut ) {
+                            if(((*it).vu(*ut)) ||((*it).entendu(*ut))) {
+                                Detectes.push_front(*ut);
+                                Voisins.remove(*ut); 
+                            }
+                        }
+                }
+        }
+        
+            
+            
+    }
+
+
+}
