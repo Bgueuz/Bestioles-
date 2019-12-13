@@ -58,7 +58,7 @@ ConcreteBestiole::ConcreteBestiole( int behavior_int )
         personality = new PrevoyantePersonality();
     }
     break;
-    case 5: // personalités multiples
+    case 5: // personnalités multiples
     {
         schizophrene = 1;
     }
