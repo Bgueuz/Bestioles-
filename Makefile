@@ -15,10 +15,13 @@ GregairePersonality.o : GregairePersonality.h GregairePersonality.cpp Personalit
 
 PeureusePersonality.o : PeureusePersonality.h PeureusePersonality.cpp Personality.h
 	g++ -Wall -std=c++11  -c PeureusePersonality.cpp -I .
-        
+
 KamikazePersonality.o : KamikazePersonality.h KamikazePersonality.cpp Personality.h
 	g++ -Wall -std=c++11  -c KamikazePersonality.cpp -I .
-        
+
 PrevoyantePersonality.o : PrevoyantePersonality.h PrevoyantePersonality.cpp Personality.h
 	g++ -Wall -std=c++11  -c PrevoyantePersonality.cpp -I .
-        
+
+PHYLIS: clean
+clean:
+	rm *.o main
