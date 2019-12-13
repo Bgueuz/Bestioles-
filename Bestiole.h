@@ -3,6 +3,7 @@
 
 
 #include "UImg.h"
+#include "Personality.h"
 
 #include <iostream>
 
@@ -21,7 +22,9 @@ private :
    static const double     LIMITE_VUE;
 
    static int              next;
-   Personality             Bestiole::personality;
+   bool                    schizophrene; // static ?
+   Personality*            personality;
+
 
 private :
    int               identite;

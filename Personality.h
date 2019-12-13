@@ -4,7 +4,9 @@
 class Personality
 {
 public:
-    virtual void move();
+    virtual void move() =0 ;
+
+
 
 };
 

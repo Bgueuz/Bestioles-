@@ -1,6 +1,10 @@
 #include "Bestiole.h"
-#include "Personality.h"
 #include "Milieu.h"
+#include "Personality.h"
+#include "GregairePersonality.h"
+#include "PeureusePersonality.h"
+#include "KamikazePersonality.h"
+#include "PrevoyantePersonality.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -11,8 +15,6 @@ const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
-Personality       Bestiole::personality;
-
 
 Bestiole::Bestiole( void )
 {
@@ -30,6 +32,50 @@ Bestiole::Bestiole( void )
    couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+
+
+           schizophrene = 0;
+        personality = new GregairePersonality();
+
+   /*
+
+    switch (3) // TODO: add an attribute to the constructor
+    {
+    case 1: // grégaire
+        {
+        schizophrene = 0;
+        personality = new GregairePersonality();
+        }
+        break;
+    case 2: // peureuse
+        {
+        schizophrene = 0;
+        personality = new PeureusePersonality();
+        }
+        break;
+    case 3: // kamikaze
+        {
+        schizophrene = 0;
+        personality = new KamikazePersonality();
+        }
+        break;
+    case 4: // prévoyante
+        {
+        schizophrene = 0;
+        personality = new PrevoyantePersonality();
+        }
+        break;
+    case 5: // personalités multiples
+        {
+        schizophrene = 1;
+        }
+        break;
+
+    default:
+        personality = new GregairePersonality();
+    }
+
+    */
 
 }
 
