@@ -1,7 +1,7 @@
 #ifndef CAMOUFLAGE_H
 #define CAMOUFLAGE_H
 
-#include <Decorateur.h>
+#include "Decorateur.h"
 
 
 class Camouflage : public Decorateur

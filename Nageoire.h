@@ -1,7 +1,7 @@
 #ifndef NAGEOIRE_H
 #define NAGEOIRE_H
 
-#include <Decorateur.h>
+#include "Decorateur.h"
 
 
 class Nageoire : public Decorateur

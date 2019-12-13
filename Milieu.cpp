@@ -1,5 +1,4 @@
 #include "Milieu.h"
-
 #include <cstdlib>
 #include <ctime>
 
@@ -30,7 +29,7 @@ void Milieu::step( void )
 {
 
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
 
       it->action( *this );
@@ -41,13 +40,13 @@ void Milieu::step( void )
 }
 
 
-int Milieu::nbVoisins( const Bestiole & b )
+int Milieu::nbVoisins( const ConcreteBestiole & b )
 {
 
    int         nb = 0;
 
 
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
       if ( !(b == *it) && b.jeTeVois(*it) )
          ++nb;
 
