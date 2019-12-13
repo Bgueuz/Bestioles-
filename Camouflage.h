@@ -6,17 +6,23 @@
 
 class Camouflage : public Decorateur
 {
-    public:
-        Camouflage();
-        virtual ~Camouflage();
+public:
+    Camouflage();
+    virtual ~Camouflage();
 
-        float Getinvisibilite() { return m_invisibilite; }
-        void Setinvisibilite(float val) { m_invisibilite = val; }
+    float Getinvisibilite()
+    {
+        return m_invisibilite;
+    }
+    void Setinvisibilite(float val)
+    {
+        m_invisibilite = val;
+    }
 
-    protected:
+protected:
 
-    private:
-        float m_invisibilite;
+private:
+    float m_invisibilite;
 };
 
 #endif // CAMOUFLAGE_H

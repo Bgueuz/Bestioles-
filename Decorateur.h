@@ -6,13 +6,13 @@
 
 class Decorateur : public Bestiole
 {
-    public:
-        Decorateur();
-        virtual ~Decorateur();
+public:
+    Decorateur();
+    virtual ~Decorateur();
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 #endif // DECORATEUR_H

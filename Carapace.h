@@ -6,20 +6,32 @@
 
 class Carapace : public Decorateur
 {
-    public:
-        Carapace();
-        virtual ~Carapace();
+public:
+    Carapace();
+    virtual ~Carapace();
 
-        float GetreductionVitesse() { return m_reductionVitesse; }
-        void SetreductionVitesse(float val) { m_reductionVitesse = val; }
-        float GetreductionDommage() { return m_reductionDommage; }
-        void SetreductionDommage(float val) { m_reductionDommage = val; }
+    float GetreductionVitesse()
+    {
+        return m_reductionVitesse;
+    }
+    void SetreductionVitesse(float val)
+    {
+        m_reductionVitesse = val;
+    }
+    float GetreductionDommage()
+    {
+        return m_reductionDommage;
+    }
+    void SetreductionDommage(float val)
+    {
+        m_reductionDommage = val;
+    }
 
-    protected:
+protected:
 
-    private:
-        float m_reductionVitesse;
-        float m_reductionDommage;
+private:
+    float m_reductionVitesse;
+    float m_reductionDommage;
 };
 
 #endif // CARAPACE_H

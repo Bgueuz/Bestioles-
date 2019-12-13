@@ -6,13 +6,13 @@
 
 class Nageoire : public Decorateur
 {
-    public:
-        Nageoire();
-        virtual ~Nageoire();
+public:
+    Nageoire();
+    virtual ~Nageoire();
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 #endif // NAGEOIRE_H

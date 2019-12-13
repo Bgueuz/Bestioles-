@@ -10,10 +10,10 @@
 class Bestiole
 {
 
-    public:
-        Bestiole();
-        virtual ~Bestiole();
+public:
+    Bestiole();
+    virtual ~Bestiole();
 
 };
 
-#endif 
+#endif

@@ -6,20 +6,32 @@
 
 class Oreilles : public Decorateur
 {
-    public:
-        Oreilles();
-        virtual ~Oreilles();
+public:
+    Oreilles();
+    virtual ~Oreilles();
 
-        float GetdetectionOreilles() { return m_detectionOreilles; }
-        void SetdetectionOreilles(float val) { m_detectionOreilles = val; }
-        float GetporteeOreilles() { return m_porteeOreilles; }
-        void SetporteeOreilles(float val) { m_porteeOreilles = val; }
+    float GetdetectionOreilles()
+    {
+        return m_detectionOreilles;
+    }
+    void SetdetectionOreilles(float val)
+    {
+        m_detectionOreilles = val;
+    }
+    float GetporteeOreilles()
+    {
+        return m_porteeOreilles;
+    }
+    void SetporteeOreilles(float val)
+    {
+        m_porteeOreilles = val;
+    }
 
-    protected:
+protected:
 
-    private:
-        float m_detectionOreilles;
-        float m_porteeOreilles;
+private:
+    float m_detectionOreilles;
+    float m_porteeOreilles;
 };
 
 #endif // OREILLES_H

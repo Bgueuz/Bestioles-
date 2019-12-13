@@ -15,23 +15,33 @@ class Milieu : public UImg
 {
 
 private :
-   static const T          white[];
+    static const T          white[];
 
-   int                     width, height;
-   std::vector<ConcreteBestiole>   listeBestioles;
+    int                     width, height;
+    std::vector<ConcreteBestiole>   listeBestioles;
 
 public :
-   Milieu( int _width, int _height );
-   ~Milieu( void );
+    Milieu( int _width, int _height );
+    ~Milieu( void );
 
-   int getWidth( void ) const { return width; };
-   int getHeight( void ) const { return height; };
+    int getWidth( void ) const
+    {
+        return width;
+    };
+    int getHeight( void ) const
+    {
+        return height;
+    };
 
-   void step( void );
+    void step( void );
 
-   void addMember( const ConcreteBestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
-   int nbVoisins( const ConcreteBestiole & b );
-   void detection ();
+    void addMember( const ConcreteBestiole & b )
+    {
+        listeBestioles.push_back(b);
+        listeBestioles.back().initCoords(width, height);
+    }
+    int nbVoisins( const ConcreteBestiole & b );
+    void detection ();
 
 };
 
