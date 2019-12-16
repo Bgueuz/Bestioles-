@@ -37,12 +37,8 @@ public :
         return height;
     };
 
-    std::vector<ConcreteBestiole> getListeBestioles( void ) const
-    {
-        return listeBestioles;
-    };
-
     void step( void );
+    std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
 
     void addMember( const ConcreteBestiole & b )
     {
@@ -102,10 +98,21 @@ public :
             listeBestioles.back().setPersonality(new GregairePersonality());
         }
 
+        // Determining whether or not the bestiole has a fin
+
+        // Determining whether or not the bestiole has an eye
+
+        // Determining whether or not the bestiole has an ear
+
+        // Determining whether or not the bestiole has camouflage
+
+        // Determining whether or not the bestiole has a shell
 
     }
     int nbVoisins( const ConcreteBestiole & b );
     void detection ();
+    void updateVoisins(ConcreteBestiole & b);
+    void collisionsAll();
 
 };
 

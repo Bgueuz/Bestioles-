@@ -19,7 +19,7 @@ GregairePersonality.o : GregairePersonality.h GregairePersonality.cpp Personalit
 KamikazePersonality.o : KamikazePersonality.h KamikazePersonality.cpp Personality.h
 	g++ -Wall -std=c++11  -c KamikazePersonality.cpp -I .
 
-Milieu.o : Milieu.h Milieu.cpp
+Milieu.o : Milieu.h Milieu.cpp ConcreteBestiole.h
 
 Nageoire.o : Nageoire.h Nageoire.cpp Decorateur.h
 

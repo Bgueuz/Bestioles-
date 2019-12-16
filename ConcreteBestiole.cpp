@@ -20,7 +20,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 
     identite = ++next;
 
-    cout << "const Bestiole (" << identite << ") par defaut" << endl;
+    //cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
     x = y = 0;
     cumulX = cumulY = 0.;
@@ -40,7 +40,7 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b )
 
     identite = ++next;
 
-    cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
+    //cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
 
     x = b.x;
     y = b.y;
@@ -58,7 +58,7 @@ ConcreteBestiole::~ConcreteBestiole( void )
 
     delete[] couleur;
 
-    cout << "dest ConcreteBestiole:" << this << " of personality: " << this->personality << endl;
+    cout << "dest ConcreteBestiole" << endl;
 
 }
 
@@ -222,6 +222,23 @@ bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
     dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     return ( dist <= LIMITE_VUE );
 
+}
+
+bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b) const
+{
+   double radius(1000);
+   double dist;
+   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   return ( dist <= radius );
+
+}
+
+bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
+{
+   double minRadius = AFF_SIZE + b.AFF_SIZE-4;
+   double dist;
+   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   return ( dist <= minRadius);
 }
 
 bool ConcreteBestiole::vu (const ConcreteBestiole & b)

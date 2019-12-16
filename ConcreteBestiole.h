@@ -3,6 +3,7 @@
 
 
 #include "UImg.h"
+#include <vector>
 #include "Bestiole.h"
 #include "Personality.h"
 #include <iostream>
@@ -38,6 +39,7 @@ private :
 
 
     T               * couleur;
+    std::vector<ConcreteBestiole>   listeVoisinsOmni;
     list<ConcreteBestiole *>  Voisins;
     list<ConcreteBestiole *> Detectes;
 
@@ -63,6 +65,18 @@ public :                                           // Forme canonique :
     Personality* getPersonality();
     void setPersonality(Personality* newPersonality);
     void setSchizophrene(bool s);
+
+    bool inRadiusVoisin(const ConcreteBestiole & b) const;
+    bool checkCollision(const ConcreteBestiole & b) const;
+
+    int getX( void ) const { return x; };
+    int getY( void ) const { return y; };
+    double getVitesse( void ) const { return vitesse; };
+    double getOrientation( void ) const { return orientation; };;
+    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
+
+    void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
+    void setOrientation(double newOrientation){orientation = newOrientation;};
 
     void initCoords( int xLim, int yLim );
 
