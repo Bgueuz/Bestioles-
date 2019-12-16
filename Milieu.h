@@ -3,7 +3,7 @@
 
 
 #include "UImg.h"
-#include "Bestiole.h"
+#include "ConcreteBestiole.h"
 
 #include <iostream>
 #include <vector>
@@ -15,25 +15,37 @@ class Milieu : public UImg
 {
 
 private :
-   static const T          white[];
+    static const T          white[];
 
-   int                     width, height;
-   std::vector<Bestiole>   listeBestioles;
+    int                     width, height;
+    std::vector<ConcreteBestiole>   listeBestioles;
 
 public :
-   Milieu( int _width, int _height );
-   ~Milieu( void );
+    Milieu( int _width, int _height );
+    ~Milieu( void );
 
-   int getWidth( void ) const { return width; };
-   int getHeight( void ) const { return height; };
-   std::vector<Bestiole> getBestioles( void ) const { return listeBestioles; };
+    int getWidth( void ) const
+    {
+        return width;
+    };
+    int getHeight( void ) const
+    {
+        return height;
+    };
 
-   void step( void );
+    void step( void );
+    std::vector<Bestiole> getBestioles( void ) const { return listeBestioles; };
 
-   void addMember( const Bestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
-   int nbVoisins( const Bestiole & b );
-   void updateVoisins(Bestiole & b);
-   void collisionsAll();
+    void addMember( const ConcreteBestiole & b )
+    {
+        listeBestioles.push_back(b);
+        listeBestioles.back().initCoords(width, height);
+    }
+    int nbVoisins( const ConcreteBestiole & b );
+    void detection ();
+    void updateVoisins(Bestiole & b);
+    void collisionsAll();
+
 };
 
 

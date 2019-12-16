@@ -38,6 +38,7 @@ private :
 
 
     T               * couleur;
+    std::vector<Bestiole>   listeVoisinsOmni;
     list<ConcreteBestiole *>  Voisins;
     list<ConcreteBestiole *> Detectes;
 
@@ -59,7 +60,17 @@ public :                                           // Forme canonique :
     bool jeTeVois( const ConcreteBestiole & b ) const;
     bool vu (const ConcreteBestiole & b);
     bool entendu (const ConcreteBestiole & b);
+    bool inRadiusVoisin( const Bestiole & b ) const;
+    bool checkCollision( const Bestiole & b ) const;
 
+    int getX( void ) const { return x; };;
+    int getY( void ) const { return y; };;
+    double getVitesse( void ) const { return vitesse; };;
+    double getOrientation( void ) const { return orientation; };;
+    std::vector<Bestiole> getVoisins( void ) const { return listeVoisinsOmni; };;
+
+    void setVoisins(std::vector<Bestiole> listeVoisins){listeVoisinsOmni = listeVoisins};
+    void setOrientation(double newOrientation){orientation = newOrientation};
     void initCoords( int xLim, int yLim );
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );

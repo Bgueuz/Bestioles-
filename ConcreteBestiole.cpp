@@ -197,6 +197,23 @@ bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 
 }
 
+bool Bestiole::inRadiusVoisin(const Bestiole & b ) const
+{
+   double radius(1000);
+   double dist;
+   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   return ( dist <= radius );
+
+}
+
+bool Bestiole::checkCollision(const Bestiole & b ) const
+{
+   double minRadius = AFF_SIZE + b.AFF_SIZE-4;
+   double dist;
+   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   return ( dist <= minRadius);
+}
+
 bool ConcreteBestiole::vu (const ConcreteBestiole & b)
 {
 //A modifier après ajout Decorator
