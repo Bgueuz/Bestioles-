@@ -1,6 +1,7 @@
 #include "PrevoyantePersonality.h"
-
+#include <iostream>
 void PrevoyantePersonality::newAction()
 {
-    // TODO
+
+    std::cout << "JE SUIS PREVOYANT(E)" << std::endl;
 }

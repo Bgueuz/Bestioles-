@@ -15,12 +15,12 @@ const double      ConcreteBestiole::LIMITE_VUE = 30.;
 int               ConcreteBestiole::next = 0;
 
 
-ConcreteBestiole::ConcreteBestiole( int behavior_int )
+ConcreteBestiole::ConcreteBestiole( void )
 {
 
     identite = ++next;
 
-    cout << "const Bestiole (" << identite << ") par defaut" << endl;
+    //cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
     x = y = 0;
     cumulX = cumulY = 0.;
@@ -32,42 +32,8 @@ ConcreteBestiole::ConcreteBestiole( int behavior_int )
     couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
     couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 
-    switch (behavior_int)
-    {
-    case 1: // grégaire
-    {
-        schizophrene = 0;
-        personality = new GregairePersonality();
-    }
-    break;
-    case 2: // peureuse
-    {
-        schizophrene = 0;
-        personality = new PeureusePersonality();
-    }
-    break;
-    case 3: // kamikaze
-    {
-        schizophrene = 0;
-        personality = new KamikazePersonality();
-    }
-    break;
-    case 4: // prévoyante
-    {
-        schizophrene = 0;
-        personality = new PrevoyantePersonality();
-    }
-    break;
-    case 5: // personnalités multiples
-    {
-        schizophrene = 1;
-    }
-    break;
 
-    default:
-        personality = new GregairePersonality();
-    }
-
+    //cout << "CONCRETEBESTIOLE  NORMAL " << personality << "   WITH & " << &personality  << endl;
 
 }
 
@@ -77,7 +43,7 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b )
 
     identite = ++next;
 
-    cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
+    //cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
 
     x = b.x;
     y = b.y;
@@ -95,7 +61,7 @@ ConcreteBestiole::~ConcreteBestiole( void )
 
     delete[] couleur;
 
-    cout << "dest ConcreteBestiole" << endl;
+    cout << "dest ConcreteBestiole:" << this << " of personality: " << this->personality << endl;
 
 }
 
@@ -161,11 +127,69 @@ list<ConcreteBestiole *> ConcreteBestiole::getDetectes()
     return Detectes;
 }
 
-void ConcreteBestiole::action( Milieu & monMilieu )
+void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
-    personality->newAction();
+    if (personality!=nullptr)
+    {
+        cout << " ALORRRRRRRRRRRS"<< endl;
+        personality->newAction();
+
+    }
+    else { // bestiole à personnalités multiples
+        Personality* p;
+        cout << "JE SUIS SCHIZO" <<endl;
+        int random_int = std::rand() % 100; // between 0 and 99
+        int random_behavior;
+        if (random_int < 20)
+            random_behavior = 1;
+        else if (random_int < 40)
+            random_behavior = 2;
+        else if (random_int < 60)
+            random_behavior = 3;
+        else if (random_int < 80)
+            random_behavior = 4;
+        else
+            random_behavior = 5;
+
+        switch (random_behavior)
+        {
+        case 1: // grégaire
+        {
+            p= new GregairePersonality();
+            p->newAction();
+        }
+        break;
+        case 2: // peureuse
+        {
+            p = new PeureusePersonality();
+            p->newAction();
+        }
+        break;
+        case 3: // kamikaze
+        {
+            p= new KamikazePersonality();
+            p->newAction();
+        }
+        break;
+        case 4: // prévoyante
+        {
+            p = new PrevoyantePersonality();
+            p->newAction();
+            //personality->newAction();
+        }
+
+    }
+    }
+
+
+    //cout << "Vitesse " << vitesse << " Schizo " << schizophrene << endl;
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 
+}
+
+Personality* ConcreteBestiole::getPersonality()
+{
+    return this->personality;
 }
 
 void ConcreteBestiole::draw( UImg & support )

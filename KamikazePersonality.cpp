@@ -1,9 +1,10 @@
 #include<iostream>
 
 #include "KamikazePersonality.h"
+#include <iostream>
 
 void KamikazePersonality::newAction()
 {
-    // TODO
+    std::cout << "JE SUIS  KAMIKAZE" << std::endl;
 
 }

@@ -23,7 +23,9 @@ private :
     static const double     LIMITE_VUE;
     static const double     LIMITE_OUIE;
     static int              next;
-    bool                    schizophrene; // static ?
+
+public :
+    bool                    schizophrene;
     Personality*            personality;
 
 
@@ -46,7 +48,7 @@ private :
     void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
-    ConcreteBestiole( int behavior_int );                           // Constructeur par defaut
+    ConcreteBestiole( void );                           // Constructeur par defaut
     ConcreteBestiole( const ConcreteBestiole & b );                 // Constructeur de copies
     ~ConcreteBestiole( void );                              // Destructeur
     // Operateur d'affectation binaire par defaut
@@ -59,7 +61,7 @@ public :                                           // Forme canonique :
     bool jeTeVois( const ConcreteBestiole & b ) const;
     bool vu (const ConcreteBestiole & b);
     bool entendu (const ConcreteBestiole & b);
-
+    Personality* getPersonality();
     void initCoords( int xLim, int yLim );
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
