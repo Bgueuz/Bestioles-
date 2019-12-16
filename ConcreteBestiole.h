@@ -3,11 +3,11 @@
 
 
 #include "UImg.h"
+#include <vector>
 #include "Bestiole.h"
 #include "Personality.h"
 #include <iostream>
 #include <list>
-#include <vector>
 
 using namespace std;
 
@@ -61,14 +61,14 @@ public :                                           // Forme canonique :
     bool jeTeVois( const ConcreteBestiole & b ) const;
     bool vu (const ConcreteBestiole & b);
     bool entendu (const ConcreteBestiole & b);
-    bool inRadiusVoisin( const ConcreteBestiole & b ) const;
-    bool checkCollision( const ConcreteBestiole & b ) const;
+    bool inRadiusVoisin(const ConcreteBestiole & b) const;
+    bool checkCollision(const ConcreteBestiole & b) const;
 
     int getX( void ) const { return x; };
     int getY( void ) const { return y; };
     double getVitesse( void ) const { return vitesse; };
-    double getOrientation( void ) const { return orientation; };
-    std::vector<ConcreteBestiole> getVoisins( void ) const { return listeVoisinsOmni; };
+    double getOrientation( void ) const { return orientation; };;
+    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
 
     void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
     void setOrientation(double newOrientation){orientation = newOrientation;};
