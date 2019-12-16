@@ -1,6 +1,6 @@
 #include "PeureusePersonality.h"
 
-void PeureusePersonality::move()
+void PeureusePersonality::newAction()
 {
     // TODO
 }

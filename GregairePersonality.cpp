@@ -1,7 +1,8 @@
 #include "GregairePersonality.h"
 
-void GregairePersonality::move()
+void GregairePersonality::newAction()
 {
-    // TODO
+
+    //std::cout << "JE SUIS GREGAIRE" << std::endl;
 
 }

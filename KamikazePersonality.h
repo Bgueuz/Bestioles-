@@ -6,7 +6,7 @@
 class KamikazePersonality: public Personality
 {
 public:
-    virtual void move();
+    virtual void newAction();
 };
 
 #endif // KAMIKAZEPERSONALITY_H_INCLUDED

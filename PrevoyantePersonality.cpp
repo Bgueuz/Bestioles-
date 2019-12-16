@@ -1,6 +1,6 @@
 #include "PrevoyantePersonality.h"
 
-void PrevoyantePersonality::move()
+void PrevoyantePersonality::newAction()
 {
     // TODO
 }

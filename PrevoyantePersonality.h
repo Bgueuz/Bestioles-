@@ -6,7 +6,7 @@
 class PrevoyantePersonality: public Personality
 {
 public:
-    virtual void move();
+    virtual void newAction();
 };
 
 #endif // PREVOYANTEPERSONALITY_H_INCLUDED

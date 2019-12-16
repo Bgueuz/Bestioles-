@@ -2,7 +2,7 @@
 
 #include "KamikazePersonality.h"
 
-void KamikazePersonality::move()
+void KamikazePersonality::newAction()
 {
     // TODO
 

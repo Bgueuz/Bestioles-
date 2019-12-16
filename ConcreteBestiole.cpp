@@ -163,7 +163,9 @@ list<ConcreteBestiole *> ConcreteBestiole::getDetectes()
 
 void ConcreteBestiole::action( Milieu & monMilieu )
 {
+    personality->newAction();
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
+
 }
 
 void ConcreteBestiole::draw( UImg & support )
