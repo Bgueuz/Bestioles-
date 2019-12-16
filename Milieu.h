@@ -49,7 +49,9 @@ public :
         listeBestioles.push_back(b);
         listeBestioles.back().initCoords(width, height);
 
-       int random_int = std::rand() % 100; // between 0 and 99
+        // Determining the bestiole's behavior at random
+
+        int random_int = std::rand() % 100; // between 0 and 99
         int random_behavior;
         if (random_int < 20)
             random_behavior = 1;
@@ -66,44 +68,38 @@ public :
         {
         case 1: // grégaire
         {
-            listeBestioles.back().schizophrene = 0;
-            listeBestioles.back().personality = new GregairePersonality();
-            cout << "G"<<endl;
+            listeBestioles.back().setSchizophrene(false);
+            listeBestioles.back().setPersonality(new GregairePersonality());
         }
         break;
         case 2: // peureuse
         {
-            listeBestioles.back().schizophrene = 0;
-            listeBestioles.back().personality = new PeureusePersonality();
-            cout << "P"<<endl;
+            listeBestioles.back().setSchizophrene(false);
+            listeBestioles.back().setPersonality(new PeureusePersonality());
         }
         break;
         case 3: // kamikaze
         {
-            listeBestioles.back().schizophrene = 0;
-            listeBestioles.back().personality = new KamikazePersonality();
-            cout << "K"<<endl;
+            listeBestioles.back().setSchizophrene(false);
+            listeBestioles.back().setPersonality(new KamikazePersonality());
         }
         break;
         case 4: // prévoyante
         {
-            listeBestioles.back().schizophrene = 0;
-            listeBestioles.back().personality = new PrevoyantePersonality();
-            cout << "Pre"<<endl;
-            //personality->newAction();
+            listeBestioles.back().setSchizophrene(false);
+            listeBestioles.back().setPersonality(new PrevoyantePersonality());
         }
         break;
         case 5: // personnalités multiples
         {
-            listeBestioles.back().schizophrene = 1;
-            cout << "S" << listeBestioles.back().schizophrene <<  endl; //<< schizophrene <<endl;
-            listeBestioles.back().personality = NULL;
+            listeBestioles.back().setSchizophrene(true);
+            listeBestioles.back().setPersonality(NULL);
         }
         break;
 
         default:
-            listeBestioles.back().schizophrene = 0;
-            listeBestioles.back().personality = new GregairePersonality();
+            listeBestioles.back().setSchizophrene(false);
+            listeBestioles.back().setPersonality(new GregairePersonality());
         }
 
 

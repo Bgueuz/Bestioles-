@@ -1,12 +1,12 @@
 #include "ConcreteBestiole.h"
 #include "Bestiole.h"
-#include <cstdlib>
-#include <cmath>
 #include "Milieu.h"
 #include "GregairePersonality.h"
 #include "PeureusePersonality.h"
 #include "KamikazePersonality.h"
 #include "PrevoyantePersonality.h"
+#include <cstdlib>
+#include <cmath>
 
 const double      ConcreteBestiole::AFF_SIZE = 8.;
 const double      ConcreteBestiole::MAX_VITESSE = 10.;
@@ -20,7 +20,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 
     identite = ++next;
 
-    //cout << "const Bestiole (" << identite << ") par defaut" << endl;
+    cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
     x = y = 0;
     cumulX = cumulY = 0.;
@@ -32,9 +32,6 @@ ConcreteBestiole::ConcreteBestiole( void )
     couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
     couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 
-
-    //cout << "CONCRETEBESTIOLE  NORMAL " << personality << "   WITH & " << &personality  << endl;
-
 }
 
 
@@ -43,7 +40,7 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b )
 
     identite = ++next;
 
-    //cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
+    cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
 
     x = b.x;
     y = b.y;
@@ -127,17 +124,24 @@ list<ConcreteBestiole *> ConcreteBestiole::getDetectes()
     return Detectes;
 }
 
+void ConcreteBestiole::setPersonality(Personality* newPersonality) {
+    personality = newPersonality;
+}
+
+void ConcreteBestiole::setSchizophrene(bool s) {
+    schizophrene = s;
+}
+
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
     if (personality!=nullptr)
     {
-        cout << " ALORRRRRRRRRRRS"<< endl;
         personality->newAction();
 
     }
-    else { // bestiole à personnalités multiples
+    else   // bestiole à personnalités multiples
+    {
         Personality* p;
-        cout << "JE SUIS SCHIZO" <<endl;
         int random_int = std::rand() % 100; // between 0 and 99
         int random_behavior;
         if (random_int < 20)
@@ -175,14 +179,11 @@ void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////
         {
             p = new PrevoyantePersonality();
             p->newAction();
-            //personality->newAction();
         }
 
-    }
+        }
     }
 
-
-    //cout << "Vitesse " << vitesse << " Schizo " << schizophrene << endl;
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 
 }

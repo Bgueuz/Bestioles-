@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <ctime>
 
-
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
 

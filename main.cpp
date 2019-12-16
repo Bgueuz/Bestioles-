@@ -15,11 +15,8 @@ int main()
 {
     Aquarium       ecosysteme( 640, 480, 30 );
 
-    for ( int i = 1; i <= 10; ++i )
+    for ( int i = 1; i <= 20; ++i )
     {
-
-        // Determining the bestiole's behavior at random
-
 
 
         // Determining whether or not the bestiole has a fin
@@ -35,9 +32,6 @@ int main()
         ecosysteme.getMilieu().addMember( ConcreteBestiole() );
 
         std::vector<ConcreteBestiole>   listeBestiolesimportante = ecosysteme.getMilieu().getListeBestioles();
-
-        //ConcreteBestiole c = ConcreteBestiole();
-        //cout << "HELLO" << c.getPersonality() <<endl;
 
     }
 

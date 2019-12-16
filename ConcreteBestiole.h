@@ -23,8 +23,6 @@ private :
     static const double     LIMITE_VUE;
     static const double     LIMITE_OUIE;
     static int              next;
-
-public :
     bool                    schizophrene;
     Personality*            personality;
 
@@ -61,7 +59,11 @@ public :                                           // Forme canonique :
     bool jeTeVois( const ConcreteBestiole & b ) const;
     bool vu (const ConcreteBestiole & b);
     bool entendu (const ConcreteBestiole & b);
+
     Personality* getPersonality();
+    void setPersonality(Personality* newPersonality);
+    void setSchizophrene(bool s);
+
     void initCoords( int xLim, int yLim );
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
