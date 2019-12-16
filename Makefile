@@ -3,7 +3,7 @@ main : main.cpp Aquarium.o Bestiole.o ConcreteBestiole.o Milieu.o Decorateur.o C
 
 Aquarium.o : Aquarium.h Aquarium.cpp
 
-Milieu.o : Milieu.h Milieu.cpp
+Milieu.o : Milieu.h Milieu.cpp ConcreteBestiole.h
 
 Bestiole.o : Bestiole.h Bestiole.cpp
 

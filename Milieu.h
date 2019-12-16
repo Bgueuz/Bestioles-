@@ -34,7 +34,7 @@ public :
     };
 
     void step( void );
-    std::vector<Bestiole> getBestioles( void ) const { return listeBestioles; };
+    std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
 
     void addMember( const ConcreteBestiole & b )
     {
@@ -43,7 +43,7 @@ public :
     }
     int nbVoisins( const ConcreteBestiole & b );
     void detection ();
-    void updateVoisins(Bestiole & b);
+    void updateVoisins(ConcreteBestiole & b);
     void collisionsAll();
 
 };

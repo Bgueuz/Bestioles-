@@ -7,6 +7,7 @@
 #include "Personality.h"
 #include <iostream>
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -38,7 +39,7 @@ private :
 
 
     T               * couleur;
-    std::vector<Bestiole>   listeVoisinsOmni;
+    std::vector<ConcreteBestiole>   listeVoisinsOmni;
     list<ConcreteBestiole *>  Voisins;
     list<ConcreteBestiole *> Detectes;
 
@@ -60,17 +61,17 @@ public :                                           // Forme canonique :
     bool jeTeVois( const ConcreteBestiole & b ) const;
     bool vu (const ConcreteBestiole & b);
     bool entendu (const ConcreteBestiole & b);
-    bool inRadiusVoisin( const Bestiole & b ) const;
-    bool checkCollision( const Bestiole & b ) const;
+    bool inRadiusVoisin( const ConcreteBestiole & b ) const;
+    bool checkCollision( const ConcreteBestiole & b ) const;
 
-    int getX( void ) const { return x; };;
-    int getY( void ) const { return y; };;
-    double getVitesse( void ) const { return vitesse; };;
-    double getOrientation( void ) const { return orientation; };;
-    std::vector<Bestiole> getVoisins( void ) const { return listeVoisinsOmni; };;
+    int getX( void ) const { return x; };
+    int getY( void ) const { return y; };
+    double getVitesse( void ) const { return vitesse; };
+    double getOrientation( void ) const { return orientation; };
+    std::vector<ConcreteBestiole> getVoisins( void ) const { return listeVoisinsOmni; };
 
-    void setVoisins(std::vector<Bestiole> listeVoisins){listeVoisinsOmni = listeVoisins};
-    void setOrientation(double newOrientation){orientation = newOrientation};
+    void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
+    void setOrientation(double newOrientation){orientation = newOrientation;};
     void initCoords( int xLim, int yLim );
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );

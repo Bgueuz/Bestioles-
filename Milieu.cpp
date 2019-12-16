@@ -80,10 +80,10 @@ void Milieu::detection ()
 
 }
 
-void Milieu::updateVoisins(Bestiole & b)
+void Milieu::updateVoisins(ConcreteBestiole & b)
 {
-  std::vector<Bestiole>   newListeVoisinsOmni;
-  for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+  std::vector<ConcreteBestiole>   newListeVoisinsOmni;
+  for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
   {
     if ( !(b== *it) && b.inRadiusVoisin(*it) )
     {
@@ -96,10 +96,10 @@ void Milieu::updateVoisins(Bestiole & b)
 
 void Milieu::collisionsAll()
 {
-    for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+    for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
         updateVoisins(*it);
-        for(std::vector<Bestiole>::iterator it2 = (it->getVoisins()).begin() ; it2 != (it->getVoisins()).end() ; ++it2 )
+        for(std::vector<ConcreteBestiole>::iterator it2 = (it->getVoisins()).begin() ; it2 != (it->getVoisins()).end() ; ++it2 )
         {
             if(!(*it == *it2) && (*it).checkCollision(*it2))
              {

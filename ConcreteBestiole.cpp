@@ -197,7 +197,7 @@ bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 
 }
 
-bool Bestiole::inRadiusVoisin(const Bestiole & b ) const
+bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b ) const
 {
    double radius(1000);
    double dist;
@@ -206,7 +206,7 @@ bool Bestiole::inRadiusVoisin(const Bestiole & b ) const
 
 }
 
-bool Bestiole::checkCollision(const Bestiole & b ) const
+bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b ) const
 {
    double minRadius = AFF_SIZE + b.AFF_SIZE-4;
    double dist;
