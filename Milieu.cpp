@@ -1,6 +1,7 @@
 #include "Milieu.h"
 #include <cstdlib>
 #include <ctime>
+using namespace std;
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -93,6 +94,7 @@ void Milieu::updateVoisins(ConcreteBestiole & b)
 
 void Milieu::collisionsAll()
 {
+  int proba_mort = 30;
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
         updateVoisins(*it);
@@ -101,39 +103,53 @@ void Milieu::collisionsAll()
         {
             if(!(*it == *it2) && (*it).checkCollision(*it2))
              {
-                double collisionVector1_x= (*it).getX() - (*it2).getX();
-                double collisionVector1_y= (*it).getY() - (*it2).getY();
-                if(collisionVector1_x !=0 && collisionVector1_y!=0)
+                /* On vérifie si la bestiole a une carapace.
+                if(*it.getCarapace() > 0)
                 {
-                    /*double collisionVector2_x= 1;
-                    double collisionVector2_y= -collisionVector1_x/collisionVector1_y;
-                    */
-                    double v_x= (*it).getVitesse()*std::cos((*it).getOrientation());
-                    double v_y= (*it).getVitesse()*std::sin((*it).getOrientation());
-                    double phi = std::atan((collisionVector1_y/collisionVector1_x));
-
-                    double v_1= v_x*std::cos(phi)+v_y*std::sin(phi);
-                    double v_2= -v_x*std::sin(phi)+v_y*std::cos(phi);
-                    v_2=-v_2;
-
-                    double new_orientation=std::atan((v_2/v_1));
-                    (*it).setOrientation( new_orientation - phi);
+                  proba_mort = *it.getCarapace();
                 }
-                else if ((*it).getOrientation()==0)
+                 */
+                int tirage = std::rand() % 100 +1 ;
+                if (tirage <= proba_mort)
                 {
-                   (*it).setOrientation(M_PI*180/M_PI);
+                cout << 'Mort' << endl; //la bestiole meurt
                 }
-                else if ((*it).getOrientation()==M_PI /2*180/M_PI)
+                else
                 {
-                   (*it).setOrientation(3*M_PI /2*180/M_PI);
-                }
-                else if ((*it).getOrientation()==M_PI *180/M_PI)
-                {
-                   (*it).setOrientation(0);
-                }
-                else if ((*it).getOrientation()==3*M_PI /2*180/M_PI)
-                {
-                   (*it).setOrientation(M_PI /2*180/M_PI);
+                  double collisionVector1_x= (*it).getX() - (*it2).getX();
+                  double collisionVector1_y= (*it).getY() - (*it2).getY();
+                  if(collisionVector1_x !=0 && collisionVector1_y!=0)
+                  {
+                      /*double collisionVector2_x= 1;
+                      double collisionVector2_y= -collisionVector1_x/collisionVector1_y;
+                      */
+                      double v_x= (*it).getVitesse()*std::cos((*it).getOrientation());
+                      double v_y= (*it).getVitesse()*std::sin((*it).getOrientation());
+                      double phi = std::atan((collisionVector1_y/collisionVector1_x));
+  
+                      double v_1= v_x*std::cos(phi)+v_y*std::sin(phi);
+                      double v_2= -v_x*std::sin(phi)+v_y*std::cos(phi);
+                      v_2=-v_2;
+  
+                      double new_orientation=std::atan((v_2/v_1));
+                      (*it).setOrientation( new_orientation - phi);
+                  }
+                  else if ((*it).getOrientation()==0)
+                  {
+                     (*it).setOrientation(M_PI*180/M_PI);
+                  }
+                  else if ((*it).getOrientation()==M_PI /2*180/M_PI)
+                  {
+                     (*it).setOrientation(3*M_PI /2*180/M_PI);
+                  }
+                  else if ((*it).getOrientation()==M_PI *180/M_PI)
+                  {
+                     (*it).setOrientation(0);
+                  }
+                  else if ((*it).getOrientation()==3*M_PI /2*180/M_PI)
+                  {
+                     (*it).setOrientation(M_PI /2*180/M_PI);
+                  }
                 }
             }
         }
