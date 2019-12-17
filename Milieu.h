@@ -5,7 +5,6 @@
 #include "UImg.h"
 #include <iostream>
 #include <vector>
-
 #include "ConcreteBestiole.h"
 
 using namespace std;
@@ -44,9 +43,20 @@ public :
 
         // Ajout d'une oreille à factoriser
 
-        if (std::rand() % 2 == 0) { // 50% chance the bestiole has an ear
+        if (true) {//std::rand() % 2 == 0) { // 50% chance the bestiole has an ear
 
-            listeBestioles.back();
+            float radius = 200.0;
+            float probability = 0.6;
+
+            listeBestioles.back().setOreilles(radius, probability);
+
+
+            std::cout << listeBestioles.back().getOreilles()[0] << endl;
+
+
+            //cout << "wesh " << *listeBestioles.back().getOreilles()[0] << endl;
+            //listeBestioles.back().setYeux(rand() )/RAND_MAX*2.*M_PI, 30, 0.6);
+
         }
 
     }

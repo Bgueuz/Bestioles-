@@ -31,15 +31,11 @@ private :
     double            cumulX, cumulY;
     double            orientation;
     double            vitesse;
-    /*
-    bool              yeux;
-    bool              oreilles;
-    */
     bool              schizophrene;
     Personality*      personality;
     int               type;
-    float             oreilles[2]; // tableau : rayon du cercle de détection, probabilité de détection
-    float             yeux[3]; // tableau : angle de vision, distance, probabilité
+    std::vector<float>      oreilles; // tableau : rayon du cercle de détection, probabilité de détection
+    std::vector<float>      yeux; // tableau : angle de vision, distance, probabilité
 
     T               * couleur;
     std::vector<ConcreteBestiole>   listeVoisinsOmni;
@@ -70,6 +66,8 @@ public :                                           // Forme canonique :
     void setSchizophrene(bool s);
     void setType(int i);
     int getType();
+    void setOreilles(float radius, float probability);
+    void setYeux(float angle, float radius, float probability);
 
     bool inRadiusVoisin(const ConcreteBestiole & b) const;
     bool checkCollision(const ConcreteBestiole & b) const;
@@ -79,6 +77,8 @@ public :                                           // Forme canonique :
     double getVitesse( void ) const { return vitesse; };
     double getOrientation( void ) const { return orientation; };;
     std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
+    std::vector<float> getOreilles() {return oreilles;};
+    std::vector<float> getYeux() {return yeux;};
 
     void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
     void setOrientation(double newOrientation){orientation = newOrientation;};

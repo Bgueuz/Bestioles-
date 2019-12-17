@@ -17,9 +17,7 @@ int main()
 
     for ( int i = 1; i <= 20; ++i )
     {
-
         ecosysteme.getMilieu().addMember( ConcreteBestiole() );
-
     }
 
     ecosysteme.run();

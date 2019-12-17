@@ -1,4 +1,3 @@
-
 #include "KamikazePersonality.h"
 #include "ConcreteBestiole.h"
 #include <iostream>
@@ -10,5 +9,46 @@ void KamikazePersonality::newAction()
 
 void KamikazePersonality::newAction(ConcreteBestiole * b)
 {
-    std::cout << "JE SUIS K AVEC VITESSE " << b->getVitesse() << std::endl;
+    std::vector<ConcreteBestiole> VoisinsOmni = b->getVoisinsOmni();
+
+    double minDistance = std::numeric_limits<double>::infinity();
+    int currIndex = 0;
+    int minIndex = -1;
+
+    for ( std::vector<ConcreteBestiole>::iterator it2 = VoisinsOmni.begin() ; it2 != VoisinsOmni.end() ; ++it2 )
+    {
+
+        double dist = std::sqrt( (it2->getX()-b->getX())*(it2->getX()-b->getX()) + (it2->getY()-b->getY())*(it2->getY()-b->getY()) );
+
+        bool isInHearingDistance = ( dist <= b->getOreilles()[0] ) ;
+
+        //cout << dist << " / " << b->getOreilles()[1] << " / " << isInHearingDistance << endl;
+
+        if (isInHearingDistance)   // on ignore le camouflage
+        {
+
+            cout << "JE SUIS RENTRE" << endl;
+
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                minIndex = currIndex;
+            }
+        }
+
+        currIndex++;
+
+    }
+
+    if (minIndex !=-1) { // if there's at least one candidate, we turn towards them
+
+        double newOrientation = atan2(b->getY() - VoisinsOmni[minIndex].getY(), b->getX() - VoisinsOmni[minIndex].getX());
+        b->setOrientation(newOrientation);
+
+        cout << "JE CHANGE L'ORIENTATION" << endl;
+
+    }
+
+
+
 }
