@@ -218,7 +218,7 @@ bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 
 bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b) const
 {
-   double radius(LIMITE_VUE);
+   double radius(1000);
    double dist;
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
    return ( dist <= radius );
@@ -268,7 +268,7 @@ bool ConcreteBestiole::entendu (const ConcreteBestiole & b)
 void ConcreteBestiole::initPersonality()
 {
 
-       int random_int = std::rand() % 100; // between 0 and 99
+        int random_int = std::rand() % 100; // between 0 and 99
         int random_behavior;
         if (random_int < 20)
             random_behavior = 1;

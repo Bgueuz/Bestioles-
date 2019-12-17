@@ -42,7 +42,16 @@ public :
         listeBestioles.back().initCoords(width, height);
         listeBestioles.back().initPersonality();
 
+        // Ajout d'une oreille à factoriser
+
+        if (std::rand() % 2 == 0) { // 50% chance the bestiole has an ear
+
+            listeBestioles.back();
+        }
+
     }
+
+
     int nbVoisins( const ConcreteBestiole & b );
     void detection ();
     void updateVoisins(ConcreteBestiole & b);

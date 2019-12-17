@@ -31,11 +31,15 @@ private :
     double            cumulX, cumulY;
     double            orientation;
     double            vitesse;
+    /*
     bool              yeux;
     bool              oreilles;
+    */
     bool              schizophrene;
     Personality*      personality;
     int               type;
+    float             oreilles[2]; // tableau : rayon du cercle de détection, probabilité de détection
+    float             yeux[3]; // tableau : angle de vision, distance, probabilité
 
     T               * couleur;
     std::vector<ConcreteBestiole>   listeVoisinsOmni;
