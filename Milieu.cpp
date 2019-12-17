@@ -1,4 +1,6 @@
+
 #include "Milieu.h"
+
 #include <cstdlib>
 #include <ctime>
 
@@ -28,12 +30,10 @@ void Milieu::step( void )
     cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
-
         it->action( *this );
         it->draw( *this );
 
     } // for
-
 }
 
 

@@ -12,9 +12,7 @@
 using namespace std;
 using namespace cimg_library;
 
-
 class Milieu;
-
 
 class Aquarium : public CImgDisplay
 {

@@ -3,14 +3,9 @@
 
 
 #include "UImg.h"
-#include "ConcreteBestiole.h"
-#include "GregairePersonality.h"
-#include "PeureusePersonality.h"
-#include "KamikazePersonality.h"
-#include "PrevoyantePersonality.h"
-
 #include <iostream>
 #include <vector>
+#include "ConcreteBestiole.h"
 
 using namespace std;
 
@@ -44,71 +39,29 @@ public :
     {
         listeBestioles.push_back(b);
         listeBestioles.back().initCoords(width, height);
+        listeBestioles.back().initPersonality();
 
-        // Determining the bestiole's behavior at random
+        // Ajout d'une oreille à factoriser
 
-        int random_int = std::rand() % 100; // between 0 and 99
-        int random_behavior;
-        if (random_int < 20)
-            random_behavior = 1;
-        else if (random_int < 40)
-            random_behavior = 2;
-        else if (random_int < 60)
-            random_behavior = 3;
-        else if (random_int < 80)
-            random_behavior = 4;
-        else
-            random_behavior = 5;
+        if (true) {//std::rand() % 2 == 0) { // 50% chance the bestiole has an ear
 
-        switch (random_behavior)
-        {
-        case 1: // grégaire
-        {
-            listeBestioles.back().setSchizophrene(false);
-            listeBestioles.back().setPersonality(new GregairePersonality());
+            float radius = 200.0;
+            float probability = 0.6;
+
+            listeBestioles.back().setOreilles(radius, probability);
+
+
+            std::cout << listeBestioles.back().getOreilles()[0] << endl;
+
+
+            //cout << "wesh " << *listeBestioles.back().getOreilles()[0] << endl;
+            //listeBestioles.back().setYeux(rand() )/RAND_MAX*2.*M_PI, 30, 0.6);
+
         }
-        break;
-        case 2: // peureuse
-        {
-            listeBestioles.back().setSchizophrene(false);
-            listeBestioles.back().setPersonality(new PeureusePersonality());
-        }
-        break;
-        case 3: // kamikaze
-        {
-            listeBestioles.back().setSchizophrene(false);
-            listeBestioles.back().setPersonality(new KamikazePersonality());
-        }
-        break;
-        case 4: // prévoyante
-        {
-            listeBestioles.back().setSchizophrene(false);
-            listeBestioles.back().setPersonality(new PrevoyantePersonality());
-        }
-        break;
-        case 5: // personnalités multiples
-        {
-            listeBestioles.back().setSchizophrene(true);
-            listeBestioles.back().setPersonality(NULL);
-        }
-        break;
-
-        default:
-            listeBestioles.back().setSchizophrene(false);
-            listeBestioles.back().setPersonality(new GregairePersonality());
-        }
-
-        // Determining whether or not the bestiole has a fin
-
-        // Determining whether or not the bestiole has an eye
-
-        // Determining whether or not the bestiole has an ear
-
-        // Determining whether or not the bestiole has camouflage
-
-        // Determining whether or not the bestiole has a shell
 
     }
+
+
     int nbVoisins( const ConcreteBestiole & b );
     void detection ();
     void updateVoisins(ConcreteBestiole & b);

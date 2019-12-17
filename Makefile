@@ -9,14 +9,14 @@ Camouflage.o : Camouflage.h Camouflage.cpp Decorateur.h
 
 Carapace.o : Carapace.h Carapace.cpp Decorateur.h
 
-ConcreteBestiole.o : ConcreteBestiole.h ConcreteBestiole.cpp Bestiole.h Milieu.h GregairePersonality.h PeureusePersonality.h KamikazePersonality.h PrevoyantePersonality.h
+ConcreteBestiole.o : ConcreteBestiole.h ConcreteBestiole.cpp Bestiole.h Milieu.h Personality.h GregairePersonality.h PeureusePersonality.h KamikazePersonality.h PrevoyantePersonality.h
 
 Decorateur.o : Decorateur.h Decorateur.cpp
 
-GregairePersonality.o : GregairePersonality.h GregairePersonality.cpp Personality.h
+GregairePersonality.o : Personality.h GregairePersonality.h GregairePersonality.cpp Personality.h
 	g++ -Wall -std=c++11  -c GregairePersonality.cpp -I .
 
-KamikazePersonality.o : KamikazePersonality.h KamikazePersonality.cpp Personality.h
+KamikazePersonality.o : Personality.h KamikazePersonality.h KamikazePersonality.cpp Personality.h
 	g++ -Wall -std=c++11  -c KamikazePersonality.cpp -I .
 
 Milieu.o : Milieu.h Milieu.cpp ConcreteBestiole.h
@@ -25,7 +25,7 @@ Nageoire.o : Nageoire.h Nageoire.cpp Decorateur.h
 
 Oreilles.o : Oreilles.h Oreilles.cpp Decorateur.h
 
-PeureusePersonality.o : PeureusePersonality.h PeureusePersonality.cpp Personality.h
+PeureusePersonality.o : Personality.h PeureusePersonality.h PeureusePersonality.cpp Personality.h
 	g++ -Wall -std=c++11  -c PeureusePersonality.cpp -I .
 
 PrevoyantePersonality.o : PrevoyantePersonality.h PrevoyantePersonality.cpp Personality.h
