@@ -27,7 +27,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 
     x = y = type = 0;
     cumulX = cumulY = 0.;
-    orientation = 8*M_PI;// static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
+    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
     vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
 
     couleur = new T[ 3 ];
@@ -172,7 +172,7 @@ void ConcreteBestiole::setYeux(float angle, float radius, float probability)
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
 
-    if(type==2)
+    if(type==2 or type==1)
     {
         personality->newAction(this);
     }
