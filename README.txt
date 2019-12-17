@@ -12,5 +12,5 @@ Victor Gambier
 Pour exécuter ce programme, lancez un terminal et tapez :
     make
 Puis :
-    main
+    ./main
 
