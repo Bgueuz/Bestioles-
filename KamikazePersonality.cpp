@@ -40,13 +40,21 @@ void KamikazePersonality::newAction(ConcreteBestiole * b)
 
     if (minIndex !=-1) { // if there's at least one candidate, we turn towards them
 
-        double newOrientation = atan2(b->getY() - VoisinsOmni[minIndex].getY(), b->getX() - VoisinsOmni[minIndex].getX());
+            cout <<"voisin x" <<  VoisinsOmni[minIndex].getX() << endl;
+
+    cout << "voisin y" << VoisinsOmni[minIndex].getY() << endl;
+        cout<< "kamikaze x" <<  b->getX() << endl;
+    cout<<"kamikaze y" <<   b->getY() << endl;
+
+        double newOrientation = atan2( - VoisinsOmni[minIndex].getY() + b->getY(),-  b->getX()+VoisinsOmni[minIndex].getX() );
+
         cout << "je suis passé de " << b->getOrientation() << "à " << newOrientation << endl;
         b->setOrientation(newOrientation);
 
 
+
+
+
     }
-
-
 
 }
