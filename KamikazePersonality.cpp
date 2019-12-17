@@ -27,8 +27,6 @@ void KamikazePersonality::newAction(ConcreteBestiole * b)
         if (isInHearingDistance)   // on ignore le camouflage
         {
 
-            cout << "JE SUIS RENTRE" << endl;
-
             if (dist < minDistance)
             {
                 minDistance = dist;
@@ -43,9 +41,9 @@ void KamikazePersonality::newAction(ConcreteBestiole * b)
     if (minIndex !=-1) { // if there's at least one candidate, we turn towards them
 
         double newOrientation = atan2(b->getY() - VoisinsOmni[minIndex].getY(), b->getX() - VoisinsOmni[minIndex].getX());
+        cout << "je suis passé de " << b->getOrientation() << "à " << newOrientation << endl;
         b->setOrientation(newOrientation);
 
-        cout << "JE CHANGE L'ORIENTATION" << endl;
 
     }
 
