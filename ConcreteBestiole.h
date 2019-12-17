@@ -1,16 +1,16 @@
 #ifndef _CONCRETEBESTIOLES_H_
 #define _CONCRETEBESTIOLES_H_
 
+#include "Personality.h"
+#include "Bestiole.h"
+
 
 #include "UImg.h"
 #include <vector>
-#include "Bestiole.h"
-#include "Personality.h"
 #include <iostream>
 #include <list>
 
 using namespace std;
-
 
 class Milieu;
 
@@ -24,9 +24,6 @@ private :
     static const double     LIMITE_VUE;
     static const double     LIMITE_OUIE;
     static int              next;
-    bool                    schizophrene;
-    Personality*            personality;
-
 
 private :
     int               identite;
@@ -36,7 +33,9 @@ private :
     double            vitesse;
     bool              yeux;
     bool              oreilles;
-
+    bool              schizophrene;
+    Personality*      personality;
+    int               type;
 
     T               * couleur;
     std::vector<ConcreteBestiole>   listeVoisinsOmni;
@@ -65,6 +64,8 @@ public :                                           // Forme canonique :
     Personality* getPersonality();
     void setPersonality(Personality* newPersonality);
     void setSchizophrene(bool s);
+    void setType(int i);
+    int getType();
 
     bool inRadiusVoisin(const ConcreteBestiole & b) const;
     bool checkCollision(const ConcreteBestiole & b) const;
@@ -77,8 +78,10 @@ public :                                           // Forme canonique :
 
     void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
     void setOrientation(double newOrientation){orientation = newOrientation;};
-
+    void setVitesse(double newVitesse){vitesse = newVitesse;};
     void initCoords( int xLim, int yLim );
+    void initPersonality();
+    void randPersonality();
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
 

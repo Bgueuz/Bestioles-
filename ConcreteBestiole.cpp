@@ -1,10 +1,14 @@
-#include "ConcreteBestiole.h"
+
 #include "Bestiole.h"
+
 #include "Milieu.h"
+
 #include "GregairePersonality.h"
 #include "PeureusePersonality.h"
 #include "KamikazePersonality.h"
 #include "PrevoyantePersonality.h"
+
+#include "ConcreteBestiole.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -22,7 +26,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 
     //cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
-    x = y = 0;
+    x = y = type = 0;
     cumulX = cumulY = 0.;
     orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
     vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
@@ -31,7 +35,6 @@ ConcreteBestiole::ConcreteBestiole( void )
     couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
     couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
     couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-
 }
 
 
@@ -44,6 +47,13 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b )
 
     x = b.x;
     y = b.y;
+    type=b.type;
+    personality=b.personality;
+    schizophrene = b.schizophrene;
+    //listeVoisinsOmni= b.listeVoisinsOmni;
+    //Voisins= b.Voisins;
+    Detectes=b.Detectes;
+
     cumulX = cumulY = 0.;
     orientation = b.orientation;
     vitesse = b.vitesse;
@@ -58,7 +68,7 @@ ConcreteBestiole::~ConcreteBestiole( void )
 
     delete[] couleur;
 
-    cout << "dest ConcreteBestiole" << endl;
+    //cout << "dest ConcreteBestiole" << endl;
 
 }
 
@@ -68,13 +78,12 @@ void ConcreteBestiole::initCoords( int xLim, int yLim )
 
     x = rand() % xLim;
     y = rand() % yLim;
-
 }
 
 
 void ConcreteBestiole::bouge( int xLim, int yLim )
 {
-
+    cout << "JE BOUGE " << endl;
     double         nx, ny;
     double         dx = cos( orientation )*vitesse;
     double         dy = -sin( orientation )*vitesse;
@@ -110,6 +119,7 @@ void ConcreteBestiole::bouge( int xLim, int yLim )
         y = static_cast<int>( ny );
         cumulY += ny - y;
     }
+    cout << "FINI DE BOUGER" << endl;
 
 }
 
@@ -118,6 +128,7 @@ list<ConcreteBestiole *> ConcreteBestiole::getVoisins()
 {
     return Voisins;
 }
+
 
 list<ConcreteBestiole *> ConcreteBestiole::getDetectes()
 {
@@ -128,62 +139,44 @@ void ConcreteBestiole::setPersonality(Personality* newPersonality) {
     personality = newPersonality;
 }
 
+void ConcreteBestiole::setType(int i) {
+    type = i;
+}
+
+int ConcreteBestiole::getType() {
+    return type;
+}
+
 void ConcreteBestiole::setSchizophrene(bool s) {
     schizophrene = s;
 }
 
+
+
+
+
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
-    if (personality!=nullptr)
+
+    if(type==0)
     {
-        personality->newAction();
+        cout << personality << endl;
+        personality->newAction(this);
+    }
+    if (!schizophrene)
+    {
+        //cout << "NOT SCHIZOPHRENE" << endl;
+        //personality->newAction(&this);
 
     }
     else   // bestiole à personnalités multiples
     {
-        Personality* p;
-        int random_int = std::rand() % 100; // between 0 and 99
-        int random_behavior;
-        if (random_int < 20)
-            random_behavior = 1;
-        else if (random_int < 40)
-            random_behavior = 2;
-        else if (random_int < 60)
-            random_behavior = 3;
-        else if (random_int < 80)
-            random_behavior = 4;
-        else
-            random_behavior = 5;
-
-        switch (random_behavior)
-        {
-        case 1: // grégaire
-        {
-            p= new GregairePersonality();
-            p->newAction();
-        }
-        break;
-        case 2: // peureuse
-        {
-            p = new PeureusePersonality();
-            p->newAction();
-        }
-        break;
-        case 3: // kamikaze
-        {
-            p= new KamikazePersonality();
-            p->newAction();
-        }
-        break;
-        case 4: // prévoyante
-        {
-            p = new PrevoyantePersonality();
-            p->newAction();
-        }
-
-        }
+        //cout << "JE SUIS SCHIZOPHRENEEEEEEEEEEEEEEEEEEEEEEEEE" << endl;
+        //this->randPersonality();
+        //personality->newAction();
     }
 
+    cout << "JE VAIS BOUGER" << endl;
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 
 }
@@ -195,43 +188,43 @@ Personality* ConcreteBestiole::getPersonality()
 
 void ConcreteBestiole::draw( UImg & support )
 {
-
+    cout << "JE DESSINE" << endl;
     double         xt = x + cos( orientation )*AFF_SIZE/2.1;
     double         yt = y - sin( orientation )*AFF_SIZE/2.1;
 
     support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
     support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
 
+    cout << "FINI DE DESSINER" << endl;
 }
 
 
 bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 )
 {
-
     return ( b1.identite == b2.identite );
-
 }
+
 
 
 bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 {
-
     double         dist;
 
 
     dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     return ( dist <= LIMITE_VUE );
-
 }
+
 
 bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b) const
 {
-   double radius(1000);
+   double radius(LIMITE_VUE);
    double dist;
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
    return ( dist <= radius );
 
 }
+
 
 bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
 {
@@ -269,4 +262,113 @@ bool ConcreteBestiole::entendu (const ConcreteBestiole & b)
             }
         }
     */
+}
+
+
+void ConcreteBestiole::initPersonality()
+{
+
+       int random_int = std::rand() % 100; // between 0 and 99
+        int random_behavior;
+        if (random_int < 20)
+            random_behavior = 1;
+        else if (random_int < 40)
+            random_behavior = 2;
+        else if (random_int < 60)
+            random_behavior = 3;
+        else if (random_int < 80)
+            random_behavior = 4;
+        else
+            random_behavior = 5;
+
+        //listeBestioles.back().setType(random_behavior);
+        switch (random_behavior)
+        {
+        case 1: // grégaire
+        {
+            schizophrene=false;
+            personality = new GregairePersonality();
+            type = 0;
+            cout << "G" << endl;
+        }
+        break;
+        case 2: // peureuse
+        {
+            schizophrene=false;
+            personality = new PeureusePersonality();
+            type = 1;
+            cout << "PE" << endl;
+        }
+        break;
+        case 3: // kamikaze
+        {
+            schizophrene=false;
+            personality = new KamikazePersonality();
+            type = 2;
+            cout << "K" << endl;
+        }
+        break;
+        case 4: // prévoyante
+        {
+            schizophrene=false;
+            personality = new PrevoyantePersonality();
+            type = 3;
+            cout << "PR" << endl;
+        }
+        break;
+        case 5: // personnalités multiples
+        {
+            schizophrene=true;
+            personality = NULL;
+            type = 4;
+            cout << "S" << endl;
+        }
+        break;
+
+        default:
+            schizophrene=false;
+            personality = new GregairePersonality();
+            type = 0;
+        }
+}
+
+void ConcreteBestiole::randPersonality()
+{
+
+       int random_int = std::rand() % 100; // between 0 and 99
+        int random_behavior;
+        if (random_int < 20)
+            random_behavior = 1;
+        else if (random_int < 40)
+            random_behavior = 2;
+        else if (random_int < 60)
+            random_behavior = 3;
+        else if (random_int < 80)
+            random_behavior = 4;
+        else
+            random_behavior = 5;
+
+        //listeBestioles.back().setType(random_behavior);
+        switch (random_behavior)
+        {
+        case 1: // grégaire
+        {
+            personality = new GregairePersonality();
+        }
+        break;
+        case 2: // peureuse
+        {
+            personality = new PeureusePersonality();
+        }
+        break;
+        case 3: // kamikaze
+        {
+            personality = new KamikazePersonality();
+        }
+        break;
+        case 4: // prévoyante
+        {
+            personality = new PrevoyantePersonality();
+        }
+    }
 }
