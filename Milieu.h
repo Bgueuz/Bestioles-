@@ -41,22 +41,10 @@ public :
         listeBestioles.back().initCoords(width, height);
         listeBestioles.back().initPersonality();
 
-        // Ajout d'une oreille à factoriser
+        // Ajout d'une oreille
+        listeBestioles.back().initOreilles();
 
-        if (std::rand() % 2 == 0) { // 50% chance the bestiole has an ear
-
-            float radius = 200.0;
-            float probability = 0.6;
-            listeBestioles.back().setOreilles(radius, probability);
-
-        }
-
-        else {
-            listeBestioles.back().setOreilles(-1, -1);
-        }
-
-        // Accesoires
-
+        // Accessoires
         listeBestioles.back().setAccesories(this);
 
         cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;

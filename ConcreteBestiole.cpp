@@ -226,11 +226,11 @@ void ConcreteBestiole::draw( UImg & support )
 
     if (this->getNageoire() - 1.0 > 0.0)
     {
-    support.draw_ellipse( (x+xt2)/2, (y+yt2)/2, AFF_SIZE/6, AFF_SIZE*1.5, -orientation/M_PI*180, couleur );
+        support.draw_ellipse( (x+xt2)/2, (y+yt2)/2, AFF_SIZE/6, AFF_SIZE*1.5, -orientation/M_PI*180, couleur );
     }
     if ((this->getCarapaceVit() - 1.0 > 0.0) && (this->getCarapaceDom() - 1.0 > 0.0))
     {
-    support.draw_ellipse( (x+xt)/2, (y+yt)/2, AFF_SIZE/1.5, AFF_SIZE/1.5, -orientation, couleur );
+        support.draw_ellipse( (x+xt)/2, (y+yt)/2, AFF_SIZE/1.5, AFF_SIZE/1.5, -orientation, couleur );
     }
 
 }
@@ -299,6 +299,21 @@ bool ConcreteBestiole::entendu (const ConcreteBestiole & b)
             }
         }
     */
+}
+
+void ConcreteBestiole::initOreilles()
+{
+
+    if (std::rand() % 2 == 0)   // 50% chance the bestiole has an ear
+    {
+        float radius = 200.0;
+        float probability = 0.6;
+        setOreilles(radius, probability);
+    }
+    else
+    {
+        setOreilles(-1, -1);
+    }
 }
 
 void ConcreteBestiole::initPersonality()

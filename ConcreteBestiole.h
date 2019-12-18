@@ -92,6 +92,7 @@ public :                                           // Forme canonique :
     void initCoords( int xLim, int yLim );
     void initPersonality();
     void randPersonality();
+    void initOreilles();
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
 
