@@ -1,16 +1,16 @@
 #ifndef _CONCRETEBESTIOLES_H_
 #define _CONCRETEBESTIOLES_H_
 
-#include "Personality.h"
-#include "Bestiole.h"
-
 
 #include "UImg.h"
 #include <vector>
+#include "Bestiole.h"
+#include "Personality.h"
 #include <iostream>
 #include <list>
 
 using namespace std;
+
 
 class Milieu;
 
@@ -24,6 +24,11 @@ private :
     static const double     LIMITE_VUE;
     static const double     LIMITE_OUIE;
     static int              next;
+    bool                    schizophrene;
+    Personality*            personality;
+    int                dureedevie;
+    int                      vecu;
+    bool                      tue;
 
 private :
     int               identite;
@@ -31,14 +36,8 @@ private :
     double            cumulX, cumulY;
     double            orientation;
     double            vitesse;
-    bool              schizophrene;
-    Personality*      personality;
-    int               type;
-    std::vector<float>      oreilles; // tableau : rayon du cercle de détection, probabilité de détection
-    std::vector<float>      yeux; // tableau : angle de vision, distance, probabilité
-
-
-private:
+    bool              yeux;
+    bool              oreilles;
 
     T               * couleur;
     std::vector<ConcreteBestiole>   listeVoisinsOmni;
@@ -67,122 +66,28 @@ public :                                           // Forme canonique :
     Personality* getPersonality();
     void setPersonality(Personality* newPersonality);
     void setSchizophrene(bool s);
-    void setType(int i);
-    int getType();
-    void setOreilles(float radius, float probability);
-    void setYeux(float angle, float radius, float probability);
 
     bool inRadiusVoisin(const ConcreteBestiole & b) const;
     bool checkCollision(const ConcreteBestiole & b) const;
 
-    int getX( void ) const
-    {
-        return x;
-    };
-    int getY( void ) const
-    {
-        return y;
-    };
-    double getVitesse( void ) const
-    {
-        return vitesse;
-    };
-    int getIdentite( void ) const
-    {
-        return identite;
-    };
-    double getOrientation( void ) const
-    {
-        return orientation;
-    };;
-    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const
-    {
-        return listeVoisinsOmni;
-    };
-    std::vector<float> getOreilles()
-    {
-        return oreilles;
-    };
-    std::vector<float> getYeux()
-    {
-        return yeux;
-    };
+    int getX( void ) const { return x; };
+    int getY( void ) const { return y; };
+    double getVitesse( void ) const { return vitesse; };
+    double getOrientation( void ) const { return orientation; };;
+    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
+    bool getTue( void ) const { return tue; };
+    int getID( void ) const { return identite; };
+    int getVecu( void ) const { return vecu; };
+    int getDureeDeVie( void ) const { return dureedevie; };
 
-    void setVoisins(std::vector<ConcreteBestiole> listeVoisins)
-    {
-        listeVoisinsOmni = listeVoisins;
-    };
-    void setOrientation(double newOrientation)
-    {
-        orientation = newOrientation;
-    };
-    void setVitesse(double newVitesse)
-    {
-        vitesse = newVitesse;
-    };
+    void Kill(void);
+  
+    void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
+    void setOrientation(double newOrientation){orientation = newOrientation;};
+    void vie();
     void initCoords( int xLim, int yLim );
-    void initPersonality();
-    void randPersonality();
-    void initOreilles(Milieu* flotte);
-    void initYeux(Milieu* flotte);
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
-
-// Accessoires
-private :
-    // Camouflage
-    static double     max_cam;
-    static double     min_cam;
-    float camouflage = 0;
-
-    // Nageoire
-    static double     max_nage;
-    static double     min_nage;
-    float nageoire = 1.0;
-
-    // Carapace_dom
-    static double     max_cara_dom;
-    static double     min_cara_dom;
-    float carapaceDommage = 1.0;
-
-    // Carapace vitesse
-    static double     max_cara_vit;
-    static double     min_cara_vit;
-    float carapaceVitesse = 1.0;
-
-public :
-
-    void setAccesories(Milieu* flotte);
-    // Camouflage
-    void setCamouflage(float min_cam,float max_cam);
-    float getCamouflage()
-    {
-        return camouflage;
-    };
-
-    // Nageoire
-    void setNageoire(float min_nage,float max_nage);
-    float getNageoire()
-    {
-        return nageoire;
-    };
-
-    // Carapace Dommages
-    void setCarapaceDom(float min_cara_dom,float max_cara_dom);
-    float getCarapaceDom()
-    {
-        return carapaceDommage;
-    };
-
-    // Carapace Vitesse
-    void setCarapaceVit(float min_cara_vit,float max_cara_vit);
-    float getCarapaceVit()
-    {
-        return carapaceVitesse;
-    };
-
-    // Utile --> pourrait faire partie d'une interface
-    float RandomFloat(float a, float b);
 
 };
 
