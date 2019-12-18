@@ -36,7 +36,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 }
 
 // Constructeur par copie
-ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires à copier aussi
+ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accessoires à copier aussi
 {
 
     identite = ++next;
@@ -144,46 +144,7 @@ std::vector<int> ConcreteBestiole::simuleBouge(  )
 
 }
 
-// Getters and setters
-
-list<ConcreteBestiole *> ConcreteBestiole::getVoisins()
-{
-    return Voisins;
-}
-
-list<ConcreteBestiole *> ConcreteBestiole::getDetectes()
-{
-    return Detectes;
-}
-
-void ConcreteBestiole::setPersonality(Personality* newPersonality)
-{
-    personality = newPersonality;
-}
-
-void ConcreteBestiole::setType(int i)
-{
-    type = i;
-}
-
-int ConcreteBestiole::getType()
-{
-    return type;
-}
-
-void ConcreteBestiole::setOreilles(float radius, float probability)
-{
-    oreilles.push_back(radius);
-    oreilles.push_back(probability);
-}
-
-void ConcreteBestiole::setYeux(float angle, float radius, float probability)
-{
-    yeux.push_back(angle);
-    yeux.push_back(radius);
-    yeux.push_back(probability);
-}
-
+// Action supplémentaire pour les bestioles dotées de personnalités
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
 
@@ -207,11 +168,7 @@ void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 }
 
-Personality* ConcreteBestiole::getPersonality()
-{
-    return this->personality;
-}
-
+// Dessine la bestiole dans l'interface graphique
 void ConcreteBestiole::draw( UImg & support )
 {
     double         xt = x + cos( orientation )*AFF_SIZE/2.1;
@@ -240,6 +197,7 @@ void ConcreteBestiole::draw( UImg & support )
 
 }
 
+// Attribue à chaque bestiole une couleur suivant son type
 void ConcreteBestiole::changeColorToType()
 {
     T* couleur2 = new T[ 3 ];
@@ -278,13 +236,11 @@ void ConcreteBestiole::changeColorToType()
     delete couleur2;
 }
 
-
+// Surchage de l'opérateur ==
 bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 )
 {
     return ( b1.identite == b2.identite );
 }
-
-
 
 bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 {
@@ -469,31 +425,6 @@ void ConcreteBestiole::setAccesories(Milieu* flotte)
         this->setCarapaceDom(flotte->getMinCaraDom(),flotte->getMaxCaraDom());
         this->setCarapaceVit(flotte->getMinCaraVit(),flotte->getMaxCaraVit());
     }
-
-}
-
-/////////// SETTEURS ACCESSOIRES
-
-void ConcreteBestiole::setCamouflage(float min_cam,float max_cam)
-{
-    this->camouflage = RandomFloat(min_cam,max_cam);
-}
-
-void ConcreteBestiole::setNageoire(float min_nage,float max_nage)
-{
-    this->nageoire = RandomFloat(min_nage,max_nage);
-    this->vitesse = (this->vitesse)*(this->nageoire);
-}
-
-void ConcreteBestiole::setCarapaceDom(float min_cara_dom,float max_cara_dom)
-{
-    this->carapaceDommage = RandomFloat(min_cara_dom,max_cara_dom);
-}
-
-void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
-{
-    this->carapaceVitesse = RandomFloat(min_cara_vit,max_cara_vit);
-    this->vitesse = (this->vitesse)/(this->carapaceVitesse);
 }
 
 void ConcreteBestiole::vie ()
@@ -545,4 +476,71 @@ std::vector<int> ConcreteBestiole::detectVoisins()
         i++;
     }
     return detected;
+}
+
+// Getters and setters
+
+list<ConcreteBestiole *> ConcreteBestiole::getVoisins()
+{
+    return Voisins;
+}
+
+list<ConcreteBestiole *> ConcreteBestiole::getDetectes()
+{
+    return Detectes;
+}
+
+void ConcreteBestiole::setPersonality(Personality* newPersonality)
+{
+    personality = newPersonality;
+}
+
+int ConcreteBestiole::getType()
+{
+    return type;
+}
+
+void ConcreteBestiole::setType(int i)
+{
+    type = i;
+}
+
+void ConcreteBestiole::setOreilles(float radius, float probability)
+{
+    oreilles.push_back(radius);
+    oreilles.push_back(probability);
+}
+
+void ConcreteBestiole::setYeux(float angle, float radius, float probability)
+{
+    yeux.push_back(angle);
+    yeux.push_back(radius);
+    yeux.push_back(probability);
+}
+
+Personality* ConcreteBestiole::getPersonality()
+{
+    return this->personality;
+}
+
+void ConcreteBestiole::setCamouflage(float min_cam,float max_cam)
+{
+    this->camouflage = RandomFloat(min_cam,max_cam);
+}
+
+void ConcreteBestiole::setNageoire(float min_nage,float max_nage)
+{
+    this->nageoire = RandomFloat(min_nage,max_nage);
+    this->vitesse = (this->vitesse)*(this->nageoire);
+}
+
+void ConcreteBestiole::setCarapaceDom(float min_cara_dom,float max_cara_dom)
+{
+    this->carapaceDommage = RandomFloat(min_cara_dom,max_cara_dom);
+}
+
+void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
+{
+    this->carapaceVitesse = RandomFloat(min_cara_vit,max_cara_vit);
+    this->vitesse = (this->vitesse)/(this->carapaceVitesse);
 }
