@@ -242,13 +242,14 @@ bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 )
     return ( b1.identite == b2.identite );
 }
 
+// Renvoie true si la bestiole courante voit la bestiole passée en entrée
 bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 {
     double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     return ( dist <= LIMITE_VUE );
 }
 
-
+// Renvoie true si la bestiole passée en entrée est dans le rayon voisin de la bestiole courante
 bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b) const
 {
     double radius(1000);
@@ -257,6 +258,7 @@ bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b) const
     return ( dist <= radius );
 }
 
+// Renvoie true si la bestiole courante et la bestiole passée en entrée sont acttuellement en collision
 bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
 {
     double minRadius = AFF_SIZE + b.AFF_SIZE-4;
@@ -265,6 +267,7 @@ bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
     return ( dist <= minRadius);
 }
 
+// A une chance de donner des oreilles de coefficients aléatoires à la bestiole courante
 void ConcreteBestiole::initOreilles(Milieu* flotte)
 {
 
@@ -281,6 +284,7 @@ void ConcreteBestiole::initOreilles(Milieu* flotte)
     }
 }
 
+// A une chance de donner des yeux de coefficients aléatoires à la bestiole courante
 void ConcreteBestiole::initYeux(Milieu* flotte)
 {
 
@@ -297,69 +301,72 @@ void ConcreteBestiole::initYeux(Milieu* flotte)
     }
 }
 
-void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],float ratiosPresents[5])
+// Donne une personnalité aléatoire à la bestiole courante, en s'assurant que les ratios de population soient respectés
+void ConcreteBestiole::initPersonality(Milieu* milieu,float ratiosCherches[5],float ratiosPresents[5])
 {
-  int set_behavior;
+    int set_behavior;
 
-  if (milieu->getBestioles().size()==1){
-    int n =5;
-    set_behavior = distance(ratiosCherches, max_element(ratiosCherches, ratiosCherches + n));
-  }
-  else{
-    float ratiosDifference[5];
-    for(int i =0; i<5;i++){
-      ratiosDifference[i]=ratiosCherches[i]-ratiosPresents[i];
+    if (milieu->getBestioles().size()==1)
+    {
+        int n =5;
+        set_behavior = distance(ratiosCherches, max_element(ratiosCherches, ratiosCherches + n));
     }
-    int m = 5;
-    set_behavior = distance(ratiosDifference, max_element(ratiosDifference, ratiosDifference + m));
+    else
+    {
+        float ratiosDifference[5];
+        for(int i =0; i<5; i++)
+        {
+            ratiosDifference[i]=ratiosCherches[i]-ratiosPresents[i];
+        }
+        int m = 5;
+        set_behavior = distance(ratiosDifference, max_element(ratiosDifference, ratiosDifference + m));
     }
 
-
-  //listeBestioles.back().setType(random_behavior);
-  switch (set_behavior+1)
-  {
-  case 1: // grégaire
+    switch (set_behavior+1)
     {
-      personality = new GregairePersonality();
-      type = 0;
-      cout << "G" << endl;
+    case 1: // grégaire
+    {
+        personality = new GregairePersonality();
+        type = 0;
+        cout << "G" << endl;
     }
     break;
-  case 2: // peureuse
+    case 2: // peureuse
     {
-      personality = new PeureusePersonality();
-      type = 1;
-      cout << "PE" << endl;
+        personality = new PeureusePersonality();
+        type = 1;
+        cout << "PE" << endl;
     }
     break;
-  case 3: // kamikaze
+    case 3: // kamikaze
     {
-      personality = new KamikazePersonality();
-      type = 2;
-      cout << "K" << endl;
+        personality = new KamikazePersonality();
+        type = 2;
+        cout << "K" << endl;
     }
     break;
-  case 4: // prévoyante
+    case 4: // prévoyante
     {
-      personality = new PrevoyantePersonality();
-      type = 3;
-      cout << "PR" << endl;
+        personality = new PrevoyantePersonality();
+        type = 3;
+        cout << "PR" << endl;
     }
     break;
-  case 5: // personnalités multiples
+    case 5: // personnalités multiples
     {
-      personality = NULL;
-      type = 4;
-      cout << "S" << endl;
+        personality = new GregairePersonality(); // les bestioles PM commencent par être grégaires
+        type = 4;
+        cout << "PM" << endl;
     }
     break;
 
-  default:
-  personality = new GregairePersonality();
-  type = 0;
-  }
+    default:
+        personality = new GregairePersonality();
+        type = 0;
+    }
 }
 
+// Attribue une personnalité aléatoire. Utile pour les bestioles à personnalités multiples
 void ConcreteBestiole::randPersonality()
 {
     int random_int = std::rand() % 100; // between 0 and 99

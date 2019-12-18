@@ -14,12 +14,14 @@ void GregairePersonality::newAction(ConcreteBestiole * b)
     int i=0;
     std::vector<int> detected = b->detectVoisins();
 
-    for (std::vector<int>::iterator it = detected.begin() ; it != detected.end(); ++it){
+    for (std::vector<int>::iterator it = detected.begin() ; it != detected.end(); ++it)
+    {
         sumOrientation += VoisinsOmni[*it].getOrientation();
         i++;
     }
 
-    if (i != 0) { // if there's at least one candidate
+    if (i != 0)   // if there's at least one candidate
+    {
         b->setOrientation(sumOrientation/i);
     }
 }

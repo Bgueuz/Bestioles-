@@ -5,7 +5,6 @@
 
 void PeureusePersonality::newAction()
 {
-
 }
 
 void PeureusePersonality::newAction(ConcreteBestiole * b)
@@ -18,7 +17,8 @@ void PeureusePersonality::newAction(ConcreteBestiole * b)
 
     std::vector<int> detected = b->detectVoisins();
 
-    for (std::vector<int>::iterator it = detected.begin() ; it != detected.end(); ++it){
+    for (std::vector<int>::iterator it = detected.begin() ; it != detected.end(); ++it)
+    {
 
         double dist = std::sqrt( (VoisinsOmni[*it].getX()-b->getX())*(VoisinsOmni[*it].getX()-b->getX()) + (VoisinsOmni[*it].getY()-b->getY())*(VoisinsOmni[*it].getY()-b->getY()) );
         if (dist < minDistance)
