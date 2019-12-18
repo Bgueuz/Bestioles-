@@ -15,9 +15,11 @@ class Milieu : public UImg
 
 private :
     static const T          white[];
-    int                     nbBestiolesMax=50;
+
+    int             nbBestiolesMax=50;
     float            ratiosCherches[5] = {0.1,0.1,0.7,0.1,0.};
     float            ratiosPresents[5] = {0.,0.,0.,0.,0.};
+
     int                     width, height;
     std::vector<ConcreteBestiole>   listeBestioles;
 
@@ -37,43 +39,17 @@ public :
     void step( void );
     std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
 
-    void addMember( const ConcreteBestiole & b )
-    {
-        if (listeBestioles.size()<nbBestiolesMax){
-          
-          listeBestioles.push_back(b);
-          listeBestioles.back().initCoords(width, height);
-          //listeBestioles.back().initPersonality();
-          listeBestioles.back().initPersonality(this,ratiosCherches,ratiosPresents);
-  
-          // Ajout de capteurs
-          listeBestioles.back().initOreilles(this);
-          listeBestioles.back().initYeux(this);
-  
-          // Accessoires
-          listeBestioles.back().setAccesories(this);
-  
-          cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
-          cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
-          cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
-          cout << "   cette bestiole à une carapace " << endl;
-          cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
-          cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
-        }
-        else{
-          cout << "Capacité max atteinte" << endl;
-        }
-    }
-
     int nbVoisins( const ConcreteBestiole & b );
     void detection ();
     void updateVoisins(ConcreteBestiole & b);
     void collisionsAll();
     float RandomFloat(float a, float b);
+    void addMember( const ConcreteBestiole & b );
+    void gestionvie();
 
 public:
 
-    //Accesoires
+    //Accessoires
 
         // Camouflage
     void setCamouflageLimits(float max_cam, float min_cam);
@@ -137,7 +113,7 @@ private:
     float MAX_CARA_DOM = 4.0;
     float MIN_CARA_DOM = 1.0;
 
-            // Reduction Vitesse
+        // Reduction Vitesse
     float MAX_CARA_VIT = 3.0;
     float MIN_CARA_VIT = 1.0;
 

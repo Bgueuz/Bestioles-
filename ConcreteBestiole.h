@@ -32,9 +32,8 @@ private :
     double            cumulX, cumulY;
     double            orientation;
     double            vitesse;
-    bool              schizophrene;
     Personality*      personality;
-    int               type;
+    int               type;  // 0,1,2,3,4  pour grégaire,peureuse,kamikaze,prévoyante,personnalités multiples
     std::vector<float>      oreilles; // tableau : rayon du cercle de détection, probabilité de détection
     std::vector<float>      yeux; // tableau : angle de vision, distance, probabilité
 
@@ -60,74 +59,46 @@ public :                                           // Forme canonique :
     list<ConcreteBestiole *> getVoisins();
     list<ConcreteBestiole *> getDetectes();
 
-
-    bool jeTeVois( const ConcreteBestiole & b ) const;
-    bool vu (const ConcreteBestiole & b);
-    bool entendu (const ConcreteBestiole & b);
-
-    Personality* getPersonality();
-    void setPersonality(Personality* newPersonality);
-    void setSchizophrene(bool s);
-    void setType(int i);
-    int getType();
-    void setOreilles(float radius, float probability);
-    void setYeux(float angle, float radius, float probability);
-
     bool inRadiusVoisin(const ConcreteBestiole & b) const;
     bool checkCollision(const ConcreteBestiole & b) const;
+    void randPersonality();
+    void changeColorToType();
+    std::vector<int> detectVoisins();
+    bool jeTeVois( const ConcreteBestiole & b ) const;
+    std::vector<int> simuleBouge(  );
 
-    int getX( void ) const
-    {
-        return x;
-    };
-    int getY( void ) const
-    {
-        return y;
-    };
-    double getVitesse( void ) const
-    {
-        return vitesse;
-    };
-    int getIdentite( void ) const
-    {
-        return identite;
-    };
-    double getOrientation( void ) const
-    {
-        return orientation;
-    };;
-    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const
-    {
-        return listeVoisinsOmni;
-    };
-    std::vector<float> getOreilles()
-    {
-        return oreilles;
-    };
-    std::vector<float> getYeux()
-    {
-        return yeux;
-    };
-
-    void setVoisins(std::vector<ConcreteBestiole> listeVoisins)
-    {
-        listeVoisinsOmni = listeVoisins;
-    };
-    void setOrientation(double newOrientation)
-    {
-        orientation = newOrientation;
-    };
-    void setVitesse(double newVitesse)
-    {
-        vitesse = newVitesse;
-    };
+    //Initialisation
     void initCoords( int xLim, int yLim );
+
     //void initPersonality();
     void initPersonality(Milieu* milieu ,float ratiosCherches[5],float ratiosPresents[5]);
-    void randPersonality();
+
     void initOreilles(Milieu* flotte);
     void initYeux(Milieu* flotte);
 
+    //Setters
+    void setOreilles(float radius, float probability);
+    void setYeux(float angle, float radius, float probability);
+    void setPersonality(Personality* newPersonality);
+    void setType(int i);
+    void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
+    void setOrientation(double newOrientation){orientation = newOrientation;};
+    void setVitesse(double newVitesse){vitesse = newVitesse;};
+
+    //Getters
+    int getX( void ) const { return x; };
+    int getY( void ) const { return y; };
+    Personality* getPersonality();
+    int getType();
+    double getVitesse( void ) const { return vitesse; };
+    int getIdentite( void ) const { return identite; };
+    double getOrientation( void ) const { return orientation; };
+    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
+    std::vector<float> getOreilles() {return oreilles;};
+    std::vector<float> getYeux() {return yeux;};
+    const double getAffSize() { return AFF_SIZE;};
+
+    //Operators
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
 
 // Accessoires
@@ -185,6 +156,24 @@ public :
 
     // Utile --> pourrait faire partie d'une interface
     float RandomFloat(float a, float b);
+
+    // MORT
+
+private :
+
+    int                dureedevie = std::rand() % 100;
+    int                      vecu = 0;
+    bool                      tue = false;
+
+public :
+
+    bool getTue( void ) const { return tue; };
+    int getID( void ) const { return identite; };
+    int getVecu( void ) const { return vecu; };
+    int getDureeDeVie( void ) const { return dureedevie; };
+    void Kill(void);
+    void vie();
+
 
 };
 

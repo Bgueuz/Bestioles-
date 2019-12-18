@@ -14,16 +14,6 @@
 const double      ConcreteBestiole::AFF_SIZE = 8.;
 const double      ConcreteBestiole::MAX_VITESSE = 10.;
 const double      ConcreteBestiole::LIMITE_VUE = 30.;
-/*
-max_cam = b.max_cam;
-min_cam = b.min_cam;
-max_nage = b.max_nage;
-min_nage = b.min_nage;
-max_cara_dom = b.max_cara_dom;
-min_cara_dom = b.min_cara_dom;
-max_cara_vit = b.max_cara_vit;
-min_cara_vit = b.min_cara_vit;
-*/
 int               ConcreteBestiole::next = 0;
 
 
@@ -46,6 +36,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 }
 
 
+
 ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires à copier aussi
 {
 
@@ -57,15 +48,14 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires �
     y = b.y;
     type=b.type;
     personality=b.personality;
-    schizophrene = b.schizophrene;
-    //listeVoisinsOmni= b.listeVoisinsOmni;
-    //Voisins= b.Voisins;
     Detectes=b.Detectes;
     cumulX = cumulY = 0.;
     orientation = b.orientation;
     vitesse = b.vitesse;
     oreilles = b.oreilles;
     yeux = b.yeux;
+    vecu = b.vecu;
+    dureedevie = b.dureedevie;
 
     camouflage = b.camouflage;
     nageoire = b.nageoire;
@@ -136,6 +126,32 @@ void ConcreteBestiole::bouge( int xLim, int yLim )
 
 }
 
+std::vector<int> ConcreteBestiole::simuleBouge(  )
+{
+    double         nx, ny;
+    double         dx = cos( orientation )*vitesse;
+    double         dy = -sin( orientation )*vitesse;
+    int            cx, cy;
+
+    int futureX, futureY;
+
+    cx = static_cast<int>( cumulX );
+    cy = static_cast<int>( cumulY );
+
+    nx = x + dx + cx;
+    ny = y + dy + cy;
+
+    futureX = static_cast<int>( nx );
+    futureY = static_cast<int>( ny );
+
+    std::vector<int> newCoords;
+    newCoords.push_back(futureX);
+    newCoords.push_back(futureY);
+    return newCoords;
+
+}
+
+
 
 list<ConcreteBestiole *> ConcreteBestiole::getVoisins()
 {
@@ -163,11 +179,6 @@ int ConcreteBestiole::getType()
     return type;
 }
 
-void ConcreteBestiole::setSchizophrene(bool s)
-{
-    schizophrene = s;
-}
-
 void ConcreteBestiole::setOreilles(float radius, float probability)
 {
     oreilles.push_back(radius);
@@ -186,25 +197,24 @@ void ConcreteBestiole::setYeux(float angle, float radius, float probability)
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
 
-    if(type==2 or type==1)
+    if (type==4)        // bestiole à personnalités multiples
     {
-        personality->newAction(this);
+        if (personality==nullptr)
+        {
+            this->randPersonality();
+        }
+        else
+        {
+            if((std::rand() % 11) >5)
+            {
+                this->randPersonality();
+            }
+        }
     }
-    if (!schizophrene)
-    {
-        //cout << "NOT SCHIZOPHRENE" << endl;
-        //personality->newAction(this);
 
-    }
-    else   // bestiole à personnalités multiples
-    {
-        //cout << "JE SUIS SCHIZOPHRENEEEEEEEEEEEEEEEEEEEEEEEEE" << endl;
-        //this->randPersonality();
-        //personality->newAction();
-    }
+    personality->newAction(this);
 
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
-
 }
 
 Personality* ConcreteBestiole::getPersonality()
@@ -232,6 +242,50 @@ void ConcreteBestiole::draw( UImg & support )
         support.draw_ellipse( (x+xt)/2, (y+yt)/2, AFF_SIZE/1.5, AFF_SIZE/1.5, -orientation, couleur );
     }
 
+    if ((this->getCamouflage() > 0.0))
+    {
+        unsigned char purple[] = { 255,0,255 };
+        support.draw_text((x+xt)/2, (y+yt)/2, "Ninja",purple,20);
+    }
+
+}
+
+void ConcreteBestiole::changeColorToType()
+{
+    T* couleur2 = new T[ 3 ];
+    if(type==0)
+    {
+        couleur2[0]= 34 ;    //Grégaire -> Blue
+        couleur2[1]=106;
+        couleur2[2]=155;
+    }
+    else if(type==1)
+    {
+        couleur2[0]=100;    //Peureuse -> Green
+        couleur2[1]=163;
+        couleur2[2]=36;
+    }
+    else if(type==2)
+    {
+        couleur2[0]=201;    // Kamikaze -> Orange
+        couleur2[1]=59;
+        couleur2[2]=16;
+    }
+    else if(type==3)
+    {
+        couleur2[0]=160;    // Prévoyante -> Brown
+        couleur2[1]=82;
+        couleur2[2]=45;
+    }
+    else
+    {
+        couleur2[0]=219;    // Personnalités multiples -> Pink
+        couleur2[1]=112;
+        couleur2[2]=147;
+    }
+
+    memcpy( couleur, couleur2, 3*sizeof(T) );
+    delete couleur2;
 }
 
 
@@ -261,43 +315,12 @@ bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b) const
 
 }
 
-
 bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
 {
     double minRadius = AFF_SIZE + b.AFF_SIZE-4;
     double dist;
     dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     return ( dist <= minRadius);
-}
-
-bool ConcreteBestiole::vu (const ConcreteBestiole & b)
-{
-//A modifier après ajout Decorator
-    /*
-        bool v = false;
-        double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-        if (yeux = true) {
-                if (abs(asin((x-b.x)/(dist)))<=alpha/2) {
-                        //double cam = b.getCamouflage();
-                        //v = (gammaY > cam);
-                }
-        }
-    */
-}
-
-bool ConcreteBestiole::entendu (const ConcreteBestiole & b)
-{
-//A modifier après ajout Decorator
-    /*
-        bool e = false;
-        double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-        if (oreilles=true) {
-            if (dist <= LIMITE_OUIE){
-                //double cam = b.getCamouflage();
-                //e = (gammaO > cam);
-            }
-        }
-    */
 }
 
 void ConcreteBestiole::initOreilles(Milieu* flotte)
@@ -353,7 +376,6 @@ void ConcreteBestiole::initPersonality()
     {
     case 1: // grégaire
     {
-        schizophrene=false;
         personality = new GregairePersonality();
         type = 0;
         cout << "G" << endl;
@@ -361,7 +383,6 @@ void ConcreteBestiole::initPersonality()
     break;
     case 2: // peureuse
     {
-        schizophrene=false;
         personality = new PeureusePersonality();
         type = 1;
         cout << "PE" << endl;
@@ -369,7 +390,6 @@ void ConcreteBestiole::initPersonality()
     break;
     case 3: // kamikaze
     {
-        schizophrene=false;
         personality = new KamikazePersonality();
         type = 2;
         cout << "K" << endl;
@@ -377,7 +397,6 @@ void ConcreteBestiole::initPersonality()
     break;
     case 4: // prévoyante
     {
-        schizophrene=false;
         personality = new PrevoyantePersonality();
         type = 3;
         cout << "PR" << endl;
@@ -385,15 +404,13 @@ void ConcreteBestiole::initPersonality()
     break;
     case 5: // personnalités multiples
     {
-        schizophrene=true;
         personality = NULL;
         type = 4;
-        cout << "S" << endl;
+        cout << "PM" << endl;
     }
     break;
 
     default:
-        schizophrene=false;
         personality = new GregairePersonality();
         type = 0;
     }
@@ -422,7 +439,6 @@ void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],f
   {
   case 1: // grégaire
     {
-      schizophrene=false;
       personality = new GregairePersonality();
       type = 0;
       cout << "G" << endl;
@@ -430,7 +446,6 @@ void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],f
     break;
   case 2: // peureuse
     {
-      schizophrene=false;
       personality = new PeureusePersonality();
       type = 1;
       cout << "PE" << endl;
@@ -438,7 +453,6 @@ void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],f
     break;
   case 3: // kamikaze
     {
-      schizophrene=false;
       personality = new KamikazePersonality();
       type = 2;
       cout << "K" << endl;
@@ -446,7 +460,6 @@ void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],f
     break;
   case 4: // prévoyante
     {
-      schizophrene=false;
       personality = new PrevoyantePersonality();
       type = 3;
       cout << "PR" << endl;
@@ -454,7 +467,6 @@ void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],f
     break;
   case 5: // personnalités multiples
     {
-      schizophrene=true;
       personality = NULL;
       type = 4;
       cout << "S" << endl;
@@ -462,7 +474,6 @@ void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],f
     break;
     
   default:
-    schizophrene=false;
   personality = new GregairePersonality();
   type = 0;
   }
@@ -470,19 +481,16 @@ void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],f
 
 void ConcreteBestiole::randPersonality()
 {
-
     int random_int = std::rand() % 100; // between 0 and 99
     int random_behavior;
-    if (random_int < 20)
+    if (random_int < 40)
         random_behavior = 1;
-    else if (random_int < 40)
-        random_behavior = 2;
     else if (random_int < 60)
-        random_behavior = 3;
+        random_behavior = 2;
     else if (random_int < 80)
-        random_behavior = 4;
+        random_behavior = 3;
     else
-        random_behavior = 5;
+        random_behavior = 4;
 
     //listeBestioles.back().setType(random_behavior);
     switch (random_behavior)
@@ -495,6 +503,7 @@ void ConcreteBestiole::randPersonality()
     case 2: // peureuse
     {
         personality = new PeureusePersonality();
+
     }
     break;
     case 3: // kamikaze
@@ -563,6 +572,25 @@ void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
     this->vitesse = (this->vitesse)/(this->carapaceVitesse);
 }
 
+// MORT
+
+void ConcreteBestiole::vie ()
+{
+    vecu=vecu+1;
+    //cout<<dureedevie<<endl;
+    //cout<< "la bestiole" << identite << "a vecu " << vecu <<endl;
+    if (vecu>=dureedevie*10)
+    {
+        tue=true;
+    }
+}
+
+void ConcreteBestiole::Kill(void)
+{
+    tue=true;
+}
+
+
 // Stack Overflow
 
 float ConcreteBestiole::RandomFloat(float a, float b)
@@ -571,4 +599,33 @@ float ConcreteBestiole::RandomFloat(float a, float b)
     float diff = b - a;
     float r = random * diff;
     return a + r;
+}
+
+std::vector<int> ConcreteBestiole::detectVoisins()
+{
+    std::vector<int> detected;
+    int i=0;
+    for ( std::vector<ConcreteBestiole>::iterator it2 = listeVoisinsOmni.begin() ; it2 != listeVoisinsOmni.end() ; ++it2 )
+    {
+        double dist = std::sqrt( (it2->getX()-x)*(it2->getX()-x) + (it2->getY()-y)*(it2->getY()-y) );
+        bool isInHearingDistance = ( dist <= oreilles[0] );
+        bool isInVisibleDistance = ( dist <= yeux[0] );
+
+        float angleBiBj = atan2( y-it2->getY(), it2->getX()-x );
+
+        bool isInVisibleRegion = (( orientation - yeux[1]/2 < angleBiBj) && (angleBiBj < orientation + yeux[1]/2 ));
+
+        if(isInVisibleRegion)
+
+            if (isInHearingDistance || (isInVisibleRegion && isInVisibleDistance))   // on ignore le camouflage
+            {
+                if( max(yeux[2],oreilles[1]) > it2->getCamouflage())
+                {
+                    detected.push_back(i);
+                }
+
+            }
+        i++;
+    }
+    return detected;
 }

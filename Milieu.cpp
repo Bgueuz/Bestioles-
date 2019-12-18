@@ -1,9 +1,9 @@
-
 #include "Milieu.h"
 
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <iostream>
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -43,10 +43,7 @@ void Milieu::step( void )
 
 int Milieu::nbVoisins( const ConcreteBestiole & b )
 {
-
     int         nb = 0;
-
-
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
         if ( !(b == *it) && b.jeTeVois(*it) )
             ++nb;
@@ -55,44 +52,19 @@ int Milieu::nbVoisins( const ConcreteBestiole & b )
 
 }
 
-void Milieu::detection ()
-{
-//A modifier après ajout Decorator
-    /*for ( std::list<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-    {
-        se = (*it).getSensors();
-        if (se != []) {
-                Voisins = (*it).getVoisins()
-                Detectes = (*it).getDetectes()
-                if (Voisins.empty=false){
-                        for ( std::list<ConcreteBestiole>::iterator ut = Voisins.begin() ; ut != listeVoisins.end() ; ++ut ) {
-                            if(((*it).vu(*ut)) ||((*it).entendu(*ut))) {
-                                Detectes.push_front(*ut);
-                                Voisins.remove(*ut);
-                            }
-                        }
-                }
-        }
-
-
-
-    }*/
-
-
-}
 
 void Milieu::updateVoisins(ConcreteBestiole & b)
 {
-  std::vector<ConcreteBestiole>   newListeVoisinsOmni ;
-  for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-  {
-    if ( !(b== *it) && b.inRadiusVoisin(*it) )
+    std::vector<ConcreteBestiole>   newListeVoisinsOmni ;
+    for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
-      newListeVoisinsOmni.push_back(*it);
+        if ( !(b== *it) && b.inRadiusVoisin(*it) )
+        {
+            newListeVoisinsOmni.push_back(*it);
+        }
     }
-  }
-  b.setVoisins(newListeVoisinsOmni);
-  newListeVoisinsOmni.clear();
+    b.setVoisins(newListeVoisinsOmni);
+    newListeVoisinsOmni.clear();
 }
 
 void Milieu::collisionsAll()
@@ -109,7 +81,8 @@ void Milieu::collisionsAll()
         //On vérifie si la bestiole a une carapace.
         if (float p_mort = RandomFloat(0.0,1.0)/it->getCarapaceDom() >= seuil_mort)
         {
-          cout << 1111111111 << endl; //la bestiole meurt
+          cout << "la bestiole meurt par collision" << endl; //la bestiole meurt
+          (*it).Kill();
         }
         else
         {
@@ -162,7 +135,6 @@ void Milieu::updateRatiosPresents()
   for(int i=0;i<5;i++){
     ratiosPresents[i]=nbByBehaviors[i]/static_cast<float>(listeBestioles.size());
   }
-  
 }
 
 void Milieu::setCamouflageLimits(float max_cam, float min_cam)
@@ -227,3 +199,44 @@ float Milieu::RandomFloat(float a, float b)
   return a + r;
   
 }
+
+void Milieu::gestionvie()
+{
+    std::vector<ConcreteBestiole> listeBestioles2 {};
+    for (std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it)
+    {
+        (*it).vie();
+        if ((*it).getTue()==false)
+        {
+            listeBestioles2.push_back(*it);
+        }
+    }
+    listeBestioles.swap(listeBestioles2);
+}
+  
+  void Milieu::addMember( const ConcreteBestiole & b )
+  {
+    if (listeBestioles.size()<nbBestiolesMax){
+      
+      listeBestioles.push_back(b);
+      listeBestioles.back().initCoords(width, height);
+      listeBestioles.back().initPersonality(this,ratiosCherches,ratiosPresents);
+      
+      // Ajout de capteurs
+      listeBestioles.back().initOreilles(this);
+      listeBestioles.back().initYeux(this);
+      
+      // Accessoires
+      listeBestioles.back().setAccesories(this);
+      
+      cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
+      cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
+      cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
+      cout << "   cette bestiole à une carapace " << endl;
+      cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
+      cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
+    }
+    else{
+      cout << "Capacité max atteinte" << endl;
+    }
+  }

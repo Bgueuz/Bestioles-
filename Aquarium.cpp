@@ -47,6 +47,7 @@ void Aquarium::run( void )
         }
 
         flotte->step();
+        flotte ->gestionvie();
         display( *flotte );
 
         wait( delay );
