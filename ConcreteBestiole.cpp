@@ -218,8 +218,20 @@ void ConcreteBestiole::draw( UImg & support )
     double         xt = x + cos( orientation )*AFF_SIZE/2.1;
     double         yt = y - sin( orientation )*AFF_SIZE/2.1;
 
+    double         xt2 = x + cos( orientation )*AFF_SIZE/2.0;
+    double         yt2 = y - sin( orientation )*AFF_SIZE/2.0;
+
     support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
     support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
+
+    if (this->getNageoire() - 1.0 > 0.0)
+    {
+    support.draw_ellipse( (x+xt2)/2, (y+yt2)/2, AFF_SIZE/6, AFF_SIZE*1.5, -orientation/M_PI*180, couleur );
+    }
+    if ((this->getCarapaceVit() - 1.0 > 0.0) && (this->getCarapaceDom() - 1.0 > 0.0))
+    {
+    support.draw_ellipse( (x+xt)/2, (y+yt)/2, AFF_SIZE/1.5, AFF_SIZE/1.5, -orientation, couleur );
+    }
 
 }
 

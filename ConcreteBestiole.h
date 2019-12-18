@@ -105,7 +105,7 @@ private :
         // Nageoire
     static double     max_nage;
     static double     min_nage;
-    float nageoire = 1;
+    float nageoire = 1.0;
 
         // Carapace_dom
     static double     max_cara_dom;
