@@ -22,7 +22,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 
     identite = ++next;
 
-    cout << "const Bestiole (" << identite << ") par defaut" << endl;
+    //cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
     x = y = type = 0;
     cumulX = cumulY = 0.;
@@ -354,7 +354,7 @@ void ConcreteBestiole::initYeux(Milieu* flotte)
         setYeux(-1, -1, -1);
     }
 }
-
+/*
 void ConcreteBestiole::initPersonality()
 {
 
@@ -414,6 +414,69 @@ void ConcreteBestiole::initPersonality()
         personality = new GregairePersonality();
         type = 0;
     }
+}
+*/
+void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],float ratiosPresents[5])
+{
+  int set_behavior;
+  
+  if (milieu->getBestioles().size()==1){
+    int n =5;
+    set_behavior = distance(ratiosCherches, max_element(ratiosCherches, ratiosCherches + n));
+  }
+  else{
+    float ratiosDifference[5];
+    for(int i =0; i<5;i++){
+      ratiosDifference[i]=ratiosCherches[i]-ratiosPresents[i];
+    }
+    int m = 5;
+    set_behavior = distance(ratiosDifference, max_element(ratiosDifference, ratiosDifference + m));
+    }
+  
+  
+  //listeBestioles.back().setType(random_behavior);
+  switch (set_behavior+1)
+  {
+  case 1: // grégaire
+    {
+      personality = new GregairePersonality();
+      type = 0;
+      cout << "G" << endl;
+    }
+    break;
+  case 2: // peureuse
+    {
+      personality = new PeureusePersonality();
+      type = 1;
+      cout << "PE" << endl;
+    }
+    break;
+  case 3: // kamikaze
+    {
+      personality = new KamikazePersonality();
+      type = 2;
+      cout << "K" << endl;
+    }
+    break;
+  case 4: // prévoyante
+    {
+      personality = new PrevoyantePersonality();
+      type = 3;
+      cout << "PR" << endl;
+    }
+    break;
+  case 5: // personnalités multiples
+    {
+      personality = NULL;
+      type = 4;
+      cout << "S" << endl;
+    }
+    break;
+    
+  default:
+  personality = new GregairePersonality();
+  type = 0;
+  }
 }
 
 void ConcreteBestiole::randPersonality()
