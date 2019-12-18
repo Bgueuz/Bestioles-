@@ -10,6 +10,7 @@
 #include "ConcreteBestiole.h"
 #include <cstdlib>
 #include <cmath>
+#include <cstdlib>
 
 const double      ConcreteBestiole::AFF_SIZE = 8.;
 const double      ConcreteBestiole::MAX_VITESSE = 10.;
@@ -37,7 +38,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 }
 
 
-ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b )
+ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires à copier aussi
 {
 
     identite = ++next;
@@ -274,7 +275,6 @@ bool ConcreteBestiole::entendu (const ConcreteBestiole & b)
     */
 }
 
-
 void ConcreteBestiole::initPersonality()
 {
 
@@ -381,4 +381,74 @@ void ConcreteBestiole::randPersonality()
         personality = new PrevoyantePersonality();
     }
     }
+
+// Accesoires - Implementation : Code Rouge
+
+void ConcreteBestiole::setAccesories(Milieu* flotte)
+{
+    // Les limites doivent pouvoir être modifiées à la création du milieu
+
+    // Camouflage --> Rare
+
+    if (float p_cam = RandomFloat(0.0,1.0) > 0.8)
+        {
+            this->setCamouflage(flotte->getMinCam(),flotte->getMaxCam());
+        }
+
+    // Nageoire --> Commun
+
+    if (float p_nag = RandomFloat(0.0,1.0) > 0.5)
+        {
+            this->setNageoire(flotte->getMinNage(),flotte->getMaxNage());
+        }
+
+    // Carapace --> Semi-Rare
+
+    if (float p_car = RandomFloat(0.0,1.0) > 0.65)
+        {
+            this->setCarapaceDom(flotte->getMinCaraDom(),flotte->getMaxCaraDom());
+            this->setCarapaceVit(flotte->getMinCaraVit(),flotte->getMaxCaraVit());
+        }
+
+}
+
+/////////// SETTEURS ACCESOIRES
+
+void ConcreteBestiole::setCamouflage(float min_cam,float max_cam)
+{
+    this->camouflage = RandomFloat(min_cam,max_cam);
+
+}
+
+void ConcreteBestiole::setNageoire(float min_nage,float max_nage)
+{
+
+    this->nageoire = RandomFloat(min_nage,max_nage);
+    this->vitesse = (this->vitesse)*(this->nageoire);
+
+}
+
+void ConcreteBestiole::setCarapaceDom(float min_cara_dom,float max_cara_dom)
+{
+
+    this->carapaceDommage = RandomFloat(min_cara_dom,max_cara_dom);
+
+}
+
+void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
+{
+
+    this->carapaceVitesse = RandomFloat(min_cara_vit,max_cara_vit);
+    this->vitesse = (this->vitesse)/(this->carapaceVitesse);
+
+}
+
+// Stack Overflow
+
+float ConcreteBestiole::RandomFloat(float a, float b) {
+    float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = b - a;
+    float r = random * diff;
+    return a + r;
+
 }

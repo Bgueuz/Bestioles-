@@ -28,8 +28,10 @@ void GregairePersonality::newAction(ConcreteBestiole * b)
         i+=1;
         vitesse += it2->getVitesse();
         std::cout << "VITESSE SOMME VOISIN " << vitesse << std::endl;
+    //std::cout << "JE SUIS GREGAIRE" << std::endl;
 
     }
+
     if(i>0)
     {
         vitesse=vitesse/i;

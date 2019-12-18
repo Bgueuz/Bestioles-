@@ -38,5 +38,6 @@ void KamikazePersonality::newAction(ConcreteBestiole * b)
         double newOrientation = atan2( b->getY()-VoisinsOmni[minIndex].getY(), VoisinsOmni[minIndex].getX()-b->getX() );
         b->setOrientation(newOrientation);
     }
+    //std::cout << "JE SUIS  KAMIKAZE" << std::endl;
 
 }

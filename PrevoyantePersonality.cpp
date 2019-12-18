@@ -9,6 +9,7 @@ void PrevoyantePersonality::newAction()
 
 void PrevoyantePersonality::newAction(ConcreteBestiole * b)
 {
-    std::cout << "JE SUIS PR AVEC VITESSE " << b->getVitesse() << std::endl;
+    //std::cout << "JE SUIS PR AVEC VITESSE " << b->getVitesse() << std::endl;
+
 }
 
