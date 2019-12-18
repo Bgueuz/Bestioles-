@@ -18,6 +18,8 @@ int main()
     // Limites de la simulation
     ecosysteme.getMilieu().setCamouflageLimits(0.3,0.95);
     ecosysteme.getMilieu().setNageoireLimits(1.0,3.0);
+    ecosysteme.getMilieu().setCaraDomLimits(1.0,6.0);
+    ecosysteme.getMilieu().setCaraVitLimits(1.0,2.0);
 
     for ( int i = 1; i <= 20; ++i )
     {

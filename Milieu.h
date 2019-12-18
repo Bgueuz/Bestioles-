@@ -105,6 +105,9 @@ public :
         cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
         cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
         cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
+        cout << "   cette bestiole à une carapace " << endl;
+        cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
+        cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
 
     }
 
@@ -114,6 +117,7 @@ public :
     void collisionsAll();
 
     //Accesoires
+public:
         // Camouflage
     void setCamouflageLimits(float max_cam, float min_cam);
     float getMaxCam(){return MAX_CAMO;};
@@ -124,6 +128,16 @@ public :
     float getMaxNage(){return MAX_NAGE;};
     float getMinNage(){return MIN_NAGE;};
 
+        // Carapace - Dommage
+    void setCaraDomLimits(float max_cara_dom, float min_cara_dom);
+    float getMaxCaraDom(){return MAX_CARA_DOM;};
+    float getMinCaraDom(){return MIN_CARA_DOM;};
+
+        // Carapace - Vitesse
+    void setCaraVitLimits(float max_cara_vit, float min_cara_vit);
+    float getMaxCaraVit(){return MAX_CARA_VIT;};
+    float getMinCaraVit(){return MIN_CARA_VIT;};
+
 private:
     // Camouflage
     float MAX_CAMO = 1.0;
@@ -132,6 +146,15 @@ private:
     // Nageoire
     float MAX_NAGE = 2.0;
     float MIN_NAGE = 1.0;
+
+    // Carapace
+        // Reduction Dommages subit / chances de mourir à l'impact
+    float MAX_CARA_DOM = 4.0;
+    float MIN_CARA_DOM = 1.0;
+
+            // Reduction Vitesse
+    float MAX_CARA_VIT = 3.0;
+    float MIN_CARA_VIT = 1.0;
 
 };
 

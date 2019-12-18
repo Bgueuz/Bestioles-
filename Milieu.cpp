@@ -150,3 +150,15 @@ void Milieu::setNageoireLimits(float max_nage, float min_nage)
     this->MAX_NAGE = max_nage;
     this->MIN_NAGE = min_nage;
 }
+
+void Milieu::setCaraDomLimits(float max_cara_dom, float min_cara_dom)
+{
+    this->MAX_CARA_DOM = max_cara_dom;
+    this->MIN_CARA_DOM = min_cara_dom;
+}
+
+void Milieu::setCaraVitLimits(float max_cara_vit, float min_cara_vit)
+{
+    this->MAX_CARA_VIT = max_cara_vit;
+    this->MIN_CARA_VIT = min_cara_vit;
+}
