@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <list>
+#include <algorithm>
 
 using namespace std;
 
@@ -121,7 +122,8 @@ public :                                           // Forme canonique :
         vitesse = newVitesse;
     };
     void initCoords( int xLim, int yLim );
-    void initPersonality();
+    //void initPersonality();
+    void initPersonality(Milieu* milieu ,float ratiosCherches[5],float ratiosPresents[5]);
     void randPersonality();
     void initOreilles(Milieu* flotte);
     void initYeux(Milieu* flotte);
