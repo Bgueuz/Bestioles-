@@ -1,11 +1,8 @@
-// if needed
-// #define _fileno fileno
-
 #include "CImg.h"
-
 #include "Aquarium.h"
 #include "Milieu.h"
 #include "ConcreteBestiole.h"
+
 #include <iostream>
 
 using namespace std;
@@ -21,6 +18,7 @@ int main()
     ecosysteme.getMilieu().setCaraDomLimits(1.0,2.0);
     ecosysteme.getMilieu().setCaraVitLimits(1.0,2.0);
 
+    // Générations des bestioles initiales
     for ( int i = 1; i <= 25; ++i )
     {
         ecosysteme.getMilieu().addMember(ConcreteBestiole());

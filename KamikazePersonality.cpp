@@ -1,11 +1,7 @@
 #include "KamikazePersonality.h"
 #include "ConcreteBestiole.h"
+
 #include <iostream>
-
-void KamikazePersonality::newAction()
-{
-}
-
 
 void KamikazePersonality::newAction(ConcreteBestiole * b)
 {

@@ -27,7 +27,7 @@ Milieu::~Milieu( void )
 void Milieu::naissance()
 {
 
-    int proba_naissance = 50;
+    int proba_naissance = 20;
     int tirage = std::rand() % 100 +1 ;
     if (tirage <= proba_naissance)
     {
@@ -137,6 +137,12 @@ void Milieu::collisionsAll()
                     }
                 }
             }
+            else
+            {
+                (*it2).personalityNewAction();
+            }
+
+
         }
     }
 }

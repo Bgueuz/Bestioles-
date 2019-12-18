@@ -1,11 +1,7 @@
 #include "PeureusePersonality.h"
-#include <iostream>
 #include "ConcreteBestiole.h"
 
-
-void PeureusePersonality::newAction()
-{
-}
+#include <iostream>
 
 void PeureusePersonality::newAction(ConcreteBestiole * b)
 {
@@ -32,5 +28,11 @@ void PeureusePersonality::newAction(ConcreteBestiole * b)
     {
         double newOrientation = M_PI + atan2( b->getY()-VoisinsOmni[minIndex].getY(), VoisinsOmni[minIndex].getX()-b->getX() );
         b->setOrientation(newOrientation);
+		b->setNormalVit(b->getVitesse());
+		b->setVitesse(b->getVitMax());
     }
+	else
+	{
+		b->setVitesse(b->getNormalVit());
+	}
 }
