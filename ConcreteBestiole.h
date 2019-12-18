@@ -86,6 +86,7 @@ public :                                           // Forme canonique :
     int getX( void ) const { return x; };
     int getY( void ) const { return y; };
     double getVitesse( void ) const { return vitesse; };
+    int getIdentite( void ) const { return identite; };
     double getOrientation( void ) const { return orientation; };;
     std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
 

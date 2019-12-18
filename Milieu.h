@@ -102,8 +102,9 @@ public :
 
         listeBestioles.back().setAccesories(this);
 
-        cout << "cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
-        cout << "cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
+        cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
+        cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
+        cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
 
     }
 
