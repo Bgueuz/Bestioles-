@@ -93,6 +93,7 @@ public :                                           // Forme canonique :
     void initPersonality();
     void randPersonality();
     void initOreilles();
+    void initYeux();
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
 

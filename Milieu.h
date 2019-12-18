@@ -41,8 +41,9 @@ public :
         listeBestioles.back().initCoords(width, height);
         listeBestioles.back().initPersonality();
 
-        // Ajout d'une oreille
+        // Ajout de capteurs
         listeBestioles.back().initOreilles();
+        listeBestioles.back().initYeux();
 
         // Accessoires
         listeBestioles.back().setAccesories(this);

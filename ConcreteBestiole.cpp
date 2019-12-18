@@ -316,6 +316,22 @@ void ConcreteBestiole::initOreilles()
     }
 }
 
+void ConcreteBestiole::initYeux()
+{
+
+    if (std::rand() % 2 == 0)   // 50% chance the bestiole has an ear
+    {
+        float angle = M_PI; // 0 à pi
+        float radius = 100.0;
+        float probability = 0.6;
+        setYeux(angle, radius, probability);
+    }
+    else
+    {
+        setYeux(-1, -1, -1);
+    }
+}
+
 void ConcreteBestiole::initPersonality()
 {
 
