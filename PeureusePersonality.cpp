@@ -21,6 +21,7 @@ void PeureusePersonality::newAction(ConcreteBestiole * b)
         {
             minDistance = dist;
             minIndex = currIndex;
+
         }
     }
 
