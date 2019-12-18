@@ -231,6 +231,14 @@ void ConcreteBestiole::draw( UImg & support )
     {
         support.draw_ellipse( (x+xt)/2, (y+yt)/2, AFF_SIZE/1.5, AFF_SIZE/1.5, -orientation, couleur );
     }
+    
+    if ((this->getCamouflage() > 0.0))
+    {
+      unsigned char purple[] = { 255,0,255 };
+      support.draw_text((x+xt)/2, (y+yt)/2, "Ninja",purple,20);
+    }
+    
+    
 
 }
 
