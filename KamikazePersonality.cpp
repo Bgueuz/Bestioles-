@@ -4,7 +4,6 @@
 #include <iostream>
 
 void KamikazePersonality::newAction(ConcreteBestiole * b)
-void KamikazePersonality::newAction(ConcreteBestiole * b)
 {
     std::vector<ConcreteBestiole> VoisinsOmni = b->getVoisinsOmni();
 
