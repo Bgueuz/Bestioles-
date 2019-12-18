@@ -1,13 +1,11 @@
 #include "Bestiole.h"
-
 #include "Milieu.h"
-
 #include "GregairePersonality.h"
 #include "PeureusePersonality.h"
 #include "KamikazePersonality.h"
 #include "PrevoyantePersonality.h"
-
 #include "ConcreteBestiole.h"
+
 #include <cstdlib>
 #include <cmath>
 

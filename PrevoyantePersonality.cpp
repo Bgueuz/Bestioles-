@@ -1,11 +1,7 @@
 #include "PrevoyantePersonality.h"
-#include <iostream>
 #include "ConcreteBestiole.h"
 
-
-void PrevoyantePersonality::newAction()
-{
-}
+#include <iostream>
 
 void PrevoyantePersonality::newAction(ConcreteBestiole * b)
 {

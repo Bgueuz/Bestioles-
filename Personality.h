@@ -8,7 +8,6 @@ class ConcreteBestiole;
 class Personality
 {
 public:
-    virtual void newAction() = 0;
     virtual void newAction(ConcreteBestiole* b)=0;
 };
 

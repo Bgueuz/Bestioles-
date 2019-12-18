@@ -1,11 +1,8 @@
-// if needed
-// #define _fileno fileno
-
 #include "CImg.h"
-
 #include "Aquarium.h"
 #include "Milieu.h"
 #include "ConcreteBestiole.h"
+
 #include <iostream>
 
 using namespace std;

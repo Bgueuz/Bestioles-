@@ -6,7 +6,6 @@
 class PrevoyantePersonality: public Personality
 {
 public:
-    virtual void newAction();
     virtual void newAction(ConcreteBestiole * b);
 };
 
