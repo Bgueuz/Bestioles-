@@ -37,6 +37,9 @@ public :
     };
 
     void step( void );
+
+    void naissance();
+
     std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
 
     int nbVoisins( const ConcreteBestiole & b );
@@ -92,12 +95,12 @@ public:
     void setEyeProbabilityLimits(float max_probability, float min_probability);
     float getMaxEyeProbability(){return MAX_EYE_PROBABILITY;};
     float getMinEyeProbability(){return MIN_EYE_PROBABILITY;};
-    
+
     // Ratios de bestioles
     float* getRatiosCherches(){return ratiosCherches;};
     float* getRatiosPresents(){return ratiosPresents;};
     void updateRatiosPresents();
-  
+
 
 private:
     // Camouflage

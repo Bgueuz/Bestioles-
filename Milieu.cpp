@@ -24,9 +24,19 @@ Milieu::~Milieu( void )
 
 }
 
+void Milieu::naissance(){
+    int proba_naissance = 50;
+    int tirage = std::rand() % 100 +1 ;
+    if (tirage <= proba_naissance)
+    {
+        cout << "NAISSANCE" << endl;
+        addMember(ConcreteBestiole());
+    }
+}
 
 void Milieu::step( void )
 {
+    naissance();
     collisionsAll();
     updateRatiosPresents();
     //cout << ratiosPresents[0] << ";" << ratiosPresents[1] << ";" <<ratiosPresents[2] << ";" <<ratiosPresents[3] << ";" <<ratiosPresents[4] << endl;
