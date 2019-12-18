@@ -20,6 +20,7 @@ private :
     float            ratiosPresents[5] = {0.,0.,0.,0.,0.};
     int                     width, height;
     std::vector<ConcreteBestiole>   listeBestioles;
+
     // Camouflage
     float MAX_CAMO = 1.0;
     float MIN_CAMO = 0.0;
@@ -35,15 +36,15 @@ private :
     float MIN_CARA_VIT = 1.0;
     // Oreille
     float MIN_EAR_RADIUS = 100;
-    float MAX_EAR_RADIUS = 200;
-    float MIN_EAR_PROBABILITY = 0;
+    float MAX_EAR_RADIUS = 300;
+    float MIN_EAR_PROBABILITY = 0.4;
     float MAX_EAR_PROBABILITY = 1;
     // Yeux
-    float MIN_EYE_ANGLE = 0;
+    float MIN_EYE_ANGLE = 0.4;
     float MAX_EYE_ANGLE = M_PI;
     float MIN_EYE_RADIUS = 50;
-    float MAX_EYE_RADIUS = 100;
-    float MIN_EYE_PROBABILITY = 0;
+    float MAX_EYE_RADIUS = 200;
+    float MIN_EYE_PROBABILITY = 0.4;
     float MAX_EYE_PROBABILITY = 1;
 
 
@@ -51,9 +52,9 @@ public :
     Milieu( int _width, int _height );
     ~Milieu( void );
 
+
     //Methods
     void step( void );
-
     void naissance();
     void updateRatiosPresents();
     void detection ();
@@ -63,6 +64,14 @@ public :
     void gestionvie();
     int nbVoisins( const ConcreteBestiole & b );
     float RandomFloat(float a, float b);
+
+public :
+        // CLONAGE
+
+    void gestionClonage();
+    void addMemberClone( const ConcreteBestiole & b );
+
+public:
 
     // Getters
     int getWidth( void ) const{return width;};

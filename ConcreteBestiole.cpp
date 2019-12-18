@@ -10,7 +10,7 @@
 #include <cmath>
 
 const double      ConcreteBestiole::AFF_SIZE = 8.;
-const double      ConcreteBestiole::MAX_VITESSE = 10.;
+const double      ConcreteBestiole::MAX_VITESSE = 7.;
 const double      ConcreteBestiole::LIMITE_VUE = 30.;
 int               ConcreteBestiole::next = 0;
 
@@ -200,33 +200,33 @@ void ConcreteBestiole::changeColorToType()
     T* couleur2 = new T[ 3 ];
     if(type==0)
     {
-        couleur2[0]= 34 ;    //Grégaire -> Blue
-        couleur2[1]=106;
-        couleur2[2]=155;
+        couleur2[0]=0;    //Grégaire -> Noir
+        couleur2[1]=0;
+        couleur2[2]=0;
     }
     else if(type==1)
     {
-        couleur2[0]=100;    //Peureuse -> Green
-        couleur2[1]=163;
-        couleur2[2]=36;
+        couleur2[0]=0;    //Peureuse -> Bleu
+        couleur2[1]=0;
+        couleur2[2]=255;
     }
     else if(type==2)
     {
-        couleur2[0]=201;    // Kamikaze -> Orange
-        couleur2[1]=59;
-        couleur2[2]=16;
+        couleur2[0]=255;    // Kamikaze -> Rouge
+        couleur2[1]=0;
+        couleur2[2]=0;
     }
     else if(type==3)
     {
-        couleur2[0]=160;    // Prévoyante -> Brown
-        couleur2[1]=82;
-        couleur2[2]=45;
+        couleur2[0]=0;    // Prévoyante -> Vert
+        couleur2[1]=255;
+        couleur2[2]=0;
     }
     else
     {
-        couleur2[0]=219;    // Personnalités multiples -> Pink
-        couleur2[1]=112;
-        couleur2[2]=147;
+        couleur2[0]=255;    // Personnalités multiples -> Purple
+        couleur2[1]=0;
+        couleur2[2]=255;
     }
 
     memcpy( couleur, couleur2, 3*sizeof(T) );
@@ -268,7 +268,7 @@ bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
 void ConcreteBestiole::initOreilles(Milieu* flotte)
 {
 
-    if (std::rand() % 2 == 0)   // 50% chance the bestiole has an ear
+    if (float p_oreilles = RandomFloat(0.0,1.0) > 0.10)  // 90 %
     {
         float radius = RandomFloat( flotte->getMinEarRadius(),flotte->getMaxEarRadius());
         float probability = RandomFloat( flotte->getMinEarProbability(),flotte->getMaxEarProbability());
@@ -285,7 +285,7 @@ void ConcreteBestiole::initOreilles(Milieu* flotte)
 void ConcreteBestiole::initYeux(Milieu* flotte)
 {
 
-    if (std::rand() % 2 == 0)   // 50% chance the bestiole has an eye
+    if (float p_yeux = RandomFloat(0.0,1.0) > 0.10)  // 90 %
     {
         float angle = RandomFloat(flotte->getMinEyeAngle(), flotte->getMaxEyeAngle());
         float radius = RandomFloat(flotte->getMinEyeRadius(), flotte->getMaxEyeRadius());
@@ -402,11 +402,12 @@ void ConcreteBestiole::randPersonality()
     }
 }
 
+
 // Incrémente l'âge d'une bestiole et vérifie si elle doit mourir
 void ConcreteBestiole::vie ()
 {
     vecu=vecu+1;
-    if (vecu>=dureedevie*10)
+    if (vecu>=dureedevie*2)
     {
         tue=true;
     }
@@ -455,6 +456,32 @@ std::vector<int> ConcreteBestiole::detectVoisins()
         i++;
     }
     return detected;
+}
+
+/* Clone */
+
+// Initialise les coordonnées d'un clone
+void ConcreteBestiole::InitCoordsClone(int xclone, int yclone)
+{
+    if (x>2){
+            x = xclone-2;
+    }
+    if (x<=2) {
+            x= xclone+2;
+    }
+    if (y>2) {
+        y = yclone+2;
+        }
+
+    if (y<=2) {
+        y = yclone-2;
+    }
+
+}
+
+// Initialise l'âge d'un clone à 0
+void ConcreteBestiole::setVecu() {
+    vecu = 0;
 }
 
 // Getters and setters
@@ -549,4 +576,3 @@ void ConcreteBestiole::setAccessories(Milieu* flotte)
         this->setCarapaceDom(flotte->getMinCaraDom(),flotte->getMaxCaraDom());
         this->setCarapaceVit(flotte->getMinCaraVit(),flotte->getMaxCaraVit());
     }
-}

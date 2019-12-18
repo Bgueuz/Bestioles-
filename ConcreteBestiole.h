@@ -146,6 +146,16 @@ public :                                           // Forme canonique :
     //Operators
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
 
+    //Clonage
+
+public :
+
+    void InitCoordsClone( int xclone, int yclone);
+    void setVecu();
+    // int getX( void ) const { return x; };
+    //int getY( void ) const { return y; };
+
+
 };
 
 #endif
