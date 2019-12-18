@@ -273,39 +273,35 @@ bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
     return ( dist <= minRadius);
 }
 
-void ConcreteBestiole::initOreilles(Milieu* flotte)
+bool ConcreteBestiole::vu (const ConcreteBestiole & b)
 {
-
-    if (std::rand() % 2 == 0)   // 50% chance the bestiole has an ear
-    {
-        float radius = RandomFloat( flotte->getMinEarRadius(),flotte->getMaxEarRadius());
-        float probability = RandomFloat( flotte->getMinEarProbability(),flotte->getMaxEarProbability());
-
-        setOreilles(radius, probability);
-    }
-    else
-    {
-        setOreilles(-1, -1);
-    }
+//A modifier après ajout Decorator
+    /*
+        bool v = false;
+        double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+        if (yeux = true) {
+                if (abs(asin((x-b.x)/(dist)))<=alpha/2) {
+                        //double cam = b.getCamouflage();
+                        //v = (gammaY > cam);
+                }
+        }
+    */
 }
 
-void ConcreteBestiole::initYeux(Milieu* flotte)
+bool ConcreteBestiole::entendu (const ConcreteBestiole & b)
 {
-
-    if (std::rand() % 2 == 0)   // 50% chance the bestiole has an eye
-    {
-        float angle = RandomFloat(flotte->getMinEyeAngle(), flotte->getMaxEyeAngle());
-        float radius = RandomFloat(flotte->getMinEyeRadius(), flotte->getMaxEyeRadius());
-        float probability = RandomFloat(flotte->getMinEyeProbability(), flotte->getMaxEyeProbability());
-        setYeux(angle, radius, probability);
-    }
-    else
-    {
-        setYeux(-1, -1, -1);
-    }
+//A modifier après ajout Decorator
+    /*
+        bool e = false;
+        double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+        if (oreilles=true) {
+            if (dist <= LIMITE_OUIE){
+                //double cam = b.getCamouflage();
+                //e = (gammaO > cam);
+            }
+        }
+    */
 }
-
-
 
 void ConcreteBestiole::initPersonality()
 {

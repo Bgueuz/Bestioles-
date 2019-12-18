@@ -72,8 +72,7 @@ public :                                           // Forme canonique :
     //Initialisation
     void initCoords( int xLim, int yLim );
     void initPersonality();
-    void initOreilles(Milieu* flotte);
-    void initYeux(Milieu* flotte);
+
 
     //Setters
     void setOreilles(float radius, float probability);
