@@ -1,4 +1,3 @@
-
 #include "Milieu.h"
 
 #include <cstdlib>
@@ -51,16 +50,16 @@ int Milieu::nbVoisins( const ConcreteBestiole & b )
 
 void Milieu::updateVoisins(ConcreteBestiole & b)
 {
-  std::vector<ConcreteBestiole>   newListeVoisinsOmni ;
-  for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-  {
-    if ( !(b== *it) && b.inRadiusVoisin(*it) )
+    std::vector<ConcreteBestiole>   newListeVoisinsOmni ;
+    for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
-      newListeVoisinsOmni.push_back(*it);
+        if ( !(b== *it) && b.inRadiusVoisin(*it) )
+        {
+            newListeVoisinsOmni.push_back(*it);
+        }
     }
-  }
-  b.setVoisins(newListeVoisinsOmni);
-  newListeVoisinsOmni.clear();
+    b.setVoisins(newListeVoisinsOmni);
+    newListeVoisinsOmni.clear();
 }
 
 void Milieu::collisionsAll()
@@ -73,17 +72,17 @@ void Milieu::collisionsAll()
         for ( std::vector<ConcreteBestiole>::iterator it2 = VoisinsOmni.begin() ; it2 != VoisinsOmni.end() ; ++it2 )
         {
             if(!(*it == *it2) && (*it).checkCollision(*it2))
-             {
+            {
                 double collisionVector1_x= (*it).getX() - (*it2).getX();
                 double collisionVector1_y= (*it).getY() - (*it2).getY();
                 int tirage = std::rand() % 100 +1 ;
                 if (tirage <= proba_mort)
-                    {
+                {
                     cout << "la bestiole meurt par collision" << endl; //la bestiole meurt
                     (*it).Kill();
 
                     //killBestiole(*it);
-                    }
+                }
                 if(collisionVector1_x !=0 && collisionVector1_y!=0)
                 {
                     /*double collisionVector2_x= 1;
@@ -102,19 +101,19 @@ void Milieu::collisionsAll()
                 }
                 else if ((*it).getOrientation()==0)
                 {
-                   (*it).setOrientation(M_PI*180/M_PI);
+                    (*it).setOrientation(M_PI*180/M_PI);
                 }
                 else if ((*it).getOrientation()==M_PI /2*180/M_PI)
                 {
-                   (*it).setOrientation(3*M_PI /2*180/M_PI);
+                    (*it).setOrientation(3*M_PI /2*180/M_PI);
                 }
                 else if ((*it).getOrientation()==M_PI *180/M_PI)
                 {
-                   (*it).setOrientation(0);
+                    (*it).setOrientation(0);
                 }
                 else if ((*it).getOrientation()==3*M_PI /2*180/M_PI)
                 {
-                   (*it).setOrientation(M_PI /2*180/M_PI);
+                    (*it).setOrientation(M_PI /2*180/M_PI);
                 }
             }
         }
@@ -177,13 +176,40 @@ void Milieu::setEyeProbabilityLimits(float max_probability, float min_probabilit
 
 // MORT
 
-void Milieu::gestionvie(){
+void Milieu::gestionvie()
+{
     std::vector<ConcreteBestiole> listeBestioles2 {};
-    for (std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
+    for (std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it)
+    {
         (*it).vie();
-        if ((*it).getTue()==false){
-                listeBestioles2.push_back(*it);
+        if ((*it).getTue()==false)
+        {
+            listeBestioles2.push_back(*it);
         }
     }
     listeBestioles.swap(listeBestioles2);
-    }
+}
+
+
+void Milieu::addMember( const ConcreteBestiole & b )
+{
+    listeBestioles.push_back(b);
+    listeBestioles.back().initCoords(width, height);
+    listeBestioles.back().initPersonality();
+    listeBestioles.back().changeColorToType();
+
+    // Ajout de capteurs
+    listeBestioles.back().initOreilles(this);
+    listeBestioles.back().initYeux(this);
+
+    // Accessoires
+    listeBestioles.back().setAccesories(this);
+
+    cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
+    cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
+    cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
+    cout << "   cette bestiole à une carapace " << endl;
+    cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
+    cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
+
+}

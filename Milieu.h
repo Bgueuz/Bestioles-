@@ -15,7 +15,6 @@ class Milieu : public UImg
 
 private :
     static const T          white[];
-
     int                     width, height;
     std::vector<ConcreteBestiole>   listeBestioles;
 
@@ -35,28 +34,7 @@ public :
     void step( void );
     std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
 
-    void addMember( const ConcreteBestiole & b )
-    {
-        listeBestioles.push_back(b);
-        listeBestioles.back().initCoords(width, height);
-        listeBestioles.back().initPersonality();
-        listeBestioles.back().changeColorToType();
-
-        // Ajout de capteurs
-        listeBestioles.back().initOreilles(this);
-        listeBestioles.back().initYeux(this);
-
-        // Accessoires
-        listeBestioles.back().setAccesories(this);
-
-        cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
-        cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
-        cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
-        cout << "   cette bestiole à une carapace " << endl;
-        cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
-        cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
-
-    }
+    void addMember( const ConcreteBestiole & b );
 
     int nbVoisins( const ConcreteBestiole & b );
 

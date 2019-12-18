@@ -22,7 +22,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 
     identite = ++next;
 
-    cout << "const Bestiole (" << identite << ") par defaut" << endl;
+    //cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
     x = y = type = 0;
     cumulX = cumulY = 0.;
@@ -42,7 +42,7 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires Ã
 
     identite = ++next;
 
-    cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
+    //cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
 
     x = b.x;
     y = b.y;
