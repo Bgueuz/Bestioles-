@@ -25,8 +25,6 @@ private :
     static const double     LIMITE_OUIE;
     static int              next;
 
-
-
 private :
     int               identite;
     int               x, y;
@@ -77,44 +75,77 @@ public :                                           // Forme canonique :
     bool inRadiusVoisin(const ConcreteBestiole & b) const;
     bool checkCollision(const ConcreteBestiole & b) const;
 
-    int getX( void ) const { return x; };
-    int getY( void ) const { return y; };
-    double getVitesse( void ) const { return vitesse; };
-    int getIdentite( void ) const { return identite; };
-    double getOrientation( void ) const { return orientation; };;
-    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
-    std::vector<float> getOreilles() {return oreilles;};
-    std::vector<float> getYeux() {return yeux;};
+    int getX( void ) const
+    {
+        return x;
+    };
+    int getY( void ) const
+    {
+        return y;
+    };
+    double getVitesse( void ) const
+    {
+        return vitesse;
+    };
+    int getIdentite( void ) const
+    {
+        return identite;
+    };
+    double getOrientation( void ) const
+    {
+        return orientation;
+    };;
+    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const
+    {
+        return listeVoisinsOmni;
+    };
+    std::vector<float> getOreilles()
+    {
+        return oreilles;
+    };
+    std::vector<float> getYeux()
+    {
+        return yeux;
+    };
 
-    void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
-    void setOrientation(double newOrientation){orientation = newOrientation;};
-    void setVitesse(double newVitesse){vitesse = newVitesse;};
+    void setVoisins(std::vector<ConcreteBestiole> listeVoisins)
+    {
+        listeVoisinsOmni = listeVoisins;
+    };
+    void setOrientation(double newOrientation)
+    {
+        orientation = newOrientation;
+    };
+    void setVitesse(double newVitesse)
+    {
+        vitesse = newVitesse;
+    };
     void initCoords( int xLim, int yLim );
     void initPersonality();
     void randPersonality();
-    void initOreilles();
-    void initYeux();
+    void initOreilles(Milieu* flotte);
+    void initYeux(Milieu* flotte);
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
 
 // Accessoires
 private :
-        // Camouflage
+    // Camouflage
     static double     max_cam;
     static double     min_cam;
     float camouflage = 0;
 
-        // Nageoire
+    // Nageoire
     static double     max_nage;
     static double     min_nage;
     float nageoire = 1.0;
 
-        // Carapace_dom
+    // Carapace_dom
     static double     max_cara_dom;
     static double     min_cara_dom;
     float carapaceDommage = 1.0;
 
-        // Carapace vitesse
+    // Carapace vitesse
     static double     max_cara_vit;
     static double     min_cara_vit;
     float carapaceVitesse = 1.0;
@@ -122,21 +153,33 @@ private :
 public :
 
     void setAccesories(Milieu* flotte);
-        // Camouflage
+    // Camouflage
     void setCamouflage(float min_cam,float max_cam);
-    float getCamouflage(){return camouflage;};
+    float getCamouflage()
+    {
+        return camouflage;
+    };
 
-        // Nageoire
+    // Nageoire
     void setNageoire(float min_nage,float max_nage);
-    float getNageoire(){return nageoire;};
+    float getNageoire()
+    {
+        return nageoire;
+    };
 
-        // Carapace Dommages
+    // Carapace Dommages
     void setCarapaceDom(float min_cara_dom,float max_cara_dom);
-    float getCarapaceDom(){return carapaceDommage;};
+    float getCarapaceDom()
+    {
+        return carapaceDommage;
+    };
 
-            // Carapace Vitesse
+    // Carapace Vitesse
     void setCarapaceVit(float min_cara_vit,float max_cara_vit);
-    float getCarapaceVit(){return carapaceVitesse;};
+    float getCarapaceVit()
+    {
+        return carapaceVitesse;
+    };
 
     // Utile --> pourrait faire partie d'une interface
     float RandomFloat(float a, float b);

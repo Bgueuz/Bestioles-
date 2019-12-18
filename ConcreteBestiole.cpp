@@ -10,7 +10,6 @@
 #include "ConcreteBestiole.h"
 #include <cstdlib>
 #include <cmath>
-#include <cstdlib>
 
 const double      ConcreteBestiole::AFF_SIZE = 8.;
 const double      ConcreteBestiole::MAX_VITESSE = 10.;
@@ -301,13 +300,14 @@ bool ConcreteBestiole::entendu (const ConcreteBestiole & b)
     */
 }
 
-void ConcreteBestiole::initOreilles()
+void ConcreteBestiole::initOreilles(Milieu* flotte)
 {
 
     if (std::rand() % 2 == 0)   // 50% chance the bestiole has an ear
     {
-        float radius = 200.0;
-        float probability = 0.6;
+        float radius = RandomFloat( flotte->getMinEarRadius(),flotte->getMaxEarRadius());
+        float probability = RandomFloat( flotte->getMinEarProbability(),flotte->getMaxEarProbability());
+
         setOreilles(radius, probability);
     }
     else
@@ -316,14 +316,14 @@ void ConcreteBestiole::initOreilles()
     }
 }
 
-void ConcreteBestiole::initYeux()
+void ConcreteBestiole::initYeux(Milieu* flotte)
 {
 
-    if (std::rand() % 2 == 0)   // 50% chance the bestiole has an ear
+    if (std::rand() % 2 == 0)   // 50% chance the bestiole has an eye
     {
-        float angle = M_PI; // 0 à pi
-        float radius = 100.0;
-        float probability = 0.6;
+        float angle = RandomFloat(flotte->getMinEyeAngle(), flotte->getMaxEyeAngle());
+        float radius = RandomFloat(flotte->getMinEyeRadius(), flotte->getMaxEyeRadius());
+        float probability = RandomFloat(flotte->getMinEyeProbability(), flotte->getMaxEyeProbability());
         setYeux(angle, radius, probability);
     }
     else
@@ -475,30 +475,23 @@ void ConcreteBestiole::setAccesories(Milieu* flotte)
 void ConcreteBestiole::setCamouflage(float min_cam,float max_cam)
 {
     this->camouflage = RandomFloat(min_cam,max_cam);
-
 }
 
 void ConcreteBestiole::setNageoire(float min_nage,float max_nage)
 {
-
     this->nageoire = RandomFloat(min_nage,max_nage);
     this->vitesse = (this->vitesse)*(this->nageoire);
-
 }
 
 void ConcreteBestiole::setCarapaceDom(float min_cara_dom,float max_cara_dom)
 {
-
     this->carapaceDommage = RandomFloat(min_cara_dom,max_cara_dom);
-
 }
 
 void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
 {
-
     this->carapaceVitesse = RandomFloat(min_cara_vit,max_cara_vit);
     this->vitesse = (this->vitesse)/(this->carapaceVitesse);
-
 }
 
 // Stack Overflow
@@ -509,5 +502,4 @@ float ConcreteBestiole::RandomFloat(float a, float b)
     float diff = b - a;
     float r = random * diff;
     return a + r;
-
 }

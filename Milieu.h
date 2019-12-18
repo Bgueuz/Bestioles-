@@ -42,8 +42,8 @@ public :
         listeBestioles.back().initPersonality();
 
         // Ajout de capteurs
-        listeBestioles.back().initOreilles();
-        listeBestioles.back().initYeux();
+        listeBestioles.back().initOreilles(this);
+        listeBestioles.back().initYeux(this);
 
         // Accessoires
         listeBestioles.back().setAccesories(this);
@@ -62,8 +62,10 @@ public :
     void updateVoisins(ConcreteBestiole & b);
     void collisionsAll();
 
-    //Accesoires
 public:
+
+    //Accesoires
+
         // Camouflage
     void setCamouflageLimits(float max_cam, float min_cam);
     float getMaxCam(){return MAX_CAMO;};
@@ -84,6 +86,29 @@ public:
     float getMaxCaraVit(){return MAX_CARA_VIT;};
     float getMinCaraVit(){return MIN_CARA_VIT;};
 
+    // Capteurs
+
+    void setEarRadiusLimits(float max_radius, float min_radius);
+    float getMaxEarRadius(){return MAX_EAR_RADIUS;};
+    float getMinEarRadius(){return MIN_EAR_RADIUS;};
+
+    void setEarProbabilityLimits(float max_probability, float min_probability);
+    float getMaxEarProbability(){return MAX_EAR_PROBABILITY;};
+    float getMinEarProbability(){return MIN_EAR_PROBABILITY;};
+
+    void setEyeAngleLimits(float max_angle, float min_angle);
+    float getMaxEyeAngle(){return MAX_EYE_ANGLE;};
+    float getMinEyeAngle(){return MIN_EYE_ANGLE;};
+
+    void setEyeRadiusLimits(float max_radius, float min_radius);
+    float getMaxEyeRadius(){return MAX_EYE_RADIUS;};
+    float getMinEyeRadius(){return MIN_EYE_RADIUS;};
+
+    void setEyeProbabilityLimits(float max_probability, float min_probability);
+    float getMaxEyeProbability(){return MAX_EYE_PROBABILITY;};
+    float getMinEyeProbability(){return MIN_EYE_PROBABILITY;};
+
+
 private:
     // Camouflage
     float MAX_CAMO = 1.0;
@@ -101,6 +126,24 @@ private:
             // Reduction Vitesse
     float MAX_CARA_VIT = 3.0;
     float MIN_CARA_VIT = 1.0;
+
+    // Oreille
+    float MIN_EAR_RADIUS = 100;
+    float MAX_EAR_RADIUS = 200;
+
+    float MIN_EAR_PROBABILITY = 0;
+    float MAX_EAR_PROBABILITY = 1;
+
+    // Yeux
+    float MIN_EYE_ANGLE = 0;
+    float MAX_EYE_ANGLE = M_PI;
+
+    float MIN_EYE_RADIUS = 50;
+    float MAX_EYE_RADIUS = 100;
+
+    float MIN_EYE_PROBABILITY = 0;
+    float MAX_EYE_PROBABILITY = 1;
+
 
 };
 

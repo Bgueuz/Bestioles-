@@ -163,3 +163,33 @@ void Milieu::setCaraVitLimits(float max_cara_vit, float min_cara_vit)
     this->MAX_CARA_VIT = max_cara_vit;
     this->MIN_CARA_VIT = min_cara_vit;
 }
+
+void Milieu::setEarRadiusLimits(float max_radius, float min_radius)
+{
+    this->MAX_EAR_RADIUS = max_radius;
+    this->MIN_EAR_RADIUS = min_radius;
+}
+
+void Milieu::setEarProbabilityLimits(float max_probability, float min_probability)
+{
+    this->MAX_EAR_PROBABILITY = max_probability;
+    this->MIN_EAR_PROBABILITY = min_probability;
+}
+
+void Milieu::setEyeAngleLimits(float max_angle, float min_angle)
+{
+    this->MAX_EYE_ANGLE = max_angle;
+    this->MIN_EYE_ANGLE = min_angle;
+}
+
+void Milieu::setEyeRadiusLimits(float max_radius, float min_radius)
+{
+    this->MAX_EYE_RADIUS = max_radius;
+    this->MIN_EYE_RADIUS = min_radius;
+}
+
+void Milieu::setEyeProbabilityLimits(float max_probability, float min_probability)
+{
+    this->MAX_EYE_PROBABILITY = max_probability;
+    this->MIN_EYE_PROBABILITY = min_probability;
+}
