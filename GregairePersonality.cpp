@@ -17,32 +17,44 @@ void GregairePersonality::newAction(int x, int y)
 
 void GregairePersonality::newAction(ConcreteBestiole * b)
 {
-    cout << "HELLO" << endl;
-    std::cout << "JE SUIS GREGAIRE AVEC VITESSE " << b->getVitesse() << std::endl;
+
+
     std::vector<ConcreteBestiole> VoisinsOmni = b->getVoisinsOmni();
-    double vitesse = 0;
+    double newOrientation = 0;
     int i=0;
+    std::vector<int> detected = b->detectVoisins();
 
-    for ( std::vector<ConcreteBestiole>::iterator it2 = VoisinsOmni.begin() ; it2 != VoisinsOmni.end() ; ++it2 )
-    {
-        i+=1;
-        vitesse += it2->getVitesse();
-        std::cout << "VITESSE SOMME VOISIN " << vitesse << std::endl;
-    //std::cout << "JE SUIS GREGAIRE" << std::endl;
-
+    for (std::vector<int>::iterator it = detected.begin() ; it != detected.end(); ++it){
+        newOrientation += VoisinsOmni[*it].getOrientation();
+        i++;
     }
 
-    if(i>0)
-    {
-        vitesse=vitesse/i;
-        //b->setVitesse(2*vitesse);
-        cout <<"greta2" << endl;
-    }
-    else
-    {
-        vitesse=b->getVitesse();
-        //b->setVitesse(vitesse);
-        cout <<"greta" << endl;
+    if (i != 0){// if there's at least one candidate, we turn towards them
+        b->setOrientation(newOrientation/i);
     }
 }
+
+
+    /*
+    for ( std::vector<ConcreteBestiole>::iterator it2 = VoisinsOmni.begin() ; it2 != VoisinsOmni.end() ; ++it2 )
+    {
+        double dist = std::sqrt( (it2->getX()-b->getX())*(it2->getX()-b->getX()) + (it2->getY()-b->getY())*(it2->getY()-b->getY()) );
+        bool isInHearingDistance = ( dist <= b->getOreilles()[0] );
+        bool isInVisibleDistance = ( dist <= b->getYeux()[0] );
+
+        float angleBiBj = atan2( b->getY()-it2->getY(), it2->getX()-b->getX() );
+
+        bool isInVisibleRegion = (( b->getOrientation() - b->getYeux()[1]/2 < angleBiBj) && (angleBiBj < b->getOrientation()+b->getYeux()[1]/2 ));
+
+        if(isInVisibleRegion)
+
+        if (isInHearingDistance || (isInVisibleRegion && isInVisibleDistance))   // on ignore le camouflage
+        {
+            if( max(b->getYeux()[2],b->getOreilles()[1]) > it2->getCamouflage()  ){
+            newOrientation +=it2->getOrientation();
+            i++;
+            }
+        }
+    }
+    */
 

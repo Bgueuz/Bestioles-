@@ -39,10 +39,7 @@ void Milieu::step( void )
 
 int Milieu::nbVoisins( const ConcreteBestiole & b )
 {
-
     int         nb = 0;
-
-
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
         if ( !(b == *it) && b.jeTeVois(*it) )
             ++nb;
@@ -51,31 +48,6 @@ int Milieu::nbVoisins( const ConcreteBestiole & b )
 
 }
 
-void Milieu::detection ()
-{
-//A modifier après ajout Decorator
-    /*for ( std::list<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-    {
-        se = (*it).getSensors();
-        if (se != []) {
-                Voisins = (*it).getVoisins()
-                Detectes = (*it).getDetectes()
-                if (Voisins.empty=false){
-                        for ( std::list<ConcreteBestiole>::iterator ut = Voisins.begin() ; ut != listeVoisins.end() ; ++ut ) {
-                            if(((*it).vu(*ut)) ||((*it).entendu(*ut))) {
-                                Detectes.push_front(*ut);
-                                Voisins.remove(*ut);
-                            }
-                        }
-                }
-        }
-
-
-
-    }*/
-
-
-}
 
 void Milieu::updateVoisins(ConcreteBestiole & b)
 {

@@ -40,20 +40,31 @@ public :
         listeBestioles.push_back(b);
         listeBestioles.back().initCoords(width, height);
         listeBestioles.back().initPersonality();
+        listeBestioles.back().changeColorToType();
 
-        // Ajout d'une oreille à factoriser
 
+        // Ajout de capteurs
+        listeBestioles.back().initOreilles(this);
+        listeBestioles.back().initYeux(this);
+
+        /*
         if (std::rand() % 2 == 0) { // 50% chance the bestiole has an ear
 
             float radius = 200.0;
-            float probability = 0.6;
-            listeBestioles.back().setOreilles(radius, probability);
+            float probability = 1.;
+            listeBestioles.back().setOreilles(radius,probability);//radius, probability);
+
+            float angle = M_PI;
+            listeBestioles.back().setYeux(radius,angle, probability);
 
         }
 
         else {
             listeBestioles.back().setOreilles(-1, -1);
-        }
+            listeBestioles.back().setYeux(-1, -1,-1);
+
+        }*/
+
 
         // Accesoires
 
@@ -66,10 +77,10 @@ public :
         cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
         cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
 
+
     }
 
     int nbVoisins( const ConcreteBestiole & b );
-    void detection ();
     void updateVoisins(ConcreteBestiole & b);
     void collisionsAll();
 
@@ -95,8 +106,30 @@ public:
     float getMaxCaraVit(){return MAX_CARA_VIT;};
     float getMinCaraVit(){return MIN_CARA_VIT;};
 
+        // Capteurs
+
+    void setEarRadiusLimits(float max_radius, float min_radius);
+    float getMaxEarRadius(){return MAX_EAR_RADIUS;};
+    float getMinEarRadius(){return MIN_EAR_RADIUS;};
+
+    void setEarProbabilityLimits(float max_probability, float min_probability);
+    float getMaxEarProbability(){return MAX_EAR_PROBABILITY;};
+    float getMinEarProbability(){return MIN_EAR_PROBABILITY;};
+
+    void setEyeAngleLimits(float max_angle, float min_angle);
+    float getMaxEyeAngle(){return MAX_EYE_ANGLE;};
+    float getMinEyeAngle(){return MIN_EYE_ANGLE;};
+
+    void setEyeRadiusLimits(float max_radius, float min_radius);
+    float getMaxEyeRadius(){return MAX_EYE_RADIUS;};
+    float getMinEyeRadius(){return MIN_EYE_RADIUS;};
+
+    void setEyeProbabilityLimits(float max_probability, float min_probability);
+    float getMaxEyeProbability(){return MAX_EYE_PROBABILITY;};
+    float getMinEyeProbability(){return MIN_EYE_PROBABILITY;};
+
 private:
-    // Camouflage
+   // Camouflage
     float MAX_CAMO = 1.0;
     float MIN_CAMO = 0.0;
 
@@ -112,6 +145,23 @@ private:
             // Reduction Vitesse
     float MAX_CARA_VIT = 3.0;
     float MIN_CARA_VIT = 1.0;
+
+    // Oreille
+    float MIN_EAR_RADIUS = 100;
+    float MAX_EAR_RADIUS = 200;
+
+    float MIN_EAR_PROBABILITY = 0;
+    float MAX_EAR_PROBABILITY = 1;
+
+    // Yeux
+    float MIN_EYE_ANGLE = 0;
+    float MAX_EYE_ANGLE = M_PI;
+
+    float MIN_EYE_RADIUS = 50;
+    float MAX_EYE_RADIUS = 100;
+
+    float MIN_EYE_PROBABILITY = 0;
+    float MAX_EYE_PROBABILITY = 1;
 
 };
 
