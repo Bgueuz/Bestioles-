@@ -21,7 +21,7 @@ int main()
     ecosysteme.getMilieu().setCaraDomLimits(1.0,6.0);
     ecosysteme.getMilieu().setCaraVitLimits(1.0,2.0);
 
-    for ( int i = 1; i <= 20; ++i )
+    for ( int i = 1; i <= 25; ++i )
     {
         ecosysteme.getMilieu().addMember(ConcreteBestiole());
     }

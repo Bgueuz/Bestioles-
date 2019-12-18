@@ -46,6 +46,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 }
 
 
+
 ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires à copier aussi
 {
 
@@ -139,6 +140,7 @@ void ConcreteBestiole::bouge( int xLim, int yLim )
 }
 
 
+
 list<ConcreteBestiole *> ConcreteBestiole::getVoisins()
 {
     return Voisins;
@@ -187,26 +189,25 @@ void ConcreteBestiole::setYeux(float angle, float radius, float probability)
 
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
-
-    if(type==2 or type==1)
-    {
-        personality->newAction(this);
-    }
     if (!schizophrene)
     {
-        //cout << "NOT SCHIZOPHRENE" << endl;
-        //personality->newAction(this);
+        if(type==0)// or type==1)
+        {
+        personality->newAction(this);
+        }
 
-    }
-    else   // bestiole à personnalités multiples
-    {
-        //cout << "JE SUIS SCHIZOPHRENEEEEEEEEEEEEEEEEEEEEEEEEE" << endl;
-        //this->randPersonality();
-        //personality->newAction();
-    }
+        }
+        else   // bestiole à personnalités multiples
+        {
+            if(personality==nullptr){this->randPersonality();}
+            else
+            {
+                if((std::rand() % 11) >5){this->randPersonality();}
+            }
+            personality->newAction();
+        }
 
-    bouge( monMilieu.getWidth(), monMilieu.getHeight() );
-
+        bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 }
 
 Personality* ConcreteBestiole::getPersonality()
@@ -242,6 +243,19 @@ void ConcreteBestiole::draw( UImg & support )
 
 
 
+}
+
+void ConcreteBestiole::changeColorToType()
+{
+    T* couleur2 = new T[ 3 ];
+    if(type==0){couleur2[0]= 34 ;couleur2[1]=106;couleur2[2]=155;} //Grégaire -> Blue
+    else if(type==1){couleur2[0]=100;couleur2[1]=163;couleur2[2]=36;} //Peureuse -> Green
+    else if(type==2){couleur2[0]=201;couleur2[1]=59;couleur2[2]=16;} // Kamikaze -> Orange
+    else if(type==3){couleur2[0]=160;couleur2[1]=82;couleur2[2]=45;} // Prévoyante -> Brown
+    else{couleur2[0]=219;couleur2[1]=112;couleur2[2]=147;} //Schizophrene -> Pink
+
+    memcpy( couleur, couleur2, 3*sizeof(T) );
+    delete couleur2;
 }
 
 
@@ -347,13 +361,13 @@ void ConcreteBestiole::initPersonality()
 
     int random_int = std::rand() % 100; // between 0 and 99
     int random_behavior;
-    if (random_int < 20) // grégaire
+    if (random_int < 50) // grégaire
         random_behavior = 1;
-    else if (random_int < 40) // peureuse
+    else if (random_int < 60) // peureuse
         random_behavior = 2;
-    else if (random_int < 60) // kamikaze
+    else if (random_int < 90) // kamikaze
         random_behavior = 3;
-    else if (random_int < 80) // prévoyante
+    else if (random_int < 100) // prévoyante
         random_behavior = 4;
     else                      // personnalités multiples
         random_behavior = 5;
@@ -411,19 +425,16 @@ void ConcreteBestiole::initPersonality()
 
 void ConcreteBestiole::randPersonality()
 {
-
     int random_int = std::rand() % 100; // between 0 and 99
     int random_behavior;
-    if (random_int < 20)
+    if (random_int < 40)
         random_behavior = 1;
-    else if (random_int < 40)
-        random_behavior = 2;
     else if (random_int < 60)
-        random_behavior = 3;
+        random_behavior = 2;
     else if (random_int < 80)
-        random_behavior = 4;
+        random_behavior = 3;
     else
-        random_behavior = 5;
+        random_behavior = 4;
 
     //listeBestioles.back().setType(random_behavior);
     switch (random_behavior)
@@ -436,6 +447,7 @@ void ConcreteBestiole::randPersonality()
     case 2: // peureuse
     {
         personality = new PeureusePersonality();
+
     }
     break;
     case 3: // kamikaze
@@ -528,4 +540,30 @@ float ConcreteBestiole::RandomFloat(float a, float b)
     float diff = b - a;
     float r = random * diff;
     return a + r;
+}
+
+std::vector<int> ConcreteBestiole::detectVoisins()
+{
+    std::vector<int> detected;
+    int i=0;
+    for ( std::vector<ConcreteBestiole>::iterator it2 = listeVoisinsOmni.begin() ; it2 != listeVoisinsOmni.end() ; ++it2 )
+    {
+        double dist = std::sqrt( (it2->getX()-x)*(it2->getX()-x) + (it2->getY()-y)*(it2->getY()-y) );
+        bool isInHearingDistance = ( dist <= oreilles[0] );
+        bool isInVisibleDistance = ( dist <= yeux[0] );
+
+        float angleBiBj = atan2( y-it2->getY(), it2->getX()-x );
+
+        bool isInVisibleRegion = (( orientation - yeux[1]/2 < angleBiBj) && (angleBiBj < orientation + yeux[1]/2 ));
+
+        if(isInVisibleRegion)
+
+        if (isInHearingDistance || (isInVisibleRegion && isInVisibleDistance))   // on ignore le camouflage
+        {
+            if( max(yeux[2],oreilles[1]) > it2->getCamouflage()){detected.push_back(i);}
+
+        }
+        i++;
+    }
+    return detected;
 }

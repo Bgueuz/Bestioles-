@@ -40,6 +40,7 @@ public :
         listeBestioles.push_back(b);
         listeBestioles.back().initCoords(width, height);
         listeBestioles.back().initPersonality();
+        listeBestioles.back().changeColorToType();
 
         // Ajout de capteurs
         listeBestioles.back().initOreilles(this);
@@ -58,7 +59,7 @@ public :
     }
 
     int nbVoisins( const ConcreteBestiole & b );
-    void detection ();
+
     void updateVoisins(ConcreteBestiole & b);
     void collisionsAll();
     void gestionvie();
