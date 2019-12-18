@@ -23,9 +23,19 @@ Milieu::~Milieu( void )
 
 }
 
+void Milieu::naissance(){
+    int proba_naissance = 50;
+    int tirage = std::rand() % 100 +1 ;
+    if (tirage <= proba_naissance)
+    {
+        cout << "NAISSANCE" << endl;
+        addMember(ConcreteBestiole());
+    }
+}
 
 void Milieu::step( void )
 {
+    naissance();
     collisionsAll();
     cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )

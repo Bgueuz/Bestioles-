@@ -33,6 +33,7 @@ public :
     };
 
     void step( void );
+    void naissance();
     std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
 
     void addMember( const ConcreteBestiole & b )
