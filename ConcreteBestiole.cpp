@@ -49,6 +49,7 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accessoires 
     personality=b.personality;
     Detectes=b.Detectes;
     cumulX = cumulY = 0.;
+    normal_vit = b.normal_vit;
     orientation = b.orientation;
     vitesse = b.vitesse;
     oreilles = b.oreilles;
@@ -119,7 +120,7 @@ void ConcreteBestiole::bouge( int xLim, int yLim )
 }
 
 // Renvoie les coordonnées futures d'une bestiole bougeant simplement. Utile pour prédire le mouvement des autres bestioles
-std::vector<int> ConcreteBestiole::simuleBouge(  )
+std::vector<int> ConcreteBestiole::simuleBouge()
 {
     double         nx, ny;
     double         dx = cos( orientation )*vitesse;
@@ -144,26 +145,24 @@ std::vector<int> ConcreteBestiole::simuleBouge(  )
 
 }
 
+void ConcreteBestiole::personalityNewAction()
+{
+    if (type==4)        // bestiole à personnalités multiples
+    {
+        if (personality==nullptr){this->randPersonality();}
+        else
+        {
+            if((std::rand() % 11) >5){ this->randPersonality(); }
+        }
+    }
+    personality->newAction(this);
+}
+
 // Action supplémentaire pour les bestioles dotées de personnalités
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
 
-    if (type==4)        // bestiole à personnalités multiples
-    {
-        if (personality==nullptr)
-        {
-            this->randPersonality();
-        }
-        else
-        {
-            if((std::rand() % 11) >5)
-            {
-                this->randPersonality();
-            }
-        }
-    }
 
-    personality->newAction(this);
 
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 }
