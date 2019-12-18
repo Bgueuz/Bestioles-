@@ -93,6 +93,7 @@ void Milieu::updateVoisins(ConcreteBestiole & b)
 
 void Milieu::collisionsAll()
 {
+    int proba_mort = 30;
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
         updateVoisins(*it);
@@ -103,6 +104,14 @@ void Milieu::collisionsAll()
              {
                 double collisionVector1_x= (*it).getX() - (*it2).getX();
                 double collisionVector1_y= (*it).getY() - (*it2).getY();
+                int tirage = std::rand() % 100 +1 ;
+                if (tirage <= proba_mort)
+                    {
+                    cout << "la bestiole meurt" << endl; //la bestiole meurt
+                    (*it).Kill();
+
+                    //killBestiole(*it);
+                    }
                 if(collisionVector1_x !=0 && collisionVector1_y!=0)
                 {
                     /*double collisionVector2_x= 1;
@@ -193,3 +202,16 @@ void Milieu::setEyeProbabilityLimits(float max_probability, float min_probabilit
     this->MAX_EYE_PROBABILITY = max_probability;
     this->MIN_EYE_PROBABILITY = min_probability;
 }
+
+// MORT
+
+void Milieu::gestionvie(){
+    std::vector<ConcreteBestiole> listeBestioles2 {};
+    for (std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
+        (*it).vie();
+        if ((*it).getTue()==false){
+                listeBestioles2.push_back(*it);
+        }
+    }
+    listeBestioles.swap(listeBestioles2);
+    }

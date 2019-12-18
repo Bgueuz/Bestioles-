@@ -184,6 +184,24 @@ public :
     // Utile --> pourrait faire partie d'une interface
     float RandomFloat(float a, float b);
 
+    // MORT
+
+private :
+
+    int                dureedevie = std::rand() % 100;
+    int                      vecu = 0;
+    bool                      tue = false;
+
+public :
+
+    bool getTue( void ) const { return tue; };
+    int getID( void ) const { return identite; };
+    int getVecu( void ) const { return vecu; };
+    int getDureeDeVie( void ) const { return dureedevie; };
+    void Kill(void);
+    void vie();
+
+
 };
 
 

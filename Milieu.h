@@ -61,6 +61,7 @@ public :
     void detection ();
     void updateVoisins(ConcreteBestiole & b);
     void collisionsAll();
+    void gestionvie();
 
 public:
 

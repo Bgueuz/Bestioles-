@@ -66,6 +66,8 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires Ã
     vitesse = b.vitesse;
     oreilles = b.oreilles;
     yeux = b.yeux;
+    vecu = b.vecu;
+    dureedevie = b.dureedevie;
 
     camouflage = b.camouflage;
     nageoire = b.nageoire;
@@ -231,14 +233,14 @@ void ConcreteBestiole::draw( UImg & support )
     {
         support.draw_ellipse( (x+xt)/2, (y+yt)/2, AFF_SIZE/1.5, AFF_SIZE/1.5, -orientation, couleur );
     }
-    
+
     if ((this->getCamouflage() > 0.0))
     {
       unsigned char purple[] = { 255,0,255 };
       support.draw_text((x+xt)/2, (y+yt)/2, "Ninja",purple,20);
     }
-    
-    
+
+
 
 }
 
@@ -501,6 +503,22 @@ void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
     this->carapaceVitesse = RandomFloat(min_cara_vit,max_cara_vit);
     this->vitesse = (this->vitesse)/(this->carapaceVitesse);
 }
+
+// MORT
+
+void ConcreteBestiole::vie () {
+  vecu=vecu+1;
+  //cout<<dureedevie<<endl;
+  //cout<< "la bestiole" << identite << "a vecu " << vecu <<endl;
+  if (vecu>=dureedevie*10) {
+    tue=true;
+  }
+}
+
+void ConcreteBestiole::Kill(void) {
+    tue=true;
+}
+
 
 // Stack Overflow
 
