@@ -17,7 +17,7 @@ private :
     static const T          white[];
 
     int             nbBestiolesMax=50;
-    float            ratiosCherches[5] = {0.1,0.1,0.7,0.1,0.};
+    float            ratiosCherches[5] = {0.3,0.2,0.3,0.1,0.1}; // Gregaire,Peureux, kamikaze, prevoyant, multiple
     float            ratiosPresents[5] = {0.,0.,0.,0.,0.};
 
     int                     width, height;
@@ -27,21 +27,11 @@ public :
     Milieu( int _width, int _height );
     ~Milieu( void );
 
-    int getWidth( void ) const
-    {
-        return width;
-    };
-    int getHeight( void ) const
-    {
-        return height;
-    };
-
+    int getWidth( void ) const {return width;};
+    int getHeight( void ) const {return height;};
     void step( void );
-
     void naissance();
-
     std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
-
     int nbVoisins( const ConcreteBestiole & b );
     void detection ();
     void updateVoisins(ConcreteBestiole & b);
@@ -49,6 +39,7 @@ public :
     float RandomFloat(float a, float b);
     void addMember( const ConcreteBestiole & b );
     void gestionvie();
+
 
 public:
 
@@ -122,20 +113,28 @@ private:
 
     // Oreille
     float MIN_EAR_RADIUS = 100;
-    float MAX_EAR_RADIUS = 200;
+    float MAX_EAR_RADIUS = 300;
 
-    float MIN_EAR_PROBABILITY = 0;
+    float MIN_EAR_PROBABILITY = 0.4;
     float MAX_EAR_PROBABILITY = 1;
 
     // Yeux
-    float MIN_EYE_ANGLE = 0;
+    float MIN_EYE_ANGLE = 0.4;
     float MAX_EYE_ANGLE = M_PI;
 
     float MIN_EYE_RADIUS = 50;
-    float MAX_EYE_RADIUS = 100;
+    float MAX_EYE_RADIUS = 200;
 
-    float MIN_EYE_PROBABILITY = 0;
+    float MIN_EYE_PROBABILITY = 0.4;
     float MAX_EYE_PROBABILITY = 1;
+
+// CLONAGE
+
+public :
+
+    void gestionClonage();
+    void addMemberClone( const ConcreteBestiole & b );
+
 
 
 };
