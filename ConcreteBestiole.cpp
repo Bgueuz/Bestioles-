@@ -15,7 +15,16 @@
 const double      ConcreteBestiole::AFF_SIZE = 8.;
 const double      ConcreteBestiole::MAX_VITESSE = 10.;
 const double      ConcreteBestiole::LIMITE_VUE = 30.;
-
+/*
+max_cam = b.max_cam;
+min_cam = b.min_cam;
+max_nage = b.max_nage;
+min_nage = b.min_nage;
+max_cara_dom = b.max_cara_dom;
+min_cara_dom = b.min_cara_dom;
+max_cara_vit = b.max_cara_vit;
+min_cara_vit = b.min_cara_vit;
+*/
 int               ConcreteBestiole::next = 0;
 
 
@@ -58,6 +67,11 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires �
     vitesse = b.vitesse;
     oreilles = b.oreilles;
     yeux = b.yeux;
+
+    camouflage = b.camouflage;
+    nageoire = b.nageoire;
+    carapaceDommage = b.carapaceDommage;
+    carapaceVitesse = b.carapaceVitesse;
 
     couleur = new T[ 3 ];
     memcpy( couleur, b.couleur, 3*sizeof(T) );
@@ -180,7 +194,7 @@ void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////
     if (!schizophrene)
     {
         //cout << "NOT SCHIZOPHRENE" << endl;
-        //personality->newAction(&this);
+        //personality->newAction(this);
 
     }
     else   // bestiole à personnalités multiples
@@ -381,6 +395,7 @@ void ConcreteBestiole::randPersonality()
         personality = new PrevoyantePersonality();
     }
     }
+}
 
 // Accesoires - Implementation : Code Rouge
 
@@ -391,24 +406,24 @@ void ConcreteBestiole::setAccesories(Milieu* flotte)
     // Camouflage --> Rare
 
     if (float p_cam = RandomFloat(0.0,1.0) > 0.8)
-        {
-            this->setCamouflage(flotte->getMinCam(),flotte->getMaxCam());
-        }
+    {
+        this->setCamouflage(flotte->getMinCam(),flotte->getMaxCam());
+    }
 
     // Nageoire --> Commun
 
     if (float p_nag = RandomFloat(0.0,1.0) > 0.5)
-        {
-            this->setNageoire(flotte->getMinNage(),flotte->getMaxNage());
-        }
+    {
+        this->setNageoire(flotte->getMinNage(),flotte->getMaxNage());
+    }
 
     // Carapace --> Semi-Rare
 
     if (float p_car = RandomFloat(0.0,1.0) > 0.65)
-        {
-            this->setCarapaceDom(flotte->getMinCaraDom(),flotte->getMaxCaraDom());
-            this->setCarapaceVit(flotte->getMinCaraVit(),flotte->getMaxCaraVit());
-        }
+    {
+        this->setCarapaceDom(flotte->getMinCaraDom(),flotte->getMaxCaraDom());
+        this->setCarapaceVit(flotte->getMinCaraVit(),flotte->getMaxCaraVit());
+    }
 
 }
 
@@ -445,7 +460,8 @@ void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
 
 // Stack Overflow
 
-float ConcreteBestiole::RandomFloat(float a, float b) {
+float ConcreteBestiole::RandomFloat(float a, float b)
+{
     float random = ((float) rand()) / (float) RAND_MAX;
     float diff = b - a;
     float r = random * diff;

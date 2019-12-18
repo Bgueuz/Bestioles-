@@ -47,12 +47,12 @@ public :
 
             float radius = 200.0;
             float probability = 0.6;
-
             listeBestioles.back().setOreilles(radius, probability);
 
+        }
 
-            std::cout << listeBestioles.back().getOreilles()[0] << endl;
-
+        else {
+            listeBestioles.back().setOreilles(-1, -1);
         }
 
         // Accesoires
