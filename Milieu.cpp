@@ -2,6 +2,8 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
+#include <iostream>
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -26,6 +28,9 @@ Milieu::~Milieu( void )
 void Milieu::step( void )
 {
     collisionsAll();
+    updateRatiosPresents();
+    //cout << ratiosPresents[0] << ";" << ratiosPresents[1] << ";" <<ratiosPresents[2] << ";" <<ratiosPresents[3] << ";" <<ratiosPresents[4] << endl;
+    //addMember(ConcreteBestiole());
     cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
 
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
@@ -65,60 +70,69 @@ void Milieu::updateVoisins(ConcreteBestiole & b)
 
 void Milieu::collisionsAll()
 {
-    int proba_mort = 30;
-    for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+  float seuil_mort = 0.9;
+  for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+  {
+    updateVoisins(*it);
+    std::vector<ConcreteBestiole> VoisinsOmni = it->getVoisinsOmni();
+    for ( std::vector<ConcreteBestiole>::iterator it2 = VoisinsOmni.begin() ; it2 != VoisinsOmni.end() ; ++it2 )
     {
-        updateVoisins(*it);
-        std::vector<ConcreteBestiole> VoisinsOmni = it->getVoisinsOmni();
-        for ( std::vector<ConcreteBestiole>::iterator it2 = VoisinsOmni.begin() ; it2 != VoisinsOmni.end() ; ++it2 )
+      if(!(*it == *it2) && (*it).checkCollision(*it2))
+      {
+        //On vérifie si la bestiole a une carapace.
+        if (float p_mort = RandomFloat(0.0,1.0)/it->getCarapaceDom() >= seuil_mort)
         {
-            if(!(*it == *it2) && (*it).checkCollision(*it2))
-            {
-                double collisionVector1_x= (*it).getX() - (*it2).getX();
-                double collisionVector1_y= (*it).getY() - (*it2).getY();
-                int tirage = std::rand() % 100 +1 ;
-                if (tirage <= proba_mort)
-                {
-                    cout << "la bestiole meurt par collision" << endl; //la bestiole meurt
-                    (*it).Kill();
-
-                    //killBestiole(*it);
-                }
-                if(collisionVector1_x !=0 && collisionVector1_y!=0)
-                {
-                    /*double collisionVector2_x= 1;
-                    double collisionVector2_y= -collisionVector1_x/collisionVector1_y;
-                    */
-                    double v_x= (*it).getVitesse()*std::cos((*it).getOrientation());
-                    double v_y= (*it).getVitesse()*std::sin((*it).getOrientation());
-                    double phi = std::atan((collisionVector1_y/collisionVector1_x));
-
-                    double v_1= v_x*std::cos(phi)+v_y*std::sin(phi);
-                    double v_2= -v_x*std::sin(phi)+v_y*std::cos(phi);
-                    v_2=-v_2;
-
-                    double new_orientation=std::atan((v_2/v_1));
-                    (*it).setOrientation( new_orientation - phi);
-                }
-                else if ((*it).getOrientation()==0)
-                {
-                    (*it).setOrientation(M_PI*180/M_PI);
-                }
-                else if ((*it).getOrientation()==M_PI /2*180/M_PI)
-                {
-                    (*it).setOrientation(3*M_PI /2*180/M_PI);
-                }
-                else if ((*it).getOrientation()==M_PI *180/M_PI)
-                {
-                    (*it).setOrientation(0);
-                }
-                else if ((*it).getOrientation()==3*M_PI /2*180/M_PI)
-                {
-                    (*it).setOrientation(M_PI /2*180/M_PI);
-                }
-            }
+          cout << "la bestiole meurt par collision" << endl; //la bestiole meurt
+          (*it).Kill();
         }
+        else
+        {
+          double collisionVector1_x= (*it).getX() - (*it2).getX();
+          double collisionVector1_y= (*it).getY() - (*it2).getY();
+          if (collisionVector1_x !=0 && collisionVector1_y!=0)
+          {
+            double v_x= (*it).getVitesse()*std::cos((*it).getOrientation());
+            double v_y= (*it).getVitesse()*std::sin((*it).getOrientation());
+            double phi = std::atan((collisionVector1_y/collisionVector1_x));
+
+            double v_1= v_x*std::cos(phi)+v_y*std::sin(phi);
+            double v_2= -v_x*std::sin(phi)+v_y*std::cos(phi);
+            v_2=-v_2;
+
+            double new_orientation=std::atan((v_2/v_1));
+            (*it).setOrientation( new_orientation - phi);
+          }
+          else if ((*it).getOrientation()==0)
+          {
+            (*it).setOrientation(M_PI*180/M_PI);
+          }
+          else if ((*it).getOrientation()==M_PI /2*180/M_PI)
+          {
+            (*it).setOrientation(3*M_PI /2*180/M_PI);
+          }
+          else if ((*it).getOrientation()==M_PI *180/M_PI)
+          {
+            (*it).setOrientation(0);
+          }
+          else if ((*it).getOrientation()==3*M_PI /2*180/M_PI)
+          {
+            (*it).setOrientation(M_PI /2*180/M_PI);
+          }
+        }
+      }
     }
+  }
+}
+
+void Milieu::updateRatiosPresents()
+{
+  float nbByBehaviors[5]={0.,0.,0.,0.,0.};
+  for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
+    ++nbByBehaviors[it->getType()];
+  }
+  for(int i=0;i<5;i++){
+    ratiosPresents[i]=nbByBehaviors[i]/static_cast<float>(listeBestioles.size());
+  }
 }
 
 // Setters
@@ -177,6 +191,14 @@ void Milieu::setEyeProbabilityLimits(float max_probability, float min_probabilit
     this->MIN_EYE_PROBABILITY = min_probability;
 }
 
+float Milieu::RandomFloat(float a, float b)
+{
+  float random = ((float) std::rand()) / (float) RAND_MAX;
+  float diff = b - a;
+  float r = random * diff;
+  return a + r;
+}
+
 void Milieu::gestionvie()
 {
     std::vector<ConcreteBestiole> listeBestioles2 {};
@@ -191,26 +213,29 @@ void Milieu::gestionvie()
     listeBestioles.swap(listeBestioles2);
 }
 
+  void Milieu::addMember( const ConcreteBestiole & b )
+  {
+    if (listeBestioles.size()<nbBestiolesMax){
 
-void Milieu::addMember( const ConcreteBestiole & b )
-{
-    listeBestioles.push_back(b);
-    listeBestioles.back().initCoords(width, height);
-    listeBestioles.back().initPersonality();
-    listeBestioles.back().changeColorToType();
+      listeBestioles.push_back(b);
+      listeBestioles.back().initCoords(width, height);
+      listeBestioles.back().initPersonality(this,ratiosCherches,ratiosPresents);
 
-    // Ajout de capteurs
-    listeBestioles.back().initOreilles(this);
-    listeBestioles.back().initYeux(this);
+      // Ajout de capteurs
+      listeBestioles.back().initOreilles(this);
+      listeBestioles.back().initYeux(this);
 
-    // Accessoires
-    listeBestioles.back().setAccesories(this);
+      // Accessoires
+      listeBestioles.back().setAccesories(this);
 
-    cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
-    cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
-    cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
-    cout << "   cette bestiole à une carapace " << endl;
-    cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
-    cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
-
-}
+      cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
+      cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
+      cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
+      cout << "   cette bestiole à une carapace " << endl;
+      cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
+      cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
+    }
+    else{
+      cout << "Capacité max atteinte" << endl;
+    }
+  }

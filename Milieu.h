@@ -15,6 +15,11 @@ class Milieu : public UImg
 
 private :
     static const T          white[];
+
+    int             nbBestiolesMax=50;
+    float            ratiosCherches[5] = {0.1,0.1,0.7,0.1,0.};
+    float            ratiosPresents[5] = {0.,0.,0.,0.,0.};
+
     int                     width, height;
     std::vector<ConcreteBestiole>   listeBestioles;
 
@@ -34,12 +39,12 @@ public :
     void step( void );
     std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
 
-    void addMember( const ConcreteBestiole & b );
-
     int nbVoisins( const ConcreteBestiole & b );
-
+    void detection ();
     void updateVoisins(ConcreteBestiole & b);
     void collisionsAll();
+    float RandomFloat(float a, float b);
+    void addMember( const ConcreteBestiole & b );
     void gestionvie();
 
 public:
@@ -87,7 +92,12 @@ public:
     void setEyeProbabilityLimits(float max_probability, float min_probability);
     float getMaxEyeProbability(){return MAX_EYE_PROBABILITY;};
     float getMinEyeProbability(){return MIN_EYE_PROBABILITY;};
-
+    
+    // Ratios de bestioles
+    float* getRatiosCherches(){return ratiosCherches;};
+    float* getRatiosPresents(){return ratiosPresents;};
+    void updateRatiosPresents();
+  
 
 private:
     // Camouflage

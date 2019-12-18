@@ -24,6 +24,7 @@ int main()
     for ( int i = 1; i <= 25; ++i )
     {
         ecosysteme.getMilieu().addMember(ConcreteBestiole());
+        ecosysteme.getMilieu().updateRatiosPresents();
     }
 
     ecosysteme.run();

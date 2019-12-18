@@ -341,64 +341,67 @@ void ConcreteBestiole::initYeux(Milieu* flotte)
     }
 }
 
-void ConcreteBestiole::initPersonality()
+void ConcreteBestiole::initPersonality(Milieu* milieu ,float ratiosCherches[5],float ratiosPresents[5])
 {
+  int set_behavior;
 
-    int random_int = std::rand() % 100; // between 0 and 99
-    int random_behavior;
-    if (random_int < 20) // grégaire
-        random_behavior = 1;
-    else if (random_int < 40) // peureuse
-        random_behavior = 2;
-    else if (random_int < 60) // kamikaze
-        random_behavior = 3;
-    else if (random_int < 80) // prévoyante
-        random_behavior = 4;
-    else                      // personnalités multiples
-        random_behavior = 5;
+  if (milieu->getBestioles().size()==1){
+    int n =5;
+    set_behavior = distance(ratiosCherches, max_element(ratiosCherches, ratiosCherches + n));
+  }
+  else{
+    float ratiosDifference[5];
+    for(int i =0; i<5;i++){
+      ratiosDifference[i]=ratiosCherches[i]-ratiosPresents[i];
+    }
+    int m = 5;
+    set_behavior = distance(ratiosDifference, max_element(ratiosDifference, ratiosDifference + m));
+    }
 
-    switch (random_behavior)
+
+  //listeBestioles.back().setType(random_behavior);
+  switch (set_behavior+1)
+  {
+  case 1: // grégaire
     {
-    case 1: // grégaire
-    {
-        personality = new GregairePersonality();
-        type = 0;
-        cout << "Grégaire" << endl;
+      personality = new GregairePersonality();
+      type = 0;
+      cout << "G" << endl;
     }
     break;
-    case 2: // peureuse
+  case 2: // peureuse
     {
-        personality = new PeureusePersonality();
-        type = 1;
-        cout << "Peureuse" << endl;
+      personality = new PeureusePersonality();
+      type = 1;
+      cout << "PE" << endl;
     }
     break;
-    case 3: // kamikaze
+  case 3: // kamikaze
     {
-        personality = new KamikazePersonality();
-        type = 2;
-        cout << "Kamikaze" << endl;
+      personality = new KamikazePersonality();
+      type = 2;
+      cout << "K" << endl;
     }
     break;
-    case 4: // prévoyante
+  case 4: // prévoyante
     {
-        personality = new PrevoyantePersonality();
-        type = 3;
-        cout << "Prévoyante" << endl;
+      personality = new PrevoyantePersonality();
+      type = 3;
+      cout << "PR" << endl;
     }
     break;
-    case 5: // personnalités multiples
+  case 5: // personnalités multiples
     {
-        personality = NULL;
-        type = 4;
-        cout << "Personnalités multiples" << endl;
+      personality = NULL;
+      type = 4;
+      cout << "S" << endl;
     }
     break;
 
-    default:
-        personality = new GregairePersonality();
-        type = 0;
-    }
+  default:
+  personality = new GregairePersonality();
+  type = 0;
+  }
 }
 
 void ConcreteBestiole::randPersonality()
