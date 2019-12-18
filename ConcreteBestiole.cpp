@@ -42,7 +42,7 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires Ã
 
     identite = ++next;
 
-    cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
+    //cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
 
     x = b.x;
     y = b.y;
