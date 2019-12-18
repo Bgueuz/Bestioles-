@@ -166,7 +166,21 @@ void ConcreteBestiole::personalityNewAction()
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
 
-
+    if (type==4)        // bestiole à personnalités multiples
+    {
+        if (personality==nullptr)
+        {
+            this->randPersonality();
+        }
+        else
+        {
+            if((std::rand() % 11) >5)
+            {
+                this->randPersonality();
+            }
+        }
+    }
+    personality->newAction(this);
 
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 }

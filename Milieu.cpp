@@ -137,10 +137,10 @@ void Milieu::collisionsAll()
                     }
                 }
             }
-            else
+            /*else
             {
                 (*it2).personalityNewAction();
-            }
+            }*/
 
 
         }
