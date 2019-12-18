@@ -273,8 +273,6 @@ void Milieu::addMember( const ConcreteBestiole & b )
 void Milieu::gestionClonage() {
     std::vector<ConcreteBestiole> listeBestiolesClones {};
     for (std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
-        cout<<"zut"<<endl;
-        cout<<listeBestioles.front().getID()<<endl;
         if (float a=(*it).RandomFloat(0,1) > 0.98) {
                 listeBestiolesClones.push_back(*it);
 
@@ -294,7 +292,6 @@ void Milieu::addMemberClone( const ConcreteBestiole & b )
         //cout << (listeBestioles.front()).getID() <<endl;
         //out<<"ici est le pb "<<  b.getID() << endl;
         ConcreteBestiole c = b; //.ConcreteBestiole(b);
-        cout<<c.getX()<<endl;
 
         listeBestioles.push_back(c);
 
