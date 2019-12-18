@@ -402,35 +402,7 @@ void ConcreteBestiole::randPersonality()
     }
 }
 
-// Accessoires - Implementation : Code Rouge
-
-void ConcreteBestiole::setAccesories(Milieu* flotte)
-{
-    // Les limites doivent pouvoir être modifiées à la création du milieu
-
-    // Camouflage --> Rare
-
-    if (float p_cam = RandomFloat(0.0,1.0) > 0.8)
-    {
-        this->setCamouflage(flotte->getMinCam(),flotte->getMaxCam());
-    }
-
-    // Nageoire --> Commun
-
-    if (float p_nag = RandomFloat(0.0,1.0) > 0.5)
-    {
-        this->setNageoire(flotte->getMinNage(),flotte->getMaxNage());
-    }
-
-    // Carapace --> Semi-Rare
-
-    if (float p_car = RandomFloat(0.0,1.0) > 0.65)
-    {
-        this->setCarapaceDom(flotte->getMinCaraDom(),flotte->getMaxCaraDom());
-        this->setCarapaceVit(flotte->getMinCaraVit(),flotte->getMaxCaraVit());
-    }
-}
-
+// Incrémente l'âge d'une bestiole et vérifie si elle doit mourir
 void ConcreteBestiole::vie ()
 {
     vecu=vecu+1;
@@ -440,11 +412,13 @@ void ConcreteBestiole::vie ()
     }
 }
 
+// Marque une bestiole comme devant mourir
 void ConcreteBestiole::Kill(void)
 {
     tue=true;
 }
 
+// Génère un nombre flottant aléatoire compris entre a et b
 float ConcreteBestiole::RandomFloat(float a, float b) // code from stackoverflow
 {
     float random = ((float) rand()) / (float) RAND_MAX;
@@ -453,6 +427,7 @@ float ConcreteBestiole::RandomFloat(float a, float b) // code from stackoverflow
     return a + r;
 }
 
+// Génère une liste de voisins détectés
 std::vector<int> ConcreteBestiole::detectVoisins()
 {
     std::vector<int> detected;
@@ -547,4 +522,31 @@ void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
 {
     this->carapaceVitesse = RandomFloat(min_cara_vit,max_cara_vit);
     this->vitesse = (this->vitesse)/(this->carapaceVitesse);
+}
+
+void ConcreteBestiole::setAccessories(Milieu* flotte)
+{
+    // Les limites doivent pouvoir être modifiées à la création du milieu
+
+    // Camouflage --> Rare
+
+    if (float p_cam = RandomFloat(0.0,1.0) > 0.8)
+    {
+        this->setCamouflage(flotte->getMinCam(),flotte->getMaxCam());
+    }
+
+    // Nageoire --> Commun
+
+    if (float p_nag = RandomFloat(0.0,1.0) > 0.5)
+    {
+        this->setNageoire(flotte->getMinNage(),flotte->getMaxNage());
+    }
+
+    // Carapace --> Semi-Rare
+
+    if (float p_car = RandomFloat(0.0,1.0) > 0.65)
+    {
+        this->setCarapaceDom(flotte->getMinCaraDom(),flotte->getMaxCaraDom());
+        this->setCarapaceVit(flotte->getMinCaraVit(),flotte->getMaxCaraVit());
+    }
 }

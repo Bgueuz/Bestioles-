@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 int main()
 {
     Aquarium       ecosysteme( 640, 480, 30 );

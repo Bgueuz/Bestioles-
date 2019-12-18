@@ -235,7 +235,7 @@ void Milieu::gestionvie()
     listeBestioles.swap(listeBestioles2);
 }
 
-void Milieu::addMember( const ConcreteBestiole & b )
+void Milieu::addMember(const ConcreteBestiole & b)
 {
     if (listeBestioles.size()<nbBestiolesMax)
     {
@@ -250,7 +250,7 @@ void Milieu::addMember( const ConcreteBestiole & b )
         listeBestioles.back().initYeux(this);
 
         // Accessoires
-        listeBestioles.back().setAccesories(this);
+        listeBestioles.back().setAccessories(this);
 
         cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
         cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;

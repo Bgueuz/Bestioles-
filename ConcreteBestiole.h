@@ -114,7 +114,7 @@ public :                                           // Forme canonique :
         vitesse = newVitesse;
     };
     void setCamouflage(float min_cam,float max_cam);
-    void setAccesories(Milieu* flotte);
+    void setAccessories(Milieu* flotte);
     void setNageoire(float min_nage,float max_nage);
     void setCarapaceDom(float min_cara_dom,float max_cara_dom);
     void setCarapaceVit(float min_cara_vit,float max_cara_vit);
