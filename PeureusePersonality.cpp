@@ -3,6 +3,6 @@
 
 void PeureusePersonality::newAction()
 {
-    std::cout << "JE SUIS PEUREU.X.SE" << std::endl;
+    //std::cout << "JE SUIS PEUREU.X.SE" << std::endl;
 
 }

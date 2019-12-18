@@ -98,21 +98,39 @@ public :
             listeBestioles.back().setPersonality(new GregairePersonality());
         }
 
-        // Determining whether or not the bestiole has a fin
+        // Accesoires
 
-        // Determining whether or not the bestiole has an eye
+        listeBestioles.back().setAccesories(this);
 
-        // Determining whether or not the bestiole has an ear
-
-        // Determining whether or not the bestiole has camouflage
-
-        // Determining whether or not the bestiole has a shell
+        cout << "cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
+        cout << "cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
 
     }
+
     int nbVoisins( const ConcreteBestiole & b );
     void detection ();
     void updateVoisins(ConcreteBestiole & b);
     void collisionsAll();
+
+    //Accesoires
+        // Camouflage
+    void setCamouflageLimits(float max_cam, float min_cam);
+    float getMaxCam(){return MAX_CAMO;};
+    float getMinCam(){return MIN_CAMO;};
+
+        // Nageoire
+    void setNageoireLimits(float max_nage, float min_nage);
+    float getMaxNage(){return MAX_NAGE;};
+    float getMinNage(){return MIN_NAGE;};
+
+private:
+    // Camouflage
+    float MAX_CAMO = 1.0;
+    float MIN_CAMO = 0.0;
+
+    // Nageoire
+    float MAX_NAGE = 2.0;
+    float MIN_NAGE = 1.0;
 
 };
 

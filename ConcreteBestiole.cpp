@@ -7,6 +7,7 @@
 #include "PrevoyantePersonality.h"
 #include <cstdlib>
 #include <cmath>
+#include <cstdlib>
 
 const double      ConcreteBestiole::AFF_SIZE = 8.;
 const double      ConcreteBestiole::MAX_VITESSE = 10.;
@@ -35,7 +36,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 }
 
 
-ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b )
+ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires à copier aussi
 {
 
     identite = ++next;
@@ -58,7 +59,7 @@ ConcreteBestiole::~ConcreteBestiole( void )
 
     delete[] couleur;
 
-    cout << "dest ConcreteBestiole" << endl;
+    //cout << "dest ConcreteBestiole" << endl;
 
 }
 
@@ -269,4 +270,54 @@ bool ConcreteBestiole::entendu (const ConcreteBestiole & b)
             }
         }
     */
+}
+
+// Accesoires - Implementation : Code Rouge
+
+void ConcreteBestiole::setAccesories(Milieu* flotte)
+{
+    // Les limites doivent pouvoir être modifiées à la création du milieu
+
+    // Camouflage --> Rare
+
+    if (float p_cam = RandomFloat(0.0,1.0) > 0.8)
+        {
+            this->setCamouflage(flotte->getMinCam(),flotte->getMaxCam());
+        }
+
+    // Nageoire --> Commun
+
+    if (float p_cam = RandomFloat(0.0,1.0) > 0.5)
+        {
+            this->setNageoire(flotte->getMinNage(),flotte->getMaxNage());
+        }
+
+}
+
+/////////// SETTEURS ACCESOIRES
+
+void ConcreteBestiole::setCamouflage(float min_cam,float max_cam)
+{
+    // Camouflage --> Rare
+
+    this->camouflage = RandomFloat(min_cam,max_cam);
+
+}
+
+void ConcreteBestiole::setNageoire(float min_nage,float max_nage)
+{
+    // Camouflage --> Rare
+
+    this->nageoire = RandomFloat(min_nage,max_nage);
+    this->vitesse = (this->vitesse)*(this->nageoire);
+
+}
+
+// Stack Overflow
+
+float ConcreteBestiole::RandomFloat(float a, float b) {
+    float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = b - a;
+    float r = random * diff;
+    return a + r;
 }

@@ -3,5 +3,5 @@
 void PrevoyantePersonality::newAction()
 {
 
-    std::cout << "JE SUIS PREVOYANT(E)" << std::endl;
+    //std::cout << "JE SUIS PREVOYANT(E)" << std::endl;
 }

@@ -5,6 +5,6 @@
 
 void KamikazePersonality::newAction()
 {
-    std::cout << "JE SUIS  KAMIKAZE" << std::endl;
+    //std::cout << "JE SUIS  KAMIKAZE" << std::endl;
 
 }

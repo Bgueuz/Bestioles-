@@ -28,6 +28,8 @@ private :
     Personality*            personality;
 
 
+
+
 private :
     int               identite;
     int               x, y;
@@ -36,6 +38,18 @@ private :
     double            vitesse;
     bool              yeux;
     bool              oreilles;
+
+// Accesoires
+private :
+        // Camouflage
+    static double     max_cam;
+    static double     min_cam;
+    float camouflage = 0;
+
+        // Nageoire
+    static double     max_nage;
+    static double     min_nage;
+    float nageoire = 1;
 
 
     T               * couleur;
@@ -81,6 +95,19 @@ public :                                           // Forme canonique :
     void initCoords( int xLim, int yLim );
 
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
+
+    // Accesoires
+    void setAccesories(Milieu* flotte);
+        // Camouflage
+    void setCamouflage(float min_cam,float max_cam);
+    float getCamouflage(){return camouflage;};
+
+        // Nageoire
+    void setNageoire(float min_nage,float max_nage);
+    float getNageoire(){return nageoire;};
+
+    // Utile --> pourrait faire partie d'une interface
+    float RandomFloat(float a, float b);
 
 };
 

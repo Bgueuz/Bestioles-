@@ -9,7 +9,7 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
     width(_width), height(_height)
 {
 
-    cout << "const Milieu" << endl;
+    // cout << "const Milieu" << endl;
 
     std::srand( time(NULL) );
 
@@ -17,7 +17,7 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
 Milieu::~Milieu( void )
 {
 
-    cout << "dest Milieu" << endl;
+    // cout << "dest Milieu" << endl;
 
 }
 
@@ -28,7 +28,6 @@ void Milieu::step( void )
     cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
-
         it->action( *this );
         it->draw( *this );
 
@@ -138,4 +137,16 @@ void Milieu::collisionsAll()
             }
         }
     }
+}
+
+void Milieu::setCamouflageLimits(float max_cam, float min_cam)
+{
+    this->MAX_CAMO = max_cam;
+    this->MIN_CAMO = min_cam;
+}
+
+void Milieu::setNageoireLimits(float max_nage, float min_nage)
+{
+    this->MAX_NAGE = max_nage;
+    this->MIN_NAGE = min_nage;
 }
