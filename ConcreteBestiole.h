@@ -122,7 +122,7 @@ public :                                           // Forme canonique :
 
     // Getters
     int getX(void) const {return x;};
-    int getY(void) const {return x;};
+    int getY(void) const {return y;};
     Personality* getPersonality();
     int getType();
     double getNormalVit(){return normal_vit;};

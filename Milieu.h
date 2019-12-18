@@ -16,7 +16,7 @@ class Milieu : public UImg
 private :
     static const T          white[];
     int             nbBestiolesMax=50;
-    float            ratiosCherches[5] = {0.1, 0.1, 0.1, 0.1, 0.6};
+    float            ratiosCherches[5] = {0.2, 0.2, 0.2, 0.2, 0.2};
     float            ratiosPresents[5] = {0.,0.,0.,0.,0.};
     int                     width, height;
     std::vector<ConcreteBestiole>   listeBestioles;

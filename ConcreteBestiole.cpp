@@ -288,13 +288,10 @@ bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
 void ConcreteBestiole::initOreilles(Milieu* flotte)
 {
 
-    //if (float p_oreilles = RandomFloat(0.0,1.0) > 0.10)  // 90 %
-    if (true)  // 90 %
+    if (float p_oreilles = RandomFloat(0.0,1.0) > 0.10)  // 90 %
     {
-        float radius = 200.0;
-        //float radius = RandomFloat( flotte->getMinEarRadius(),flotte->getMaxEarRadius());
-        float probability = 1.0;
-        //float probability = RandomFloat( flotte->getMinEarProbability(),flotte->getMaxEarProbability());
+        float radius = RandomFloat( flotte->getMinEarRadius(),flotte->getMaxEarRadius());
+        float probability = RandomFloat( flotte->getMinEarProbability(),flotte->getMaxEarProbability());
 
         setOreilles(radius, probability);
     }

@@ -27,7 +27,7 @@ Milieu::~Milieu( void )
 void Milieu::naissance()
 {
 
-    int proba_naissance = 0;// 20;
+    int proba_naissance = 10;
     int tirage = std::rand() % 100 +1 ;
     if (tirage <= proba_naissance)
     {
@@ -273,7 +273,7 @@ void Milieu::addMember(const ConcreteBestiole & b)
 void Milieu::gestionClonage() {
     std::vector<ConcreteBestiole> listeBestiolesClones {};
     for (std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
-        if (float a=(*it).RandomFloat(0,1) > 1.0) {
+        if (float a=(*it).RandomFloat(0,1) > 0.99) {
                 listeBestiolesClones.push_back(*it);
 
                 }
