@@ -65,7 +65,7 @@ public :                                           // Forme canonique :
     void changeColorToType();
     std::vector<int> detectVoisins();
     bool jeTeVois( const ConcreteBestiole & b ) const;
-
+    std::vector<int> simuleBouge(  );
 
     //Initialisation
     void initCoords( int xLim, int yLim );
@@ -94,6 +94,7 @@ public :                                           // Forme canonique :
     std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
     std::vector<float> getOreilles() {return oreilles;};
     std::vector<float> getYeux() {return yeux;};
+    const double getAffSize() { return AFF_SIZE;};
 
     //Operators
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );

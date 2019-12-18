@@ -139,6 +139,31 @@ void ConcreteBestiole::bouge( int xLim, int yLim )
 
 }
 
+std::vector<int> ConcreteBestiole::simuleBouge(  )
+{
+    double         nx, ny;
+    double         dx = cos( orientation )*vitesse;
+    double         dy = -sin( orientation )*vitesse;
+    int            cx, cy;
+
+    int futureX, futureY;
+
+    cx = static_cast<int>( cumulX );
+    cy = static_cast<int>( cumulY );
+
+    nx = x + dx + cx;
+    ny = y + dy + cy;
+
+    futureX = static_cast<int>( nx );
+    futureY = static_cast<int>( ny );
+
+    std::vector<int> newCoords;
+    newCoords.push_back(futureX);
+    newCoords.push_back(futureY);
+    return newCoords;
+
+}
+
 
 
 list<ConcreteBestiole *> ConcreteBestiole::getVoisins()
@@ -191,23 +216,29 @@ void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////
 {
     if (!schizophrene)
     {
-        if(type==0)// or type==1)
+        if(true)
         {
-        personality->newAction(this);
+            personality->newAction(this);
         }
 
-        }
-        else   // bestiole à personnalités multiples
+    }
+    else   // bestiole à personnalités multiples
+    {
+        if(personality==nullptr)
         {
-            if(personality==nullptr){this->randPersonality();}
-            else
+            this->randPersonality();
+        }
+        else
+        {
+            if((std::rand() % 11) >5)
             {
-                if((std::rand() % 11) >5){this->randPersonality();}
+                this->randPersonality();
             }
-            personality->newAction();
         }
+        personality->newAction();
+    }
 
-        bouge( monMilieu.getWidth(), monMilieu.getHeight() );
+    bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 }
 
 Personality* ConcreteBestiole::getPersonality()
@@ -237,8 +268,8 @@ void ConcreteBestiole::draw( UImg & support )
 
     if ((this->getCamouflage() > 0.0))
     {
-      unsigned char purple[] = { 255,0,255 };
-      support.draw_text((x+xt)/2, (y+yt)/2, "Ninja",purple,20);
+        unsigned char purple[] = { 255,0,255 };
+        support.draw_text((x+xt)/2, (y+yt)/2, "Ninja",purple,20);
     }
 
 
@@ -248,11 +279,36 @@ void ConcreteBestiole::draw( UImg & support )
 void ConcreteBestiole::changeColorToType()
 {
     T* couleur2 = new T[ 3 ];
-    if(type==0){couleur2[0]= 34 ;couleur2[1]=106;couleur2[2]=155;} //Grégaire -> Blue
-    else if(type==1){couleur2[0]=100;couleur2[1]=163;couleur2[2]=36;} //Peureuse -> Green
-    else if(type==2){couleur2[0]=201;couleur2[1]=59;couleur2[2]=16;} // Kamikaze -> Orange
-    else if(type==3){couleur2[0]=160;couleur2[1]=82;couleur2[2]=45;} // Prévoyante -> Brown
-    else{couleur2[0]=219;couleur2[1]=112;couleur2[2]=147;} //Schizophrene -> Pink
+    if(type==0)
+    {
+        couleur2[0]= 34 ;    //Grégaire -> Blue
+        couleur2[1]=106;
+        couleur2[2]=155;
+    }
+    else if(type==1)
+    {
+        couleur2[0]=100;    //Peureuse -> Green
+        couleur2[1]=163;
+        couleur2[2]=36;
+    }
+    else if(type==2)
+    {
+        couleur2[0]=201;    // Kamikaze -> Orange
+        couleur2[1]=59;
+        couleur2[2]=16;
+    }
+    else if(type==3)
+    {
+        couleur2[0]=160;    // Prévoyante -> Brown
+        couleur2[1]=82;
+        couleur2[2]=45;
+    }
+    else
+    {
+        couleur2[0]=219;    //Schizophrene -> Pink
+        couleur2[1]=112;
+        couleur2[2]=147;
+    }
 
     memcpy( couleur, couleur2, 3*sizeof(T) );
     delete couleur2;
@@ -285,7 +341,6 @@ bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b) const
 
 }
 
-
 bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
 {
     double minRadius = AFF_SIZE + b.AFF_SIZE-4;
@@ -293,7 +348,6 @@ bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
     dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     return ( dist <= minRadius);
 }
-
 
 void ConcreteBestiole::initOreilles(Milieu* flotte)
 {
@@ -332,13 +386,13 @@ void ConcreteBestiole::initPersonality()
 
     int random_int = std::rand() % 100; // between 0 and 99
     int random_behavior;
-    if (random_int < 50) // grégaire
+    if (random_int < 20) // grégaire
         random_behavior = 1;
-    else if (random_int < 60) // peureuse
+    else if (random_int < 40) // peureuse
         random_behavior = 2;
-    else if (random_int < 90) // kamikaze
+    else if (random_int < 60) // kamikaze
         random_behavior = 3;
-    else if (random_int < 100) // prévoyante
+    else if (random_int < 80) // prévoyante
         random_behavior = 4;
     else                      // personnalités multiples
         random_behavior = 5;
@@ -489,16 +543,19 @@ void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
 
 // MORT
 
-void ConcreteBestiole::vie () {
-  vecu=vecu+1;
-  //cout<<dureedevie<<endl;
-  //cout<< "la bestiole" << identite << "a vecu " << vecu <<endl;
-  if (vecu>=dureedevie*10) {
-    tue=true;
-  }
+void ConcreteBestiole::vie ()
+{
+    vecu=vecu+1;
+    //cout<<dureedevie<<endl;
+    //cout<< "la bestiole" << identite << "a vecu " << vecu <<endl;
+    if (vecu>=dureedevie*10)
+    {
+        tue=true;
+    }
 }
 
-void ConcreteBestiole::Kill(void) {
+void ConcreteBestiole::Kill(void)
+{
     tue=true;
 }
 
@@ -529,11 +586,14 @@ std::vector<int> ConcreteBestiole::detectVoisins()
 
         if(isInVisibleRegion)
 
-        if (isInHearingDistance || (isInVisibleRegion && isInVisibleDistance))   // on ignore le camouflage
-        {
-            if( max(yeux[2],oreilles[1]) > it2->getCamouflage()){detected.push_back(i);}
+            if (isInHearingDistance || (isInVisibleRegion && isInVisibleDistance))   // on ignore le camouflage
+            {
+                if( max(yeux[2],oreilles[1]) > it2->getCamouflage())
+                {
+                    detected.push_back(i);
+                }
 
-        }
+            }
         i++;
     }
     return detected;

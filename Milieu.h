@@ -66,7 +66,7 @@ public :
 
 public:
 
-    //Accesoires
+    //Accessoires
 
         // Camouflage
     void setCamouflageLimits(float max_cam, float min_cam);
@@ -125,7 +125,7 @@ private:
     float MAX_CARA_DOM = 4.0;
     float MIN_CARA_DOM = 1.0;
 
-            // Reduction Vitesse
+        // Reduction Vitesse
     float MAX_CARA_VIT = 3.0;
     float MIN_CARA_VIT = 1.0;
 

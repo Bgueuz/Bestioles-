@@ -79,7 +79,7 @@ void Milieu::collisionsAll()
                 int tirage = std::rand() % 100 +1 ;
                 if (tirage <= proba_mort)
                     {
-                    cout << "la bestiole meurt" << endl; //la bestiole meurt
+                    cout << "la bestiole meurt par collision" << endl; //la bestiole meurt
                     (*it).Kill();
 
                     //killBestiole(*it);
