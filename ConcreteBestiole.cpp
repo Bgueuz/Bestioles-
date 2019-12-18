@@ -14,16 +14,6 @@
 const double      ConcreteBestiole::AFF_SIZE = 8.;
 const double      ConcreteBestiole::MAX_VITESSE = 10.;
 const double      ConcreteBestiole::LIMITE_VUE = 30.;
-/*
-max_cam = b.max_cam;
-min_cam = b.min_cam;
-max_nage = b.max_nage;
-min_nage = b.min_nage;
-max_cara_dom = b.max_cara_dom;
-min_cara_dom = b.min_cara_dom;
-max_cara_vit = b.max_cara_vit;
-min_cara_vit = b.min_cara_vit;
-*/
 int               ConcreteBestiole::next = 0;
 
 
@@ -32,7 +22,7 @@ ConcreteBestiole::ConcreteBestiole( void )
 
     identite = ++next;
 
-    //cout << "const Bestiole (" << identite << ") par defaut" << endl;
+    cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
     x = y = type = 0;
     cumulX = cumulY = 0.;
@@ -52,15 +42,12 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires �
 
     identite = ++next;
 
-    //cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
+    cout << "const ConcreteBestiole (" << identite << ") par copie" << endl;
 
     x = b.x;
     y = b.y;
     type=b.type;
     personality=b.personality;
-    schizophrene = b.schizophrene;
-    //listeVoisinsOmni= b.listeVoisinsOmni;
-    //Voisins= b.Voisins;
     Detectes=b.Detectes;
     cumulX = cumulY = 0.;
     orientation = b.orientation;
@@ -192,11 +179,6 @@ int ConcreteBestiole::getType()
     return type;
 }
 
-void ConcreteBestiole::setSchizophrene(bool s)
-{
-    schizophrene = s;
-}
-
 void ConcreteBestiole::setOreilles(float radius, float probability)
 {
     oreilles.push_back(radius);
@@ -214,17 +196,10 @@ void ConcreteBestiole::setYeux(float angle, float radius, float probability)
 
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
-    if (!schizophrene)
-    {
-        if(true)
-        {
-            personality->newAction(this);
-        }
 
-    }
-    else   // bestiole à personnalités multiples
+    if (type==4)        // bestiole à personnalités multiples
     {
-        if(personality==nullptr)
+        if (personality==nullptr)
         {
             this->randPersonality();
         }
@@ -235,8 +210,9 @@ void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////
                 this->randPersonality();
             }
         }
-        personality->newAction();
     }
+
+    personality->newAction(this);
 
     bouge( monMilieu.getWidth(), monMilieu.getHeight() );
 }
@@ -272,8 +248,6 @@ void ConcreteBestiole::draw( UImg & support )
         support.draw_text((x+xt)/2, (y+yt)/2, "Ninja",purple,20);
     }
 
-
-
 }
 
 void ConcreteBestiole::changeColorToType()
@@ -305,7 +279,7 @@ void ConcreteBestiole::changeColorToType()
     }
     else
     {
-        couleur2[0]=219;    //Schizophrene -> Pink
+        couleur2[0]=219;    // Personnalités multiples -> Pink
         couleur2[1]=112;
         couleur2[2]=147;
     }
@@ -402,7 +376,6 @@ void ConcreteBestiole::initPersonality()
     {
     case 1: // grégaire
     {
-        schizophrene=false;
         personality = new GregairePersonality();
         type = 0;
         cout << "G" << endl;
@@ -410,7 +383,6 @@ void ConcreteBestiole::initPersonality()
     break;
     case 2: // peureuse
     {
-        schizophrene=false;
         personality = new PeureusePersonality();
         type = 1;
         cout << "PE" << endl;
@@ -418,7 +390,6 @@ void ConcreteBestiole::initPersonality()
     break;
     case 3: // kamikaze
     {
-        schizophrene=false;
         personality = new KamikazePersonality();
         type = 2;
         cout << "K" << endl;
@@ -426,7 +397,6 @@ void ConcreteBestiole::initPersonality()
     break;
     case 4: // prévoyante
     {
-        schizophrene=false;
         personality = new PrevoyantePersonality();
         type = 3;
         cout << "PR" << endl;
@@ -434,15 +404,13 @@ void ConcreteBestiole::initPersonality()
     break;
     case 5: // personnalités multiples
     {
-        schizophrene=true;
         personality = NULL;
         type = 4;
-        cout << "S" << endl;
+        cout << "PM" << endl;
     }
     break;
 
     default:
-        schizophrene=false;
         personality = new GregairePersonality();
         type = 0;
     }

@@ -31,9 +31,8 @@ private :
     double            cumulX, cumulY;
     double            orientation;
     double            vitesse;
-    bool              schizophrene;
     Personality*      personality;
-    int               type;  // 0,1,2,3,4  pour grégaire,peureuse,kamikaze,prévoyante,schizophrène
+    int               type;  // 0,1,2,3,4  pour grégaire,peureuse,kamikaze,prévoyante,personnalités multiples
     std::vector<float>      oreilles; // tableau : rayon du cercle de détection, probabilité de détection
     std::vector<float>      yeux; // tableau : angle de vision, distance, probabilité
 
@@ -77,7 +76,6 @@ public :                                           // Forme canonique :
     void setOreilles(float radius, float probability);
     void setYeux(float angle, float radius, float probability);
     void setPersonality(Personality* newPersonality);
-    void setSchizophrene(bool s);
     void setType(int i);
     void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
     void setOrientation(double newOrientation){orientation = newOrientation;};
