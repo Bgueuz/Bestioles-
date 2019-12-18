@@ -56,7 +56,7 @@ private :
     static double     min_cara_vit;
     float carapaceVitesse = 1.0;
 
-    int                dureedevie = std::rand() % 100;
+    int                dureedevie = std::rand() % 100 + 20;
     int                vecu = 0;
     bool               tue = false;
     T*                 couleur;
@@ -88,7 +88,6 @@ public :                                           // Forme canonique :
     void Kill(void);
     void vie();
     float RandomFloat(float a, float b);
-    void personalityNewAction();
 
     // Initialisations
     void initCoords( int xLim, int yLim );

@@ -143,30 +143,10 @@ std::vector<int> ConcreteBestiole::simuleBouge()
 
 }
 
-void ConcreteBestiole::personalityNewAction()
-{
-    if (type==4)        // bestiole à personnalités multiples
-    {
-        if (personality==nullptr)
-        {
-            this->randPersonality();
-        }
-        else
-        {
-            if((std::rand() % 11) >5)
-            {
-                this->randPersonality();
-            }
-        }
-    }
-    personality->newAction(this);
-}
-
 // Action supplémentaire pour les bestioles dotées de personnalités
 void ConcreteBestiole::action( Milieu & monMilieu )  /////////// ACTION ////////////
 {
-
-    if (type==4)        // bestiole à personnalités multiples
+        if (type==4)        // bestiole à personnalités multiples
     {
         if (personality==nullptr)
         {
@@ -244,7 +224,7 @@ void ConcreteBestiole::changeColorToType()
     }
     else
     {
-        couleur2[0]=255;    // Personnalités multiples -> Purple
+        couleur2[0]=255;    // Personnalités multiples -> Magenta
         couleur2[1]=0;
         couleur2[2]=255;
     }
@@ -345,35 +325,30 @@ void ConcreteBestiole::initPersonality(Milieu* milieu,float ratiosCherches[5],fl
     {
         personality = new GregairePersonality();
         type = 0;
-        cout << "G" << endl;
     }
     break;
     case 2: // peureuse
     {
         personality = new PeureusePersonality();
         type = 1;
-        cout << "PE" << endl;
     }
     break;
     case 3: // kamikaze
     {
         personality = new KamikazePersonality();
         type = 2;
-        cout << "K" << endl;
     }
     break;
     case 4: // prévoyante
     {
         personality = new PrevoyantePersonality();
         type = 3;
-        cout << "PR" << endl;
     }
     break;
     case 5: // personnalités multiples
     {
         personality = new GregairePersonality(); // les bestioles PM commencent par être grégaires
         type = 4;
-        cout << "PM" << endl;
     }
     break;
 

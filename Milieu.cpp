@@ -31,7 +31,6 @@ void Milieu::naissance()
     int tirage = std::rand() % 100 +1 ;
     if (tirage <= proba_naissance)
     {
-        cout << "NAISSANCE" << endl;
         updateRatiosPresents();
         addMember(ConcreteBestiole());
 
@@ -46,8 +45,6 @@ void Milieu::step( void )
     updateRatiosPresents();
     collisionsAll();
 
-    //cout << ratiosPresents[0] << ";" << ratiosPresents[1] << ";" <<ratiosPresents[2] << ";" <<ratiosPresents[3] << ";" <<ratiosPresents[4] << endl;
-    //addMember(ConcreteBestiole());
     cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
 
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
@@ -99,7 +96,7 @@ void Milieu::collisionsAll()
                 //On vérifie si la bestiole a une carapace.
                 if (float p_mort = RandomFloat(0.0,1.0)/it->getCarapaceDom() >= seuil_mort)
                 {
-                    cout << "la bestiole meurt par collision" << endl; //la bestiole meurt
+                    //la bestiole meurt par collision
                     (*it).Kill();
                 }
                 else
@@ -137,12 +134,6 @@ void Milieu::collisionsAll()
                     }
                 }
             }
-            /*else
-            {
-                (*it2).personalityNewAction();
-            }*/
-
-
         }
     }
 }
@@ -255,12 +246,6 @@ void Milieu::addMember(const ConcreteBestiole & b)
         // Accessoires
         listeBestioles.back().setAccessories(this);
 
-        cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
-        cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
-        cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
-        cout << "   cette bestiole à une carapace " << endl;
-        cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
-        cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
     }
     else
     {
@@ -273,7 +258,7 @@ void Milieu::addMember(const ConcreteBestiole & b)
 void Milieu::gestionClonage() {
     std::vector<ConcreteBestiole> listeBestiolesClones {};
     for (std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
-        if (float a=(*it).RandomFloat(0,1) > 0.99) {
+        if (float a=(*it).RandomFloat(0,1) > 0.995) {
                 listeBestiolesClones.push_back(*it);
 
                 }
@@ -288,22 +273,16 @@ void Milieu::addMemberClone( const ConcreteBestiole & b )
 
         if (listeBestioles.size()<nbBestiolesMax)
     {
-        //cout << "av prblm" <<endl;
-        //cout << (listeBestioles.front()).getID() <<endl;
-        //out<<"ici est le pb "<<  b.getID() << endl;
+
         ConcreteBestiole c = b; //.ConcreteBestiole(b);
 
         listeBestioles.push_back(c);
 
 
-        //listeBestioles.push_back(b);
-       // cout << "pute" <<endl;
         listeBestioles.back().InitCoordsClone(b.getX(), b.getY());
-        //cout << "fdp" <<endl;
         listeBestioles.back().initPersonality(this,ratiosCherches,ratiosPresents);
 
         listeBestioles.back().setVecu();
-        //cout << "enculé" <<endl;
 
         // Ajout de capteurs
         listeBestioles.back().initOreilles(this);
@@ -311,13 +290,6 @@ void Milieu::addMemberClone( const ConcreteBestiole & b )
 
         // Accessoires
         listeBestioles.back().setAccessories(this);
-
-        cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
-        cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;
-        cout << "   cette bestiole à des nageoires de " << listeBestioles.back().getNageoire() << endl;
-        cout << "   cette bestiole à une carapace " << endl;
-        cout << "       qui réduit les dommages de  " << listeBestioles.back().getCarapaceDom() << endl;
-        cout << "       qui réduit la vitesse de  " << listeBestioles.back().getCarapaceVit() << endl;
 
     }
     else
