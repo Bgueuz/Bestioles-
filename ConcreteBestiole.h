@@ -170,7 +170,6 @@ public :
     void Kill(void);
     void vie();
 
-
 };
 
 

@@ -10,7 +10,6 @@ class Personality
 {
 public:
     virtual void newAction() = 0;
-    virtual void newAction(int x, int y)=0;
     virtual void newAction(ConcreteBestiole* b)=0;
 };
 

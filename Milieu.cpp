@@ -27,6 +27,7 @@ void Milieu::step( void )
 {
     collisionsAll();
     cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
+
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
         it->action( *this );
@@ -120,6 +121,8 @@ void Milieu::collisionsAll()
     }
 }
 
+// Setters
+
 void Milieu::setCamouflageLimits(float max_cam, float min_cam)
 {
     this->MAX_CAMO = max_cam;
@@ -173,8 +176,6 @@ void Milieu::setEyeProbabilityLimits(float max_probability, float min_probabilit
     this->MAX_EYE_PROBABILITY = max_probability;
     this->MIN_EYE_PROBABILITY = min_probability;
 }
-
-// MORT
 
 void Milieu::gestionvie()
 {

@@ -16,7 +16,7 @@ const double      ConcreteBestiole::MAX_VITESSE = 10.;
 const double      ConcreteBestiole::LIMITE_VUE = 30.;
 int               ConcreteBestiole::next = 0;
 
-
+// Constructeur
 ConcreteBestiole::ConcreteBestiole( void )
 {
 
@@ -35,8 +35,7 @@ ConcreteBestiole::ConcreteBestiole( void )
     couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 }
 
-
-
+// Constructeur par copie
 ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires à copier aussi
 {
 
@@ -56,7 +55,6 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires �
     yeux = b.yeux;
     vecu = b.vecu;
     dureedevie = b.dureedevie;
-
     camouflage = b.camouflage;
     nageoire = b.nageoire;
     carapaceDommage = b.carapaceDommage;
@@ -64,35 +62,29 @@ ConcreteBestiole::ConcreteBestiole( const ConcreteBestiole & b ) // Accesoires �
 
     couleur = new T[ 3 ];
     memcpy( couleur, b.couleur, 3*sizeof(T) );
-
 }
 
-
+// Destructeur
 ConcreteBestiole::~ConcreteBestiole( void )
 {
-
     delete[] couleur;
-
     //cout << "dest ConcreteBestiole" << endl;
-
 }
 
-
+// Initialise les coordonnées de la bestiole
 void ConcreteBestiole::initCoords( int xLim, int yLim )
 {
-
     x = rand() % xLim;
     y = rand() % yLim;
 }
 
-
+// Déplace physiquement la bestiole dans l'aquarium selon sa vitesse, son orientation, et sa vitesse actuelle
 void ConcreteBestiole::bouge( int xLim, int yLim )
 {
     double         nx, ny;
     double         dx = cos( orientation )*vitesse;
     double         dy = -sin( orientation )*vitesse;
     int            cx, cy;
-
 
     cx = static_cast<int>( cumulX );
     cumulX -= cx;
@@ -126,6 +118,7 @@ void ConcreteBestiole::bouge( int xLim, int yLim )
 
 }
 
+// Renvoie les coordonnées futures d'une bestiole bougeant simplement. Utile pour prédire le mouvement des autres bestioles
 std::vector<int> ConcreteBestiole::simuleBouge(  )
 {
     double         nx, ny;
@@ -151,13 +144,12 @@ std::vector<int> ConcreteBestiole::simuleBouge(  )
 
 }
 
-
+// Getters and setters
 
 list<ConcreteBestiole *> ConcreteBestiole::getVoisins()
 {
     return Voisins;
 }
-
 
 list<ConcreteBestiole *> ConcreteBestiole::getDetectes()
 {
@@ -183,12 +175,10 @@ void ConcreteBestiole::setOreilles(float radius, float probability)
 {
     oreilles.push_back(radius);
     oreilles.push_back(probability);
-
 }
 
 void ConcreteBestiole::setYeux(float angle, float radius, float probability)
 {
-
     yeux.push_back(angle);
     yeux.push_back(radius);
     yeux.push_back(probability);
@@ -298,10 +288,7 @@ bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 )
 
 bool ConcreteBestiole::jeTeVois( const ConcreteBestiole & b ) const
 {
-    double         dist;
-
-
-    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+    double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     return ( dist <= LIMITE_VUE );
 }
 
@@ -312,7 +299,6 @@ bool ConcreteBestiole::inRadiusVoisin(const ConcreteBestiole & b) const
     double dist;
     dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
     return ( dist <= radius );
-
 }
 
 bool ConcreteBestiole::checkCollision(const ConcreteBestiole & b) const
@@ -371,42 +357,41 @@ void ConcreteBestiole::initPersonality()
     else                      // personnalités multiples
         random_behavior = 5;
 
-    //listeBestioles.back().setType(random_behavior);
     switch (random_behavior)
     {
     case 1: // grégaire
     {
         personality = new GregairePersonality();
         type = 0;
-        cout << "G" << endl;
+        cout << "Grégaire" << endl;
     }
     break;
     case 2: // peureuse
     {
         personality = new PeureusePersonality();
         type = 1;
-        cout << "PE" << endl;
+        cout << "Peureuse" << endl;
     }
     break;
     case 3: // kamikaze
     {
         personality = new KamikazePersonality();
         type = 2;
-        cout << "K" << endl;
+        cout << "Kamikaze" << endl;
     }
     break;
     case 4: // prévoyante
     {
         personality = new PrevoyantePersonality();
         type = 3;
-        cout << "PR" << endl;
+        cout << "Prévoyante" << endl;
     }
     break;
     case 5: // personnalités multiples
     {
         personality = NULL;
         type = 4;
-        cout << "PM" << endl;
+        cout << "Personnalités multiples" << endl;
     }
     break;
 
@@ -429,7 +414,6 @@ void ConcreteBestiole::randPersonality()
     else
         random_behavior = 4;
 
-    //listeBestioles.back().setType(random_behavior);
     switch (random_behavior)
     {
     case 1: // grégaire
@@ -455,7 +439,7 @@ void ConcreteBestiole::randPersonality()
     }
 }
 
-// Accesoires - Implementation : Code Rouge
+// Accessoires - Implementation : Code Rouge
 
 void ConcreteBestiole::setAccesories(Milieu* flotte)
 {
@@ -485,7 +469,7 @@ void ConcreteBestiole::setAccesories(Milieu* flotte)
 
 }
 
-/////////// SETTEURS ACCESOIRES
+/////////// SETTEURS ACCESSOIRES
 
 void ConcreteBestiole::setCamouflage(float min_cam,float max_cam)
 {
@@ -509,13 +493,9 @@ void ConcreteBestiole::setCarapaceVit(float min_cara_vit,float max_cara_vit)
     this->vitesse = (this->vitesse)/(this->carapaceVitesse);
 }
 
-// MORT
-
 void ConcreteBestiole::vie ()
 {
     vecu=vecu+1;
-    //cout<<dureedevie<<endl;
-    //cout<< "la bestiole" << identite << "a vecu " << vecu <<endl;
     if (vecu>=dureedevie*10)
     {
         tue=true;
@@ -527,10 +507,7 @@ void ConcreteBestiole::Kill(void)
     tue=true;
 }
 
-
-// Stack Overflow
-
-float ConcreteBestiole::RandomFloat(float a, float b)
+float ConcreteBestiole::RandomFloat(float a, float b) // code from stackoverflow
 {
     float random = ((float) rand()) / (float) RAND_MAX;
     float diff = b - a;

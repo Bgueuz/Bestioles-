@@ -10,8 +10,6 @@ void PrevoyantePersonality::newAction()
 void PrevoyantePersonality::newAction(ConcreteBestiole * b)
 {
 
-    cout << "je suis prevoyante" << endl;
-
     std::vector<ConcreteBestiole> VoisinsOmni = b->getVoisinsOmni();
     std::vector<int> detected = b->detectVoisins();
 
