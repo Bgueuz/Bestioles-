@@ -8,8 +8,8 @@
 class GregairePersonality: public Personality
 {
 public:
-    void newAction();
-    void newAction(ConcreteBestiole * b);
+    virtual void newAction();
+    virtual void newAction(ConcreteBestiole * b);
 };
 
 #endif // GREGAIREPERSONALITY_H_INCLUDED

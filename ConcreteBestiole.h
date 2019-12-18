@@ -25,7 +25,6 @@ private :
     static const double     LIMITE_OUIE;
     static int              next;
 
-private :
     int               identite;
     int               x, y;
     double            cumulX, cumulY;
@@ -35,6 +34,7 @@ private :
     int               type;  // 0,1,2,3,4  pour grégaire,peureuse,kamikaze,prévoyante,personnalités multiples
     std::vector<float>      oreilles; // tableau : rayon du cercle de détection, probabilité de détection
     std::vector<float>      yeux; // tableau : angle de vision, distance, probabilité
+    double             normal_vit;
 
     // Camouflage
     static double     max_cam;
@@ -57,9 +57,9 @@ private :
     float carapaceVitesse = 1.0;
 
     int                dureedevie = std::rand() % 100;
-    int                      vecu = 0;
-    bool                      tue = false;
-    T               * couleur;
+    int                vecu = 0;
+    bool               tue = false;
+    T*                 couleur;
     std::vector<ConcreteBestiole>   listeVoisinsOmni;
     list<ConcreteBestiole *>  Voisins;
     list<ConcreteBestiole *> Detectes;
@@ -88,6 +88,7 @@ public :                                           // Forme canonique :
     void Kill(void);
     void vie();
     float RandomFloat(float a, float b);
+    void personalityNewAction();
 
     // Initialisations
     void initCoords( int xLim, int yLim );
@@ -117,83 +118,34 @@ public :                                           // Forme canonique :
     void setNageoire(float min_nage,float max_nage);
     void setCarapaceDom(float min_cara_dom,float max_cara_dom);
     void setCarapaceVit(float min_cara_vit,float max_cara_vit);
+    void setNormalVit(double v){normal_vit=v;};
 
     // Getters
-    int getX( void ) const
-    {
-        return x;
-    };
-    int getY( void ) const
-    {
-        return y;
-    };
+    int getX(void) const {return x;};
+    int getY(void) const {return x;};
     Personality* getPersonality();
     int getType();
-    double getVitesse( void ) const
-    {
-        return vitesse;
-    };
-    int getIdentite( void ) const
-    {
-        return identite;
-    };
-    double getOrientation( void ) const
-    {
-        return orientation;
-    };
-    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const
-    {
-        return listeVoisinsOmni;
-    };
-    std::vector<float> getOreilles()
-    {
-        return oreilles;
-    };
-    std::vector<float> getYeux()
-    {
-        return yeux;
-    };
-    const double getAffSize()
-    {
-        return AFF_SIZE;
-    };
-    float getCamouflage()
-    {
-        return camouflage;
-    };
-    float getNageoire()
-    {
-        return nageoire;
-    };
-    float getCarapaceDom()
-    {
-        return carapaceDommage;
-    };
-    float getCarapaceVit()
-    {
-        return carapaceVitesse;
-    };
-    bool getTue( void ) const
-    {
-        return tue;
-    };
-    int getID( void ) const
-    {
-        return identite;
-    };
-    int getVecu( void ) const
-    {
-        return vecu;
-    };
-    int getDureeDeVie( void ) const
-    {
-        return dureedevie;
-    };
+    double getNormalVit(){return normal_vit;};
+    double getVitMax(){return MAX_VITESSE;};
+    double getVitesse( void ) const { return vitesse; };
+    int getIdentite( void ) const { return identite; };
+    double getOrientation( void ) const { return orientation; };
+    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
+    std::vector<float> getOreilles() {return oreilles;};
+    std::vector<float> getYeux() {return yeux;};
+    const double getAffSize() { return AFF_SIZE;};
+    float getCamouflage(){return camouflage;};
+    float getNageoire(){return nageoire;};
+    float getCarapaceDom(){return carapaceDommage;};
+    float getCarapaceVit(){return carapaceVitesse;};
+    bool getTue( void ) const { return tue; };
+    int getID( void ) const { return identite; };
+    int getVecu( void ) const { return vecu; };
+    int getDureeDeVie( void ) const { return dureedevie; };
 
     //Operators
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );
 
 };
-
 
 #endif

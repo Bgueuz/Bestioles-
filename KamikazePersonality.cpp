@@ -1,5 +1,6 @@
 #include "KamikazePersonality.h"
 #include "ConcreteBestiole.h"
+
 #include <iostream>
 
 void KamikazePersonality::newAction()

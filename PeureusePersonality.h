@@ -7,7 +7,7 @@ class PeureusePersonality: public Personality
 {
 public:
     virtual void newAction();
-    void newAction(ConcreteBestiole * b);
+    virtual void newAction(ConcreteBestiole * b);
 };
 
 #endif // PEUREUSEPERSONALITY_H_INCLUDED
