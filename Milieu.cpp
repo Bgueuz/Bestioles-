@@ -1,8 +1,8 @@
 
 #include "Milieu.h"
-
 #include <cstdlib>
 #include <ctime>
+using namespace std;
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -11,7 +11,7 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
     width(_width), height(_height)
 {
 
-    // cout << "const Milieu" << endl;
+    cout << "const Milieu" << endl;
 
     std::srand( time(NULL) );
 
@@ -19,21 +19,33 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
 Milieu::~Milieu( void )
 {
 
-    // cout << "dest Milieu" << endl;
+    cout << "dest Milieu" << endl;
 
 }
 
 
 void Milieu::step( void )
 {
-    collisionsAll();
+
+
+     cout<<"ttttttttttttttttttttttttt"<<endl;
+    //collisionsAll();
+   // funTest();
+   cout<<"ffffffffffffffffffffffffffffffffffffffff"<<endl;
     cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-    for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-    {
-        it->action( *this );
-        it->draw( *this );
+    cout<<"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"<<endl;
+     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   {
+
+      it->action( *this );
+      it->draw( *this );
+
+    // for
+
 
     } // for
+
+
 }
 
 
@@ -93,6 +105,7 @@ void Milieu::updateVoisins(ConcreteBestiole & b)
 
 void Milieu::collisionsAll()
 {
+  int proba_mort = 30;
     for ( std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
     {
         updateVoisins(*it);
@@ -101,95 +114,103 @@ void Milieu::collisionsAll()
         {
             if(!(*it == *it2) && (*it).checkCollision(*it2))
              {
-                double collisionVector1_x= (*it).getX() - (*it2).getX();
-                double collisionVector1_y= (*it).getY() - (*it2).getY();
-                if(collisionVector1_x !=0 && collisionVector1_y!=0)
+                /* On vérifie si la bestiole a une carapace.
+                if(*it.getCarapace() > 0)
                 {
-                    /*double collisionVector2_x= 1;
-                    double collisionVector2_y= -collisionVector1_x/collisionVector1_y;
-                    */
-                    double v_x= (*it).getVitesse()*std::cos((*it).getOrientation());
-                    double v_y= (*it).getVitesse()*std::sin((*it).getOrientation());
-                    double phi = std::atan((collisionVector1_y/collisionVector1_x));
+                  proba_mort = *it.getCarapace();
+                }
+                 */
+                int tirage = std::rand() % 100 +1 ;
+                if (tirage <= proba_mort)
+                {
+                //cout << listeBestioles.size() << endl; //la bestiole meurt
+                (*it).Kill();
+                //killBestiole(*it);
+                }
+                else
+                {
+                  double collisionVector1_x= (*it).getX() - (*it2).getX();
+                  double collisionVector1_y= (*it).getY() - (*it2).getY();
+                  if(collisionVector1_x !=0 && collisionVector1_y!=0)
+                  {
+                      /*double collisionVector2_x= 1;
+                      double collisionVector2_y= -collisionVector1_x/collisionVector1_y;
+                      */
+                      double v_x= (*it).getVitesse()*std::cos((*it).getOrientation());
+                      double v_y= (*it).getVitesse()*std::sin((*it).getOrientation());
+                      double phi = std::atan((collisionVector1_y/collisionVector1_x));
 
-                    double v_1= v_x*std::cos(phi)+v_y*std::sin(phi);
-                    double v_2= -v_x*std::sin(phi)+v_y*std::cos(phi);
-                    v_2=-v_2;
+                      double v_1= v_x*std::cos(phi)+v_y*std::sin(phi);
+                      double v_2= -v_x*std::sin(phi)+v_y*std::cos(phi);
+                      v_2=-v_2;
 
-                    double new_orientation=std::atan((v_2/v_1));
-                    (*it).setOrientation( new_orientation - phi);
-                }
-                else if ((*it).getOrientation()==0)
-                {
-                   (*it).setOrientation(M_PI*180/M_PI);
-                }
-                else if ((*it).getOrientation()==M_PI /2*180/M_PI)
-                {
-                   (*it).setOrientation(3*M_PI /2*180/M_PI);
-                }
-                else if ((*it).getOrientation()==M_PI *180/M_PI)
-                {
-                   (*it).setOrientation(0);
-                }
-                else if ((*it).getOrientation()==3*M_PI /2*180/M_PI)
-                {
-                   (*it).setOrientation(M_PI /2*180/M_PI);
+                      double new_orientation=std::atan((v_2/v_1));
+                      (*it).setOrientation( new_orientation - phi);
+                  }
+                  else if ((*it).getOrientation()==0)
+                  {
+                     (*it).setOrientation(M_PI*180/M_PI);
+                  }
+                  else if ((*it).getOrientation()==M_PI /2*180/M_PI)
+                  {
+                     (*it).setOrientation(3*M_PI /2*180/M_PI);
+                  }
+                  else if ((*it).getOrientation()==M_PI *180/M_PI)
+                  {
+                     (*it).setOrientation(0);
+                  }
+                  else if ((*it).getOrientation()==3*M_PI /2*180/M_PI)
+                  {
+                     (*it).setOrientation(M_PI /2*180/M_PI);
+                  }
                 }
             }
         }
     }
 }
 
-void Milieu::setCamouflageLimits(float max_cam, float min_cam)
-{
-    this->MAX_CAMO = max_cam;
-    this->MIN_CAMO = min_cam;
+void Milieu::gestionvie(){
+    std::vector<ConcreteBestiole> listeBestioles2 {};
+    for (std::vector<ConcreteBestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it) {
+        (*it).vie();
+        if ((*it).getTue()==false){
+                listeBestioles2.push_back(*it);
+        }
+    }
+    listeBestioles.swap(listeBestioles2);
+    }
+
+/*void Milieu::killBestiole(ConcreteBestiole &bestiole) {
+    auto it = find(listeBestioles.begin(), listeBestioles.end(), bestiole);
+    int index = std::distance(listeBestioles.begin(), it);
+    std::swap(listeBestioles[index], listeBestioles.back());
+    //listeBestioles.pop_back();
+    auto it3 = listeBestioles.end() -1;
+    listeBestioles.erase(it3);
+  }*/
+
+/*void Milieu::killBestiole(ConcreteBestiole &bestiole) {
+int n = listeBestioles.size();
+    for (int j=0; j<n; j++) {
+            if (listeBestioles[j]==bestiole) {
+                    ConcreteBestiole a= listeBestioles[j];
+                    ConcreteBestiole b = listeBestioles[n-1];
+                    listeBestioles[n-1] = a;
+                    listeBestioles[j] = b;
+                    listeBestioles.pop_back();
+            }
+    }
+
 }
 
-void Milieu::setNageoireLimits(float max_nage, float min_nage)
-{
-    this->MAX_NAGE = max_nage;
-    this->MIN_NAGE = min_nage;
-}
+void Milieu::funTest() {
+     int m= listeBestioles.size();
+     int n = m-15;
+    for (int i=0 ; i<n ; ++i) {
 
-void Milieu::setCaraDomLimits(float max_cara_dom, float min_cara_dom)
-{
-    this->MAX_CARA_DOM = max_cara_dom;
-    this->MIN_CARA_DOM = min_cara_dom;
+    cout<<listeBestioles.size()<<endl;
+    //cout << (*it).getID() << endl;
+        listeBestioles.pop_back();
+    }
 }
-
-void Milieu::setCaraVitLimits(float max_cara_vit, float min_cara_vit)
-{
-    this->MAX_CARA_VIT = max_cara_vit;
-    this->MIN_CARA_VIT = min_cara_vit;
-}
-
-void Milieu::setEarRadiusLimits(float max_radius, float min_radius)
-{
-    this->MAX_EAR_RADIUS = max_radius;
-    this->MIN_EAR_RADIUS = min_radius;
-}
-
-void Milieu::setEarProbabilityLimits(float max_probability, float min_probability)
-{
-    this->MAX_EAR_PROBABILITY = max_probability;
-    this->MIN_EAR_PROBABILITY = min_probability;
-}
-
-void Milieu::setEyeAngleLimits(float max_angle, float min_angle)
-{
-    this->MAX_EYE_ANGLE = max_angle;
-    this->MIN_EYE_ANGLE = min_angle;
-}
-
-void Milieu::setEyeRadiusLimits(float max_radius, float min_radius)
-{
-    this->MAX_EYE_RADIUS = max_radius;
-    this->MIN_EYE_RADIUS = min_radius;
-}
-
-void Milieu::setEyeProbabilityLimits(float max_probability, float min_probability)
-{
-    this->MAX_EYE_PROBABILITY = max_probability;
-    this->MIN_EYE_PROBABILITY = min_probability;
-}
+*/
