@@ -51,8 +51,11 @@ private :
 public :                                           // Forme canonique :
     ConcreteBestiole( void );                           // Constructeur par defaut
     ConcreteBestiole( const ConcreteBestiole & b );                 // Constructeur de copies
-    ~ConcreteBestiole( void );                              // Destructeur
+    ~ConcreteBestiole( void );  
+                            // Destructeur
     // Operateur d'affectation binaire par defaut
+    void Clonage1(const ConcreteBestiole & b, int xLim);
+    void Clonage2(const ConcreteBestiole & b, int yLim);
     void action( Milieu & monMilieu );
     void draw( UImg & support );
     list<ConcreteBestiole *> getVoisins();
