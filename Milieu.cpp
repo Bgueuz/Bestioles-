@@ -310,7 +310,7 @@ void Milieu::addMemberClone( const ConcreteBestiole & b )
         listeBestioles.back().initYeux(this);
 
         // Accessoires
-        listeBestioles.back().setAccesories(this);
+        listeBestioles.back().setAccessories(this);
 
         cout << "bestiole :" << listeBestioles.back().getIdentite() << endl;
         cout << "   cette bestiole à un camouflage de " << listeBestioles.back().getCamouflage() << endl;

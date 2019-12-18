@@ -147,10 +147,16 @@ void ConcreteBestiole::personalityNewAction()
 {
     if (type==4)        // bestiole à personnalités multiples
     {
-        if (personality==nullptr){this->randPersonality();}
+        if (personality==nullptr)
+        {
+            this->randPersonality();
+        }
         else
         {
-            if((std::rand() % 11) >5){ this->randPersonality(); }
+            if((std::rand() % 11) >5)
+            {
+                this->randPersonality();
+            }
         }
     }
     personality->newAction(this);
@@ -443,16 +449,14 @@ std::vector<int> ConcreteBestiole::detectVoisins()
 
         bool isInVisibleRegion = (( orientation - yeux[1]/2 < angleBiBj) && (angleBiBj < orientation + yeux[1]/2 ));
 
-        if(isInVisibleRegion)
-
-            if (isInHearingDistance || (isInVisibleRegion && isInVisibleDistance))   // on ignore le camouflage
+        if (isInHearingDistance || (isInVisibleRegion && isInVisibleDistance))   // on ignore le camouflage
+        {
+            if( max(yeux[2],oreilles[1]) > it2->getCamouflage())
             {
-                if( max(yeux[2],oreilles[1]) > it2->getCamouflage())
-                {
-                    detected.push_back(i);
-                }
-
+                detected.push_back(i);
             }
+
+        }
         i++;
     }
     return detected;
@@ -463,24 +467,29 @@ std::vector<int> ConcreteBestiole::detectVoisins()
 // Initialise les coordonnées d'un clone
 void ConcreteBestiole::InitCoordsClone(int xclone, int yclone)
 {
-    if (x>2){
-            x = xclone-2;
+    if (x>2)
+    {
+        x = xclone-2;
     }
-    if (x<=2) {
-            x= xclone+2;
+    if (x<=2)
+    {
+        x= xclone+2;
     }
-    if (y>2) {
+    if (y>2)
+    {
         y = yclone+2;
-        }
+    }
 
-    if (y<=2) {
+    if (y<=2)
+    {
         y = yclone-2;
     }
 
 }
 
 // Initialise l'âge d'un clone à 0
-void ConcreteBestiole::setVecu() {
+void ConcreteBestiole::setVecu()
+{
     vecu = 0;
 }
 
@@ -576,3 +585,4 @@ void ConcreteBestiole::setAccessories(Milieu* flotte)
         this->setCarapaceDom(flotte->getMinCaraDom(),flotte->getMaxCaraDom());
         this->setCarapaceVit(flotte->getMinCaraVit(),flotte->getMaxCaraVit());
     }
+}
