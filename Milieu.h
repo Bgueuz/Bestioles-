@@ -17,7 +17,7 @@ private :
     static const T          white[];
 
     int             nbBestiolesMax=50;
-    float            ratiosCherches[5] = {0.1,0.1,0.7,0.1,0.};
+    float            ratiosCherches[5] = {0.2,0.2,0.2,0.2,0.2};
     float            ratiosPresents[5] = {0.,0.,0.,0.,0.};
 
     int                     width, height;
@@ -40,7 +40,10 @@ public :
 
     void naissance();
 
-    std::vector<ConcreteBestiole> getBestioles( void ) const { return listeBestioles; };
+    std::vector<ConcreteBestiole> getBestioles( void ) const
+    {
+        return listeBestioles;
+    };
 
     int nbVoisins( const ConcreteBestiole & b );
     void detection ();
@@ -54,51 +57,111 @@ public:
 
     //Accessoires
 
-        // Camouflage
+    // Camouflage
     void setCamouflageLimits(float max_cam, float min_cam);
-    float getMaxCam(){return MAX_CAMO;};
-    float getMinCam(){return MIN_CAMO;};
+    float getMaxCam()
+    {
+        return MAX_CAMO;
+    };
+    float getMinCam()
+    {
+        return MIN_CAMO;
+    };
 
-        // Nageoire
+    // Nageoire
     void setNageoireLimits(float max_nage, float min_nage);
-    float getMaxNage(){return MAX_NAGE;};
-    float getMinNage(){return MIN_NAGE;};
+    float getMaxNage()
+    {
+        return MAX_NAGE;
+    };
+    float getMinNage()
+    {
+        return MIN_NAGE;
+    };
 
-        // Carapace - Dommage
+    // Carapace - Dommage
     void setCaraDomLimits(float max_cara_dom, float min_cara_dom);
-    float getMaxCaraDom(){return MAX_CARA_DOM;};
-    float getMinCaraDom(){return MIN_CARA_DOM;};
+    float getMaxCaraDom()
+    {
+        return MAX_CARA_DOM;
+    };
+    float getMinCaraDom()
+    {
+        return MIN_CARA_DOM;
+    };
 
-        // Carapace - Vitesse
+    // Carapace - Vitesse
     void setCaraVitLimits(float max_cara_vit, float min_cara_vit);
-    float getMaxCaraVit(){return MAX_CARA_VIT;};
-    float getMinCaraVit(){return MIN_CARA_VIT;};
+    float getMaxCaraVit()
+    {
+        return MAX_CARA_VIT;
+    };
+    float getMinCaraVit()
+    {
+        return MIN_CARA_VIT;
+    };
 
     // Capteurs
 
     void setEarRadiusLimits(float max_radius, float min_radius);
-    float getMaxEarRadius(){return MAX_EAR_RADIUS;};
-    float getMinEarRadius(){return MIN_EAR_RADIUS;};
+    float getMaxEarRadius()
+    {
+        return MAX_EAR_RADIUS;
+    };
+    float getMinEarRadius()
+    {
+        return MIN_EAR_RADIUS;
+    };
 
     void setEarProbabilityLimits(float max_probability, float min_probability);
-    float getMaxEarProbability(){return MAX_EAR_PROBABILITY;};
-    float getMinEarProbability(){return MIN_EAR_PROBABILITY;};
+    float getMaxEarProbability()
+    {
+        return MAX_EAR_PROBABILITY;
+    };
+    float getMinEarProbability()
+    {
+        return MIN_EAR_PROBABILITY;
+    };
 
     void setEyeAngleLimits(float max_angle, float min_angle);
-    float getMaxEyeAngle(){return MAX_EYE_ANGLE;};
-    float getMinEyeAngle(){return MIN_EYE_ANGLE;};
+    float getMaxEyeAngle()
+    {
+        return MAX_EYE_ANGLE;
+    };
+    float getMinEyeAngle()
+    {
+        return MIN_EYE_ANGLE;
+    };
 
     void setEyeRadiusLimits(float max_radius, float min_radius);
-    float getMaxEyeRadius(){return MAX_EYE_RADIUS;};
-    float getMinEyeRadius(){return MIN_EYE_RADIUS;};
+    float getMaxEyeRadius()
+    {
+        return MAX_EYE_RADIUS;
+    };
+    float getMinEyeRadius()
+    {
+        return MIN_EYE_RADIUS;
+    };
 
     void setEyeProbabilityLimits(float max_probability, float min_probability);
-    float getMaxEyeProbability(){return MAX_EYE_PROBABILITY;};
-    float getMinEyeProbability(){return MIN_EYE_PROBABILITY;};
+    float getMaxEyeProbability()
+    {
+        return MAX_EYE_PROBABILITY;
+    };
+    float getMinEyeProbability()
+    {
+        return MIN_EYE_PROBABILITY;
+    };
 
     // Ratios de bestioles
-    float* getRatiosCherches(){return ratiosCherches;};
-    float* getRatiosPresents(){return ratiosPresents;};
+    float* getRatiosCherches()
+    {
+        return ratiosCherches;
+    };
+    float* getRatiosPresents()
+    {
+        return ratiosPresents;
+    };
     void updateRatiosPresents();
 
 
@@ -112,11 +175,11 @@ private:
     float MIN_NAGE = 1.0;
 
     // Carapace
-        // Reduction Dommages subit / chances de mourir à l'impact
+    // Reduction Dommages subit / chances de mourir à l'impact
     float MAX_CARA_DOM = 4.0;
     float MIN_CARA_DOM = 1.0;
 
-        // Reduction Vitesse
+    // Reduction Vitesse
     float MAX_CARA_VIT = 3.0;
     float MIN_CARA_VIT = 1.0;
 

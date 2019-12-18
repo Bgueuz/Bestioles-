@@ -91,7 +91,7 @@ public :                                           // Forme canonique :
 
     // Initialisations
     void initCoords( int xLim, int yLim );
-    void initPersonality(Milieu* milieu ,float ratiosCherches[5],float ratiosPresents[5]);
+    void initPersonality(Milieu* milieu,float ratiosCherches[5],float ratiosPresents[5]);
     void initOreilles(Milieu* flotte);
     void initYeux(Milieu* flotte);
 
@@ -100,9 +100,18 @@ public :                                           // Forme canonique :
     void setYeux(float angle, float radius, float probability);
     void setPersonality(Personality* newPersonality);
     void setType(int i);
-    void setVoisins(std::vector<ConcreteBestiole> listeVoisins){listeVoisinsOmni = listeVoisins;};
-    void setOrientation(double newOrientation){orientation = newOrientation;};
-    void setVitesse(double newVitesse){vitesse = newVitesse;};
+    void setVoisins(std::vector<ConcreteBestiole> listeVoisins)
+    {
+        listeVoisinsOmni = listeVoisins;
+    };
+    void setOrientation(double newOrientation)
+    {
+        orientation = newOrientation;
+    };
+    void setVitesse(double newVitesse)
+    {
+        vitesse = newVitesse;
+    };
     void setCamouflage(float min_cam,float max_cam);
     void setAccesories(Milieu* flotte);
     void setNageoire(float min_nage,float max_nage);
@@ -110,25 +119,76 @@ public :                                           // Forme canonique :
     void setCarapaceVit(float min_cara_vit,float max_cara_vit);
 
     // Getters
-    int getX( void ) const { return x; };
-    int getY( void ) const { return y; };
+    int getX( void ) const
+    {
+        return x;
+    };
+    int getY( void ) const
+    {
+        return y;
+    };
     Personality* getPersonality();
     int getType();
-    double getVitesse( void ) const { return vitesse; };
-    int getIdentite( void ) const { return identite; };
-    double getOrientation( void ) const { return orientation; };
-    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const { return listeVoisinsOmni; };
-    std::vector<float> getOreilles() {return oreilles;};
-    std::vector<float> getYeux() {return yeux;};
-    const double getAffSize() { return AFF_SIZE;};
-    float getCamouflage(){return camouflage;};
-    float getNageoire(){return nageoire;};
-    float getCarapaceDom(){return carapaceDommage;};
-    float getCarapaceVit(){return carapaceVitesse;};
-    bool getTue( void ) const { return tue; };
-    int getID( void ) const { return identite; };
-    int getVecu( void ) const { return vecu; };
-    int getDureeDeVie( void ) const { return dureedevie; };
+    double getVitesse( void ) const
+    {
+        return vitesse;
+    };
+    int getIdentite( void ) const
+    {
+        return identite;
+    };
+    double getOrientation( void ) const
+    {
+        return orientation;
+    };
+    std::vector<ConcreteBestiole> getVoisinsOmni( void ) const
+    {
+        return listeVoisinsOmni;
+    };
+    std::vector<float> getOreilles()
+    {
+        return oreilles;
+    };
+    std::vector<float> getYeux()
+    {
+        return yeux;
+    };
+    const double getAffSize()
+    {
+        return AFF_SIZE;
+    };
+    float getCamouflage()
+    {
+        return camouflage;
+    };
+    float getNageoire()
+    {
+        return nageoire;
+    };
+    float getCarapaceDom()
+    {
+        return carapaceDommage;
+    };
+    float getCarapaceVit()
+    {
+        return carapaceVitesse;
+    };
+    bool getTue( void ) const
+    {
+        return tue;
+    };
+    int getID( void ) const
+    {
+        return identite;
+    };
+    int getVecu( void ) const
+    {
+        return vecu;
+    };
+    int getDureeDeVie( void ) const
+    {
+        return dureedevie;
+    };
 
     //Operators
     friend bool operator==( const ConcreteBestiole & b1, const ConcreteBestiole & b2 );

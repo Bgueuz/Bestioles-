@@ -21,6 +21,7 @@ int main()
     ecosysteme.getMilieu().setCaraDomLimits(1.0,6.0);
     ecosysteme.getMilieu().setCaraVitLimits(1.0,2.0);
 
+    // Générations des bestioles initiales
     for ( int i = 1; i <= 25; ++i )
     {
         ecosysteme.getMilieu().addMember(ConcreteBestiole());
